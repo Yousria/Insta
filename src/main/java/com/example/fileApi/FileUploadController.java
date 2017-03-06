@@ -63,7 +63,7 @@ import java.util.stream.Collectors;
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-            return "redirect:/";
+            return "redirect:/album";
         }
 
         @ExceptionHandler(StorageFileNotFoundException.class)
