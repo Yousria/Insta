@@ -2,6 +2,7 @@ package com.example.fileApi;
 
 import com.example.fileApi.stockage.StorageFileNotFoundException;
 import com.example.fileApi.stockage.StorageService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.slf4j.Logger;
+
 
 import java.io.IOException;
 import java.util.stream.Collectors;
@@ -22,7 +25,8 @@ import java.util.stream.Collectors;
 
     @Controller
     public class FileUploadController {
-
+    String album;
+        Logger logger= LoggerFactory.getLogger(FileUploadController.class);
         private final StorageService storageService;
 
         @Autowired
@@ -30,11 +34,13 @@ import java.util.stream.Collectors;
             this.storageService = storageService;
         }
 
-        @GetMapping("/album")
-        public String listUploadedFiles(Model model) throws IOException {
-
+        @GetMapping("/album/{album}")
+        public String listUploadedFiles(@PathVariable("album")String album, Model model) throws IOException {
+            System.out.println(album);
+            this.album=album;
             model.addAttribute("files", storageService
                     .loadAll()
+                    .filter(path -> path.toString().contains(album))
                     .map(path ->
                             MvcUriComponentsBuilder
                                     .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
@@ -46,7 +52,7 @@ import java.util.stream.Collectors;
 
         @GetMapping("/album/files/{filename:.+}")
         @ResponseBody
-        public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+        public ResponseEntity<Resource> serveFile(@PathVariable("filename") String filename) {
 
             Resource file = storageService.loadAsResource(filename);
             return ResponseEntity
@@ -55,15 +61,20 @@ import java.util.stream.Collectors;
                     .body(file);
         }
 
-        @PostMapping("/album")
+
+
+
+
+    @PostMapping("/album/")
         public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                        RedirectAttributes redirectAttributes) {
-
-            storageService.store(file);
+        logger.info("in post : "+album);
+            storageService.store(album,file);
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-            return "redirect:/album";
+        logger.info("fin du post : "+album);
+            return "redirect:/album/"+album;
         }
 
         @ExceptionHandler(StorageFileNotFoundException.class)
