@@ -2,6 +2,7 @@ package com.example.post.image;
 
 import com.example.loginAPI.Token;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,10 +71,11 @@ public class ImageServiceImpl implements ImageService {
         return ImageAdapter.toImageDTO(imageRepository.findByTitle(title).get());
     }
 
+
     @Override
-    @Transactional(readOnly = true)
-    public List<ImageDTO> findByAuthor(String author) {
-        return null;
+    public List<ImageDTO> findByToken(Token token) {
+        Page<ImageEntity> imageList = imageRepository.findByToken(token);
+        return ImageAdapter.toListImageDTO(imageList.getContent());
     }
 
     @Override

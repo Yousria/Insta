@@ -1,5 +1,8 @@
 package com.example.post.image;
 
+import com.example.loginAPI.Token;
+import com.example.post.comment.CommentEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,5 +32,7 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
     Optional<ImageEntity> findByTitle(String title);
 
     Optional<ImageEntity> findById(Long id);
+
+    Page<ImageEntity> findByToken(Token token);
 
 }

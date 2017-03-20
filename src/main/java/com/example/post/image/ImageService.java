@@ -16,16 +16,7 @@ public interface ImageService {
     ImageDTO insertImage(String title, Token token);
     ImageDTO findById(Long id);
     ImageDTO findByTitle(String title);
-    List<ImageDTO> findByAuthor(String author);
+    List<ImageDTO> findByToken(Token token);
 
-
-    // a corriger
-    /*
-        méthode d'update
-     */
-    //ajouter méthode
-    /*
-    find Image by author
-     */
 }
 
