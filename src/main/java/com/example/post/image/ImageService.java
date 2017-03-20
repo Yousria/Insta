@@ -13,8 +13,10 @@ public interface ImageService {
     void updateDislike(ImageEntity imageEntity);
     void updateTitle(ImageEntity imageEntity, String title);
     List<ImageDTO> getImages();
-    ImageDTO insertAccount(String title, Token token);
-
+    ImageDTO insertImage(String title, Token token);
+    ImageDTO findById(Long id);
+    ImageDTO findByTitle(String title);
+    List<ImageDTO> findByAuthor(String author);
 
 
     // a corriger
@@ -24,8 +26,6 @@ public interface ImageService {
     //ajouter méthode
     /*
     find Image by author
-    find Image by title
-    find Image by id
      */
 }
 

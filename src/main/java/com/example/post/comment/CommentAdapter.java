@@ -24,4 +24,5 @@ public class CommentAdapter {
                 .image(commentDTO.getImage())
                 .build();
     }
+
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by kokoghlanian on 07/03/2017.
@@ -25,5 +25,9 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
     @Query("update ImageEntity set dislikescore = :new_dislike where id = :id")
     @Modifying
     int updateDislike(@Param("new_dislike") Integer dislikescore, @Param("id") Long id);
+
+    Optional<ImageEntity> findByTitle(String title);
+
+    Optional<ImageEntity> findById(Long id);
 
 }

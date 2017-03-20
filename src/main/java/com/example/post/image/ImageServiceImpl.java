@@ -47,7 +47,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public ImageDTO insertAccount(String title, Token token){
+    public ImageDTO insertImage(String title, Token token){
         ImageEntity imageEntity = ImageEntity.builder()
                 .token(token)
                 .likescore(0)
@@ -56,6 +56,24 @@ public class ImageServiceImpl implements ImageService {
                 .build();
         imageRepository.save(imageEntity);
         return ImageAdapter.toImageDTO(imageEntity);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ImageDTO findById(Long id) {
+        return ImageAdapter.toImageDTO(imageRepository.findById(id).get());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ImageDTO findByTitle(String title) {
+        return ImageAdapter.toImageDTO(imageRepository.findByTitle(title).get());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ImageDTO> findByAuthor(String author) {
+        return null;
     }
 
     @Override

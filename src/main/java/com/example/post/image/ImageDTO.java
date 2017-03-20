@@ -3,7 +3,6 @@ package com.example.post.image;
 import com.example.loginAPI.Token;
 import lombok.*;
 
-import javax.persistence.Column;
 
 /**
  * Created by kokoghlanian on 06/03/2017.
