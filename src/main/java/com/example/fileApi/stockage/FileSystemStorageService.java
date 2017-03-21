@@ -18,24 +18,38 @@ import java.util.stream.Stream;
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
-
+    private String album;
     @Autowired
     public FileSystemStorageService(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public void store(String album,MultipartFile file) {
+        System.out.println(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            Files.createDirectories(Paths.get(this.rootLocation.toString()+"/"+album));
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(album+"/"+file.getOriginalFilename()));
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }
     }
 
+    @Override
+    public Stream<Path> loadAll(String album) {
+        Path tmpPath=Paths.get(this.rootLocation.toString()+"/"+album);
+        try {
+            return Files.walk(this.rootLocation, 1)
+                    .filter(path -> !path.equals(tmpPath))
+                    .map(path -> this.rootLocation.relativize(path));
+        } catch (IOException e) {
+            throw new StorageException("Failed to read stored files", e);
+        }
+
+    }
     @Override
     public Stream<Path> loadAll() {
         try {
@@ -73,6 +87,10 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    }
+    @Override
+    public void deleteAll(String album) {
+        FileSystemUtils.deleteRecursively(Paths.get(rootLocation.toString()+"/"+album).toFile());
     }
 
     @Override
