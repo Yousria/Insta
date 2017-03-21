@@ -5,7 +5,8 @@ import com.example.loginAPI.UserAdapter;
 import com.example.loginAPI.UserDto;
 import com.example.loginAPI.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +23,13 @@ public class UserServices {
 
 
     final UserRepository userRepository;
-    final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServices(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServices(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional(readOnly = true)
