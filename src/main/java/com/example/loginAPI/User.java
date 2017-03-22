@@ -3,6 +3,7 @@ package com.example.loginAPI;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by bench on 07/03/2017.
@@ -24,10 +25,16 @@ public class User {
     @Column(unique = true, nullable = false)
     private String pseudo;
 
-    @Column(nullable = false)
+    @Column
+    @NotNull
     private String email;
 
-    @Column(nullable = false)
+    @Column
+    @NotNull
     private String password;
+
+    @Column
+    @NotNull
+    private Role role;
 
 }

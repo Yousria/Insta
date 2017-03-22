@@ -17,6 +17,7 @@ public class UserAdapter {
         return UserDto.builder()
                 .email(user.getEmail())
                 .pseudo(user.getPseudo())
+                .password(user.getPassword())
                 .build();
     }
 
