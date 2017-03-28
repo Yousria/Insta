@@ -1,6 +1,8 @@
-package com.example.post.image;
+package com.example.post.services;
 
 import com.example.loginAPI.Token;
+import com.example.post.ImageDTO;
+import com.example.post.ImageEntity;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public interface ImageService {
 
     void updateLike(ImageEntity imageEntity);
     void updateDislike(ImageEntity imageEntity);
-    void updateTitle(ImageEntity imageEntity, String title);
+    void updateTitle(ImageEntity imageEntity, String title, String token);
     List<ImageDTO> getImages();
     ImageDTO insertImage(String title, Token token);
     ImageDTO findById(Long id);

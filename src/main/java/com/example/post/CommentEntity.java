@@ -1,7 +1,6 @@
-package com.example.post.comment;
+package com.example.post;
 
 import com.example.loginAPI.Token;
-import com.example.post.image.ImageEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "comment")
+@Table(name = "services")
 public class CommentEntity {
 
     @Id
@@ -23,14 +22,15 @@ public class CommentEntity {
     @GeneratedValue
     private Long id;
 
+
     @ManyToOne
-    @Column
+    @JoinColumn(referencedColumnName = "id")
     private Token token;
 
     @Column
     private String comment;
 
     @ManyToOne
-    @Column
+    @JoinColumn(referencedColumnName = "id_image")
     private ImageEntity image;
 }

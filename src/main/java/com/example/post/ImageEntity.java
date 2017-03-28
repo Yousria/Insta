@@ -1,4 +1,4 @@
-package com.example.post.image;
+package com.example.post;
 
 import com.example.loginAPI.Token;
 import lombok.*;
@@ -23,7 +23,7 @@ public class ImageEntity {
     private Long id;
 
     @ManyToOne
-    @Column
+    @JoinColumn(referencedColumnName = "id")
     private Token token;
 
     @Column

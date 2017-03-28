@@ -1,8 +1,14 @@
-package com.example.post.image;
+package com.example.post.services;
 
 import com.example.loginAPI.Token;
+import com.example.post.ImageAdapter;
+import com.example.post.ImageDTO;
+import com.example.post.ImageEntity;
+import com.example.post.ImageRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +22,7 @@ import java.util.List;
 public class ImageServiceImpl implements ImageService {
 
     @Autowired
-    ImageRepository imageRepository;
+    ImageRepositoryImpl imageRepository;
 
     @Override
     @Transactional
@@ -39,9 +45,12 @@ public class ImageServiceImpl implements ImageService {
     //Ajouter l'user pour l'update et la création
     @Override
     @Transactional
-    public void updateTitle(ImageEntity imageEntity, String title) {
+    public void updateTitle(ImageEntity imageEntity, String title,String token) {
         if(imageEntity == null)
             throw new IllegalArgumentException();
+
+        if(imageEntity.getToken().getToken() != token)
+            return;
 
         imageRepository.updateTitle(title,imageEntity.getId());
     }
@@ -73,8 +82,10 @@ public class ImageServiceImpl implements ImageService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<ImageDTO> findByToken(Token token) {
-        Page<ImageEntity> imageList = imageRepository.findByToken(token);
+        PageRequest pageRequest = new PageRequest(0,1, Sort.Direction.DESC,"id");
+        Page<ImageEntity> imageList = imageRepository.findByToken(token,pageRequest);
         return ImageAdapter.toListImageDTO(imageList.getContent());
     }
 

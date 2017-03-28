@@ -1,8 +1,7 @@
-package com.example.post.image;
+package com.example.post;
 
 import com.example.loginAPI.Token;
 import lombok.*;
-
 
 /**
  * Created by kokoghlanian on 06/03/2017.
@@ -13,21 +12,10 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class ImageDTO {
+public class CommentDTO {
 
     private Long id;
-
-    private String name;
-
     private Token token;
-
-    private String title;
-
-    private Integer likescore;
-
-    private Integer dislikescore;
-
+    private String comment;
+    private ImageEntity image;
 }
-
-

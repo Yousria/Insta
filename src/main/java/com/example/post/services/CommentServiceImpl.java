@@ -1,9 +1,14 @@
-package com.example.post.comment;
+package com.example.post.services;
 
 import com.example.loginAPI.Token;
-import com.example.post.image.ImageEntity;
+import com.example.post.CommentAdapter;
+import com.example.post.CommentDTO;
+import com.example.post.CommentEntity;
+import com.example.post.CommentRepositoryImpl;
+import com.example.post.ImageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +23,7 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Autowired
-    CommentRepository commentRepository;
+    CommentRepositoryImpl commentRepository;
 
     @Override
     public void updateComment(Long id, String comment) {
@@ -38,14 +43,17 @@ public class CommentServiceImpl implements CommentService {
         return CommentAdapter.toCommentDTO(commentEntity);
     }
 
-    public List<CommentDTO> getCommentsByImageEntity(ImageEntity imageEntity){
+  /*  public List<CommentDTO> getCommentsByImageEntity(ImageEntity imageEntity){
 
-        Page<CommentEntity> commentList = commentRepository.findByImageEntity(imageEntity);
+        PageRequest pageRequest = new PageRequest(0,1, Sort.Direction.DESC,"id");
+        //Page<CommentEntity> commentList = commentRepository.findByImageEntity(imageEntity,pageRequest);
+
+        List<CommentEntity> commentList = commentRepository.findByImageEntity(imageEntity);
         List<CommentDTO> commentListDto = new ArrayList<>();
         for(CommentEntity comment : commentList)
         {
             commentListDto.add(CommentAdapter.toCommentDTO(comment));
         }
         return commentListDto;
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-package com.example.post.image;
+package com.example.post;
 
 import java.util.ArrayList;
 import java.util.List;
