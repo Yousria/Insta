@@ -8,12 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-<<<<<<< HEAD:src/main/java/com/example/post/image/ImageRepository.java
-=======
 import java.util.Optional;
-
->>>>>>> 8ff7f1e7f9e839600ecbceea96fac47e80d55a68:src/main/java/com/example/post/ImageRepositoryImpl.java
 /**
  * Created by kokoghlanian on 07/03/2017.
  */
