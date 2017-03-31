@@ -22,7 +22,6 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @SpringBootTest(classes = UserRepository.class)
 @UserData
 public class UserRepositoryIT {
-
     @Autowired
     UserRepository userRepository;
 

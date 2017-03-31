@@ -1,7 +1,6 @@
 package com.example;
 
-
-		import com.example.fileApi.stockage.StorageProperties;
+import com.example.fileApi.stockage.StorageProperties;
 		import com.example.fileApi.stockage.StorageService;
 		import org.springframework.boot.CommandLineRunner;
 		import org.springframework.boot.SpringApplication;
