@@ -1,4 +1,4 @@
-package com.example.post.comment;
+package com.example.post;
 
 /**
  * Created by kokoghlanian on 06/03/2017.
@@ -24,4 +24,5 @@ public class CommentAdapter {
                 .image(commentDTO.getImage())
                 .build();
     }
+
 }
