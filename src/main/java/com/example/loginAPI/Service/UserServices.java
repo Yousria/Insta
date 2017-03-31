@@ -1,15 +1,21 @@
 package com.example.loginAPI.Service;
 
-import com.example.loginAPI.User;
-import com.example.loginAPI.UserAdapter;
-import com.example.loginAPI.UserDto;
-import com.example.loginAPI.UserRepository;
+import com.example.loginAPI.*;
+import com.sun.javafx.fxml.expression.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.token.DefaultToken;
+import org.springframework.security.core.token.Token;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.DefaultCsrfToken;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +33,7 @@ public class UserServices {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+
     @Autowired
     public UserServices(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -41,14 +48,26 @@ public class UserServices {
     }
 
     @Transactional
-    public UserDto createUser(String pseudo, String email, String password){
+    public UserDto createUser(String pseudo, String email, String password, Role role){
+        SecureRandom random = new SecureRandom();
+        String token = new BigInteger(256, random).toString(32);
         User user = User.builder()
                 .pseudo(pseudo)
                 .email(email)
                 .password(passwordEncoder.encode(password))
+                .role(role)
+                .token(token)
                 .build();
         userRepository.save(user);
         return UserAdapter.toDto(user);
+    }
+
+    @Transactional
+    public UserDto saveUser(UserDto dto){
+        User user = UserAdapter.toUser(dto);
+        user.setRole(Role.USER);
+        userRepository.save(user);
+        return dto;
     }
 
     @Transactional(readOnly = true)

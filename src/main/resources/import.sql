@@ -1,3 +1,3 @@
---INSERT INTO users (id, pseudo, email, password) values(null, 'first', 'first@first.com', 'first')
---INSERT INTO users (id, pseudo, email, password) values(null, 'second', 'second@second.com', 'second')
---INSERT INTO users (id, pseudo, email, password) values(null, 'three', 'three@three.com', 'three')
+INSERT INTO users (id, pseudo, email, password, role) values(NULL, 'first', 'first@first.com', 'first', 'ADMIN')
+INSERT INTO users (id, pseudo, email, password, role) values(NULL, 'second', 'second@second.com', 'second', 'USER')
+INSERT INTO users (id, pseudo, email, password, role) values(NULL, 'three', 'three@three.com', 'three', 'USER')

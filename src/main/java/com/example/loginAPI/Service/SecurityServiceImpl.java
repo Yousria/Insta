@@ -22,6 +22,7 @@ public class SecurityServiceImpl implements SecurityService {
     @Autowired
     private UserDetailsService userDetailsService;
 
+
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
 
@@ -39,7 +40,6 @@ public class SecurityServiceImpl implements SecurityService {
     public void autoLogin(String pseudo, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(pseudo);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {

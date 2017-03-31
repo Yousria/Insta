@@ -15,10 +15,14 @@ import java.util.List;
 public class UserServiceController {
 
     private final UserServices userServices;
+    private final SecurityService securityService;
+    private final UserValidator userValidator;
 
     @Autowired
-    public UserServiceController(UserServices userServices) {
+    public UserServiceController(UserServices userServices, SecurityService securityService, UserValidator userValidator) {
         this.userServices = userServices;
+        this.securityService = securityService;
+        this.userValidator = userValidator;
     }
 
     @GetMapping
@@ -28,11 +32,13 @@ public class UserServiceController {
 
     @PostMapping
     public UserDto insertUser(@RequestBody User user){
-        return userServices.createUser(user.getPseudo(), user.getEmail(), user.getPassword());
+        return userServices.createUser(user.getPseudo(), user.getEmail(), user.getPassword(), user.getRole());
     }
     @GetMapping("/{pseudo}")
     public UserDto getUserByPseudo(@PathVariable String pseudo){
         return userServices.getUserByPseudo(pseudo);
     }
+
+
 
 }

@@ -56,8 +56,9 @@ public class UserServiceControllerIT {
                 .when().post("users")
                 .then().statusCode(200)
                 .body("pseudo", equalTo("Yous"))
-                .body("email", equalTo("yous@yous.com"))
-                .body("password", equalTo("youyou"));
+                .body("email", equalTo("yous@yous.com"));
+                //.body("password", equalTo("youyou"))
+                //.body("token", hasSize(256));
     }
     @Test
     public void should_get_user_by_pseudo(){

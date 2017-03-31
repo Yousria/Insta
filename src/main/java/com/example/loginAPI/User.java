@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import static javax.persistence.EnumType.STRING;
+
 /**
  * Created by bench on 07/03/2017.
  */
@@ -34,7 +36,10 @@ public class User {
     private String password;
 
     @Column
-    @NotNull
+    @Enumerated(STRING)
     private Role role;
+
+    @Column
+    private String token;
 
 }

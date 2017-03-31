@@ -8,8 +8,7 @@ package com.example.loginAPI;
  */
 
 /**
- * the password is not instantiated,
- * it will be encoded in the service
+ * the password will be encoded in the service
  */
 public class UserAdapter {
 
@@ -18,13 +17,16 @@ public class UserAdapter {
                 .email(user.getEmail())
                 .pseudo(user.getPseudo())
                 .password(user.getPassword())
+                .token(user.getToken())
                 .build();
     }
 
     public static User toUser(UserDto dto){
         return User.builder()
+                .pseudo(dto.getPseudo())
                 .email(dto.getEmail())
                 .password(dto.getPassword())
+                .token(dto.getToken())
                 .build();
     }
 }

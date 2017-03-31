@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 /**
  * Created by bench on 07/03/2017.
@@ -28,18 +30,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
+        authenticationManagerBuilder.inMemoryAuthentication()
+                .withUser("Admin")
+                .password("esgi2017")
+                .authorities("ROLE_ADMIN");
+    }
+
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.formLogin()
+        httpSecurity.csrf().disable();
+       /* httpSecurity.authorizeRequests()
+                .antMatchers("/resources/**", "/registration").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
                 .loginPage("/login")
-                .failureUrl("/login?error")
-                .usernameParameter("pseudo")
-                //.permitAll()
+                .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/");
-                //.permitAll();
+                .permitAll();*/
+
     }
 
     @Override
@@ -47,5 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(bCryptPasswordEncoder());
     }
+
 
 }
