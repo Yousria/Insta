@@ -1,5 +1,11 @@
 package com.example.loginAPI.Service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.loginAPI.*;
 import com.sun.javafx.fxml.expression.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +19,7 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Date;
@@ -47,16 +54,30 @@ public class UserServices {
                 .collect(toList());
     }
 
+    public String createToken(){
+        String token = "";
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            token = JWT.create()
+                    .withIssuer("auth0")
+                    .sign(algorithm);
+        } catch (JWTCreationException exception){
+            exception.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return token;
+    }
+
+
     @Transactional
     public UserDto createUser(String pseudo, String email, String password, Role role){
-        SecureRandom random = new SecureRandom();
-        String token = new BigInteger(256, random).toString(32);
         User user = User.builder()
                 .pseudo(pseudo)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .role(role)
-                .token(token)
+                .token(createToken())
                 .build();
         userRepository.save(user);
         return UserAdapter.toDto(user);
@@ -74,6 +95,24 @@ public class UserServices {
     public UserDto getUserByPseudo(String pseudo){
         Optional<User> user = userRepository.findByPseudo(pseudo);
         return UserAdapter.toDto(user.get());
+    }
+
+    @Transactional(readOnly = true)
+    public boolean verifyToken(String token){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("auth0")
+                    .build();
+            DecodedJWT jwt = verifier.verify(token);
+        } catch (UnsupportedEncodingException exception){
+            //UTF-8 encoding not supported
+            return false;
+        } catch (JWTVerificationException exception){
+            //Invalid signature/claims
+            return false;
+        }
+        return true;
     }
 
 

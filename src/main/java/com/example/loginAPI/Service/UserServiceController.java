@@ -39,6 +39,8 @@ public class UserServiceController {
         return userServices.getUserByPseudo(pseudo);
     }
 
-
-
+    @PostMapping("/token")
+    public String verifyToken(@RequestBody User user){
+        return String.valueOf(userServices.verifyToken(user.getToken()));
+    }
 }
