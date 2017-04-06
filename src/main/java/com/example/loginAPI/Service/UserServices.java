@@ -47,21 +47,21 @@ public class UserServices {
     }
 
     @Transactional(readOnly = true)
-    public List<UserDto> getAllUsers(){
+    public List<UserDto> getAllUsers() {
         return userRepository.findAll()
                 .stream()
                 .map(UserAdapter::toDto)
                 .collect(toList());
     }
 
-    public String createToken(){
+    public String createToken() {
         String token = "";
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             token = JWT.create()
                     .withIssuer("auth0")
                     .sign(algorithm);
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             exception.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class UserServices {
 
 
     @Transactional
-    public UserDto createUser(String pseudo, String email, String password, Role role){
+    public UserDto createUser(String pseudo, String email, String password, Role role) {
         User user = User.builder()
                 .pseudo(pseudo)
                 .email(email)
@@ -84,32 +84,43 @@ public class UserServices {
     }
 
     @Transactional
-    public UserDto saveUser(UserDto dto){
+    public UserDto saveUser(UserDto dto) {
         User user = UserAdapter.toUser(dto);
-        user.setRole(Role.USER);
         userRepository.save(user);
         return dto;
     }
 
     @Transactional(readOnly = true)
-    public UserDto getUserByPseudo(String pseudo){
+    public UserDto getUserByPseudo(String pseudo) {
         Optional<User> user = userRepository.findByPseudo(pseudo);
         return UserAdapter.toDto(user.get());
     }
 
     @Transactional(readOnly = true)
-    public boolean verifyToken(String token){
+    public boolean verifyToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer("auth0")
                     .build();
             DecodedJWT jwt = verifier.verify(token);
-        } catch (UnsupportedEncodingException exception){
+        } catch (UnsupportedEncodingException exception) {
             //UTF-8 encoding not supported
             return false;
-        } catch (JWTVerificationException exception){
+        } catch (JWTVerificationException exception) {
             //Invalid signature/claims
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional(readOnly = true)
+    public boolean verifyUser(String pseudo, String password){
+        User user = userRepository.findByPseudo(pseudo).get();
+        if(user == null){
+            return false;
+        }
+        if(!password.equals(user.getPassword())){
             return false;
         }
         return true;

@@ -43,4 +43,13 @@ public class UserServiceController {
     public String verifyToken(@RequestBody User user){
         return String.valueOf(userServices.verifyToken(user.getToken()));
     }
+    @GetMapping("/verify")
+    public String verifyUser(@RequestParam("pseudo") String pseudo,
+                             @RequestParam("password") String password){
+        if(userServices.verifyUser(pseudo, password) == false){
+            return "Error in username or password";
+        }else{
+            return "user verified!";
+        }
+    }
 }
