@@ -32,6 +32,6 @@ public interface ImageRepositoryImpl extends JpaRepository<ImageEntity, Long> {
 
     Optional<ImageEntity> findById(Long id);
 
-    Page<ImageEntity> findByToken(Token token,Pageable pageable);
+    //Page<ImageEntity> findByToken(Token token,Pageable pageable);
 
 }

@@ -49,8 +49,8 @@ public class ImageServiceImpl implements ImageService {
         if(imageEntity == null)
             throw new IllegalArgumentException();
 
-        if(imageEntity.getToken().getToken() != token)
-            return;
+        /*if(imageEntity.getToken().getToken() != token)
+            return;*/
 
         imageRepository.updateTitle(title,imageEntity.getId());
     }
@@ -59,7 +59,7 @@ public class ImageServiceImpl implements ImageService {
     @Transactional
     public ImageDTO insertImage(String title, Token token){
         ImageEntity imageEntity = ImageEntity.builder()
-                .token(token)
+                //.token(token)
                 .likescore(0)
                 .dislikescore(0)
                 .title(title)
@@ -81,13 +81,13 @@ public class ImageServiceImpl implements ImageService {
     }
 
 
-    @Override
+    /*@Override
     @Transactional(readOnly = true)
     public List<ImageDTO> findByToken(Token token) {
         PageRequest pageRequest = new PageRequest(0,1, Sort.Direction.DESC,"id");
         Page<ImageEntity> imageList = imageRepository.findByToken(token,pageRequest);
         return ImageAdapter.toListImageDTO(imageList.getContent());
-    }
+    }*/
 
     @Override
     @Transactional(readOnly = true)

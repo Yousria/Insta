@@ -1,19 +1,17 @@
 package com.example.post.social.friend;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 /**
  * @author timotheearnauld
  */
-
 @Builder
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class FriendDTO {
-    private Long id;
-    private Long id_user;
-    private Long id_friend;
-
+    private Long user;
 }

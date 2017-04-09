@@ -22,9 +22,9 @@ public class ImageEntity {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(referencedColumnName = "id")
-    private Token token;
+    private Token token;*/
 
     @Column
     private String title;

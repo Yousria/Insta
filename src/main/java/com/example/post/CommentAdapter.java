@@ -10,7 +10,7 @@ public class CommentAdapter {
 
         return CommentDTO.builder()
              .id(commentEntity.getId())
-             .token(commentEntity.getToken())
+             //.token(commentEntity.getToken())
              .comment(commentEntity.getComment())
              .image(commentEntity.getImage()).build();
     }
@@ -19,7 +19,7 @@ public class CommentAdapter {
 
         return CommentEntity.builder()
                 .id(commentDTO.getId())
-                .token(commentDTO.getToken())
+                //.token(commentDTO.getToken())
                 .comment(commentDTO.getComment())
                 .image(commentDTO.getImage())
                 .build();

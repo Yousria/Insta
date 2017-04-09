@@ -12,7 +12,7 @@ public class ImageAdapter {
 
         return ImageDTO.builder()
                 .id(imageEntity.getId())
-                .token(imageEntity.getToken())
+                //.token(imageEntity.getToken())
                 .dislikescore(imageEntity.getDislikescore())
                 .title(imageEntity.getTitle())
                 .likescore(imageEntity.getLikescore()).build();
@@ -22,7 +22,7 @@ public class ImageAdapter {
 
         return ImageEntity.builder()
                 .id(imageDto.getId())
-                .token(imageDto.getToken())
+                //.token(imageDto.getToken())
                 .dislikescore(imageDto.getDislikescore())
                 .title(imageDto.getTitle())
                 .likescore(imageDto.getLikescore()).build();

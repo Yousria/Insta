@@ -18,7 +18,7 @@ public interface ImageService {
     ImageDTO insertImage(String title, Token token);
     ImageDTO findById(Long id);
     ImageDTO findByTitle(String title);
-    List<ImageDTO> findByToken(Token token);
+    //List<ImageDTO> findByToken(Token token);
 
 }
 

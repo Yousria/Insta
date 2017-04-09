@@ -1,20 +1,45 @@
 package com.example;
 
 import com.example.fileApi.stockage.StorageProperties;
-		import com.example.fileApi.stockage.StorageService;
-        import org.springframework.boot.CommandLineRunner;
-		import org.springframework.boot.SpringApplication;
-        import org.springframework.boot.autoconfigure.SpringBootApplication;
-		import org.springframework.boot.context.properties.EnableConfigurationProperties;
-		import org.springframework.context.annotation.Bean;
-        import org.springframework.context.annotation.ComponentScan;
+import com.example.fileApi.stockage.StorageService;
+import org.neo4j.ogm.config.Configuration;
+import org.neo4j.ogm.session.SessionFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
+import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
+@org.springframework.context.annotation.Configuration
 @SpringBootApplication
+@EnableAutoConfiguration
+@EnableNeo4jRepositories("com.example.post.social.friend")
 @EnableConfigurationProperties(StorageProperties.class)
-
+@EnableTransactionManagement
 public class PhotoAlbumApplication {
+    @Bean
+    public SessionFactory sessionFactory() {
+        return new SessionFactory(configuration(), "com.example.post.social.friend");
+    }
 
+    @Bean
+    public org.neo4j.ogm.config.Configuration configuration() {
+        org.neo4j.ogm.config.Configuration configuration = new Configuration();
+        configuration.driverConfiguration()
+                .setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
+                .setURI("http://neo4j:root@localhost:7474");
+
+        return configuration;
+    }
+
+    @Bean
+    public Neo4jTransactionManager transactionManager() {
+        return new Neo4jTransactionManager(sessionFactory());
+    }
 
 	public static void main(String[] args) {
 		SpringApplication.run(PhotoAlbumApplication.class, args);

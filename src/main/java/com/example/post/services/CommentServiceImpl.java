@@ -36,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
         CommentEntity commentEntity = CommentEntity.builder()
                 .comment(comment)
                 .image(imageEntity)
-                .token(token)
+                //.token(token)
                 .build();
         commentRepository.save(commentEntity);
 
