@@ -22,9 +22,9 @@ import static javax.persistence.CascadeType.ALL;
 public class ImageEntity {
 
     @Id
-    @Column(name="id_image")
+    @Column
     @GeneratedValue
-    private Long id_image;
+    private Long id;
 
 
     @Column
@@ -40,7 +40,7 @@ public class ImageEntity {
     @JoinColumn(name = "album", referencedColumnName="id_album")
     private AlbumEntity album;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id_image")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
     private List<CommentEntity> commentEntityList;
 
 }

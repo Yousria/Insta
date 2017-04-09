@@ -9,7 +9,7 @@ public class AlbumAdapter {
     public static AlbumDTO toAlbumDTO(AlbumEntity albumEntity){
 
         return AlbumDTO.builder()
-                .id_album(albumEntity.getId_album())
+                .id(albumEntity.getId())
                 .title(albumEntity.getTitle())
                 .imageEntityList(albumEntity.getImageEntityList())
                 .user(albumEntity.getUser()).build();
@@ -18,7 +18,7 @@ public class AlbumAdapter {
     public static AlbumEntity toAlbumEntity(AlbumDTO albumDto) {
 
         return AlbumEntity.builder()
-                .id_album(albumDto.getId_album())
+                .id(albumDto.getId())
                 .title(albumDto.getTitle())
                 .imageEntityList(albumDto.getImageEntityList())
                 .user(albumDto.getUser()).build();

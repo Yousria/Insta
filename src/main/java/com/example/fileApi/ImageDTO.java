@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ImageDTO {
-    private Long id_image;
+    private Long id;
 
     private AlbumEntity album;
 

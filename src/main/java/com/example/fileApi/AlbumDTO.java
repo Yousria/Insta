@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AlbumDTO {
 
-    private Long id_album;
+    private Long id;
 
 
     private String title;

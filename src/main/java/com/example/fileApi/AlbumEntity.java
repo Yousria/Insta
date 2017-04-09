@@ -23,7 +23,7 @@ public class AlbumEntity {
     @Id
     @Column(name="id_album")
     @GeneratedValue
-    private Long id_album;
+    private Long id;
 
 
     @Column
@@ -34,6 +34,6 @@ public class AlbumEntity {
     @JoinColumn(name = "user", referencedColumnName="id")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id_album")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "album")
     private List<ImageEntity> imageEntityList;
 }
