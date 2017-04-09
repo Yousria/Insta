@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 /**
  * Created by kokoghlanian on 20/03/2017.
  */
@@ -16,7 +17,7 @@ public interface CommentRepositoryImpl extends JpaRepository<CommentEntity, Long
     @Query("update CommentEntity set comment = :new_comment where id = :id")
     void updateComment(@Param("new_comment")String comment, @Param("id") Long id);
 
-
+    //List<CommentEntity> findByImageEntity(Long id);
     //List<CommentEntity> findByImageEntity(ImageEntity imageEntity, Pageable pageable );
-    //List<CommentEntity> findByImageEntity(ImageEntity imageEntity);
+
 }

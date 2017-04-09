@@ -1,11 +1,12 @@
 package com.example.post.services;
 
 import com.example.loginAPI.Token;
+import com.example.loginAPI.User;
 import com.example.post.CommentAdapter;
 import com.example.post.CommentDTO;
 import com.example.post.CommentEntity;
 import com.example.post.CommentRepositoryImpl;
-import com.example.post.ImageEntity;
+import com.example.fileApi.ImageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -32,11 +33,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public CommentDTO insertComment(String comment, Token token, ImageEntity imageEntity){
+    public CommentDTO insertComment(String comment, User user, ImageEntity imageEntity){
         CommentEntity commentEntity = CommentEntity.builder()
                 .comment(comment)
                 .image(imageEntity)
-                //.token(token)
+                .user(user)
                 .build();
         commentRepository.save(commentEntity);
 

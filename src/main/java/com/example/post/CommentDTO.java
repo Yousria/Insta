@@ -1,6 +1,8 @@
 package com.example.post;
 
-import com.example.loginAPI.Token;
+
+import com.example.fileApi.ImageEntity;
+import com.example.loginAPI.User;
 import lombok.*;
 
 /**
@@ -15,7 +17,7 @@ import lombok.*;
 public class CommentDTO {
 
     private Long id;
-    private Token token;
+    private User user;
     private String comment;
     private ImageEntity image;
 }

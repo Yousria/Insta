@@ -1,7 +1,8 @@
 package com.example.post;
 
-import com.example.loginAPI.Token;
+import com.example.loginAPI.User;
 import lombok.*;
+import com.example.fileApi.ImageEntity;
 
 import javax.persistence.*;
 
@@ -18,19 +19,18 @@ import javax.persistence.*;
 public class CommentEntity {
 
     @Id
-    @Column(name="id_comment")
+    @Column(name="id")
     @GeneratedValue
     private Long id;
 
-
-    /*@ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
-    private Token token;*/
+    private User user;
 
     @Column
     private String comment;
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id_image")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id")
     private ImageEntity image;
 }

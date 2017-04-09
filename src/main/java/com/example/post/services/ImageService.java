@@ -1,8 +1,8 @@
 package com.example.post.services;
 
+import com.example.fileApi.ImageDTO;
+import com.example.fileApi.ImageEntity;
 import com.example.loginAPI.Token;
-import com.example.post.ImageDTO;
-import com.example.post.ImageEntity;
 
 import java.util.List;
 

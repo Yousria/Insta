@@ -1,14 +1,11 @@
 package com.example.post.services;
 
+import com.example.fileApi.ImageAdapter;
+import com.example.fileApi.ImageDTO;
+import com.example.fileApi.ImageEntity;
+import com.example.fileApi.ImageRepository;
 import com.example.loginAPI.Token;
-import com.example.post.ImageAdapter;
-import com.example.post.ImageDTO;
-import com.example.post.ImageEntity;
-import com.example.post.ImageRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +19,7 @@ import java.util.List;
 public class ImageServiceImpl implements ImageService {
 
     @Autowired
-    ImageRepositoryImpl imageRepository;
+    ImageRepository imageRepository;
 
     @Override
     @Transactional
@@ -83,9 +80,9 @@ public class ImageServiceImpl implements ImageService {
 
     /*@Override
     @Transactional(readOnly = true)
-    public List<ImageDTO> findByToken(Token token) {
+    public List<ImageDTO> findByUser( User user) {
         PageRequest pageRequest = new PageRequest(0,1, Sort.Direction.DESC,"id");
-        Page<ImageEntity> imageList = imageRepository.findByToken(token,pageRequest);
+        Page<ImageEntity> imageList = imageRepository.findByUser(user,pageRequest);
         return ImageAdapter.toListImageDTO(imageList.getContent());
     }*/
 
