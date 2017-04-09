@@ -18,9 +18,7 @@ public class AlbumDTO {
 
     private Long id;
 
-
     private String title;
-
 
     private User user;
 

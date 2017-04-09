@@ -52,12 +52,8 @@ public class AlbumServiceImpl implements AlbumService {
         return AlbumAdapter.toAlbumDTO(albumRepository.findByTitle(title).get());
     }
 
-
-
-
     @Override
     public List<ImageDTO> getImages(AlbumEntity album) {
-
         return ImageAdapter.toListImageDTO(album.getImageEntityList());
     }
 

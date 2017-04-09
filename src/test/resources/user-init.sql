@@ -1,3 +1,5 @@
 INSERT INTO users (id, pseudo, email, password, role, token) values(1, 'first', 'first@first.com', 'first', 'ADMIN', 'sfnhierf35V0FDDCZE40RC30A20Z')
 INSERT INTO users (id, pseudo, email, password, role, token) values(2, 'second', 'second@second.com', 'second', 'USER', 'fifgnvoirg657HVT4')
 INSERT INTO users (id, pseudo, email, password, role, token) values(3, 'three', 'three@three.com', 'three', 'USER', 'rfrjf456456HFvefrce')
+INSERT INTO image (id, title, likescore, dislikescore, datas, album) values(1, 'three', 1, 2, '', '')
+INSERT INTO comments (id, user, comment, image) values(5,1,'bonjourbonjour',1)
