@@ -18,7 +18,7 @@ public interface FriendRepository extends GraphRepository<Friends> {
      * User gestion
      */
     @Query("MATCH (n:Friends{user:{id_user}}) RETURN n")
-    Friends getUser(Long id_user);
+    Friends getUser(@Param("id_user")Long id_user);
 
     @Query("MATCH (n:Friends) RETURN n ORDER BY n.user")
     Set<Friends> getAllUsers();

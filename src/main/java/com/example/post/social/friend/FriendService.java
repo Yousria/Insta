@@ -37,15 +37,19 @@ public class FriendService {
         return Streams.stream(friendRepository.findAllFriends(iduser)).map(FriendAdapter::NodeToDto).collect(toList());
     }
 
-    void addFriendForUser(Long iduser, Long idfriend){
+    public boolean doesUserExist(Long id_user){
+        return friendRepository.getUser(id_user) != null;
+    }
+
+    public void addFriendForUser(Long iduser, Long idfriend){
         friendRepository.addNewFriend(iduser, idfriend);
     }
 
-    void removeFriendForUser(Long iduser, Long idfriend){
+    public void removeFriendForUser(Long iduser, Long idfriend){
         friendRepository.deleteFriend(iduser, idfriend);
     }
 
-    void addUser(Long id_user) {
+    public void addUser(Long id_user) {
         friendRepository.addNewUser(id_user);
     }
 }
