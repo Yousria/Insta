@@ -7,22 +7,14 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.loginAPI.*;
-import com.sun.javafx.fxml.expression.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.token.DefaultToken;
-import org.springframework.security.core.token.Token;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.DefaultCsrfToken;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,10 +48,11 @@ public class UserServices {
 
     public String createToken() {
         String token = "";
+        SecureRandom random = new SecureRandom();
         try {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
+            Algorithm algorithm = Algorithm.HMAC256(new BigInteger(130, random).toString(32));
             token = JWT.create()
-                    .withIssuer("auth0")
+                    .withIssuer(new BigInteger(130, random).toString(32))
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
             exception.printStackTrace();
