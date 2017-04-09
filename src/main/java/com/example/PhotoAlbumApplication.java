@@ -32,22 +32,16 @@ public class PhotoAlbumApplication {
         return configuration;
     }
 
-    @Bean
+  /*  @Bean
     public Neo4jTransactionManager transactionManager() {
         return new Neo4jTransactionManager(sessionFactory());
-    }
+    }*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(PhotoAlbumApplication.class, args);
 	}
 
-    @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver getCommonsMultipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(20971520);   // 20MB
-        multipartResolver.setMaxInMemorySize(1048576);  // 1MB
-        return multipartResolver;
-    }
+
 
 
 }
