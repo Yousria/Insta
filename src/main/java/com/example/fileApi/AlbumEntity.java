@@ -21,7 +21,7 @@ import static javax.persistence.CascadeType.ALL;
 @Table(name = "album")
 public class AlbumEntity {
     @Id
-    @Column(name="id_album")
+    @Column
     @GeneratedValue
     private Long id;
 

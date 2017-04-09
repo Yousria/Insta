@@ -16,6 +16,7 @@ public class ImageAdapter {
                 .title(imageEntity.getTitle())
                 .id(imageEntity.getId())
                 .commentEntityList(imageEntity.getCommentEntityList())
+                .datas(imageEntity.getDatas())
                 .likescore(imageEntity.getLikescore()).build();
     }
 
@@ -27,6 +28,7 @@ public class ImageAdapter {
                 .dislikescore(imageDto.getDislikescore())
                 .title(imageDto.getTitle())
                 .likescore(imageDto.getLikescore())
+                .datas(imageDto.getDatas())
                 .commentEntityList(imageDto.getCommentEntityList()).build();
     }
 

@@ -24,5 +24,7 @@ public class ImageDTO {
 
     private Integer dislikescore;
 
+    private byte[] datas;
+
     private List<CommentEntity> commentEntityList;
 }

@@ -36,8 +36,11 @@ public class ImageEntity {
     @Column
     private Integer dislikescore;
 
+    @Column
+    private byte[] datas;
+
     @ManyToOne(cascade= ALL)
-    @JoinColumn(name = "album", referencedColumnName="id_album")
+    @JoinColumn(name = "album", referencedColumnName="id")
     private AlbumEntity album;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
