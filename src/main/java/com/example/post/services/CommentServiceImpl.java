@@ -27,8 +27,8 @@ public class CommentServiceImpl implements CommentService {
     CommentRepositoryImpl commentRepository;
 
     @Override
-    public void updateComment(Long id, String comment) {
-        commentRepository.updateComment(comment,id);
+    public CommentDTO updateComment(Long id, String comment) {
+        return CommentAdapter.toCommentDTO(commentRepository.updateComment(comment,id));
     }
 
     @Override
@@ -44,17 +44,17 @@ public class CommentServiceImpl implements CommentService {
         return CommentAdapter.toCommentDTO(commentEntity);
     }
 
-  /*  public List<CommentDTO> getCommentsByImageEntity(ImageEntity imageEntity){
 
-        PageRequest pageRequest = new PageRequest(0,1, Sort.Direction.DESC,"id");
-        //Page<CommentEntity> commentList = commentRepository.findByImageEntity(imageEntity,pageRequest);
+    @Override
+    @Transactional
+    public List<CommentDTO> getCommentsByImageEntity(Long imageEntityId){
 
-        List<CommentEntity> commentList = commentRepository.findByImageEntity(imageEntity);
+        List<CommentEntity> commentList = commentRepository.findByImageEntity(imageEntityId);
         List<CommentDTO> commentListDto = new ArrayList<>();
         for(CommentEntity comment : commentList)
         {
             commentListDto.add(CommentAdapter.toCommentDTO(comment));
         }
         return commentListDto;
-    }*/
+    }
 }

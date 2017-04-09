@@ -15,9 +15,8 @@ import java.util.List;
 public interface CommentRepositoryImpl extends JpaRepository<CommentEntity, Long> {
 
     @Query("update CommentEntity set comment = :new_comment where id = :id")
-    void updateComment(@Param("new_comment")String comment, @Param("id") Long id);
+    CommentEntity updateComment(@Param("new_comment")String comment, @Param("id") Long id);
 
-    //List<CommentEntity> findByImageEntity(Long id);
-    //List<CommentEntity> findByImageEntity(ImageEntity imageEntity, Pageable pageable );
-
+    @Query("select ce from CommentEntity ce where ce.image = :id_image")
+    List<CommentEntity> findByImageEntity(@Param("id_image")Long id);
 }

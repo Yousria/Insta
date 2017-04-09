@@ -3,6 +3,9 @@ package com.example.post.services;
 import com.example.loginAPI.User;
 import com.example.post.CommentDTO;
 import com.example.fileApi.ImageEntity;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -10,8 +13,10 @@ import com.example.fileApi.ImageEntity;
  */
 public interface CommentService {
 
-    void updateComment(Long id, String comment);
+    CommentDTO updateComment(Long id, String comment);
 
     CommentDTO insertComment(String comment, User user , ImageEntity imageEntity);
-    //List<CommentDTO> getCommentsByImageEntity(ImageEntity imageEntity);
+
+    @Transactional
+    List<CommentDTO> getCommentsByImageEntity(Long imageEntityId);
 }
