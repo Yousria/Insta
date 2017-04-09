@@ -19,14 +19,12 @@ public class FriendService {
         this.friendRepository = friendRepository;
     }
 
-    String areFriends(Long id_user, Long id_friend){
-        String tmp;
-        if((tmp = friendRepository.areFriends(id_user, id_friend)) == null){
+    public boolean areFriends(Long id_user, Long id_friend){
+        if((friendRepository.areFriends(id_user, id_friend)) == null){
             System.out.println("Are not friends");
-            return null;
+            return false;
         }
-        System.out.println("Are friends: " + tmp);
-        return tmp;
+        return true;
     }
 
     List<FriendDTO> getAllUsers(){

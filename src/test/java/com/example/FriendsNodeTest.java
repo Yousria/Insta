@@ -71,6 +71,13 @@ public class FriendsNodeTest {
             friendService.addFriendForUser(1L, 4L);
             friendService.addFriendForUser(1L, 3L);
             friendService.addFriendForUser(2L, 4L);
+
+            assertThat(friendService.areFriends(1L, 2L), is(true));
+            assertThat(friendService.areFriends(2L, 3L), is(true));
+            assertThat(friendService.areFriends(3L, 4L), is(true));
+            assertThat(friendService.areFriends(1L, 4L), is(true));
+            assertThat(friendService.areFriends(1L, 3L), is(true));
+            assertThat(friendService.areFriends(2L, 4L), is(true));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -80,6 +87,7 @@ public class FriendsNodeTest {
     public void should_delete_friend(){
         try{
             friendService.removeFriendForUser(1L, 4L);
+            assertThat(friendService.areFriends(1L, 4L), is(false));
         }catch (Exception e){
             e.printStackTrace();
         }

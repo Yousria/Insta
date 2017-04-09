@@ -33,14 +33,14 @@ public class FriendController {
     public boolean addFriendForUser(@RequestParam("id_user") Long id_user, @RequestParam("id_friend") Long id_friend){
         friendService.addFriendForUser(id_user, id_friend);
 
-        return friendService.areFriends(id_user, id_friend) != null;
+        return friendService.areFriends(id_user, id_friend);
     }
 
     @RequestMapping(value="removeFriend", method = RequestMethod.GET)
     public boolean removeFriendForUser(@RequestParam("id_user") Long id_user, @RequestParam("id_friend") Long id_friend){
         friendService.removeFriendForUser(id_user, id_friend);
 
-        return friendService.areFriends(id_user, id_friend) != null;
+        return friendService.areFriends(id_user, id_friend);
     }
 
     @RequestMapping(value="addUser", method = RequestMethod.GET)
