@@ -27,7 +27,6 @@ public class PhotoAlbumApplication {
         configuration.driverConfiguration()
                 .setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
                 .setURI("http://neo4j:root@localhost:7474");
-
         return configuration;
     }
 
@@ -39,7 +38,4 @@ public class PhotoAlbumApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PhotoAlbumApplication.class, args);
 	}
-
-
-
 }

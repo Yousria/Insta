@@ -9,20 +9,43 @@ import static java.util.stream.Collectors.toList;
 /**
  * @author timotheearnauld
  */
+
 @Service
 public class FriendService {
-    FriendRepository friendRepository;
+    private FriendRepository friendRepository;
 
     @Autowired
     public FriendService(FriendRepository friendRepository) {
         this.friendRepository = friendRepository;
     }
 
-    public List<FriendDTO> getAllUsers(){
+    String areFriends(Long id_user, Long id_friend){
+        String tmp;
+        if((tmp = friendRepository.areFriends(id_user, id_friend)) == null){
+            System.out.println("Are not friends");
+            return null;
+        }
+        System.out.println("Are friends: " + tmp);
+        return tmp;
+    }
+
+    List<FriendDTO> getAllUsers(){
         return Streams.stream(friendRepository.getAllUsers()).map(FriendAdapter::NodeToDto).collect(toList());
     }
 
-    public void addUser(Long id_user) {
+    List<FriendDTO> findFriendsForUser(Long iduser){
+        return Streams.stream(friendRepository.findAllFriends(iduser)).map(FriendAdapter::NodeToDto).collect(toList());
+    }
+
+    void addFriendForUser(Long iduser, Long idfriend){
+        friendRepository.addNewFriend(iduser, idfriend);
+    }
+
+    void removeFriendForUser(Long iduser, Long idfriend){
+        friendRepository.deleteFriend(iduser, idfriend);
+    }
+
+    void addUser(Long id_user) {
         friendRepository.addNewUser(id_user);
     }
 }

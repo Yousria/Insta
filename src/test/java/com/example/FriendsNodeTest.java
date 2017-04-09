@@ -52,7 +52,6 @@ public class FriendsNodeTest {
             friendRepository.addNewFriend(1L, 4L);
             friendRepository.addNewFriend(1L, 3L);
             friendRepository.addNewFriend(2L, 4L);
-
         }catch (Exception e){
             e.printStackTrace();
         }
