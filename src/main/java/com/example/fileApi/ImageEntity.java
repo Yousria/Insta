@@ -38,11 +38,11 @@ public class ImageEntity {
 
     @Column
     @ManyToOne(cascade= ALL)
-    @JoinColumn(name = "id_album")
+    @JoinColumn(name = "album", referencedColumnName="id_album")
     private long id_album;
 
     @Column
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id_image")
     private List<CommentEntity> commentEntityList;
 
 }
