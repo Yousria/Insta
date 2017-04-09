@@ -1,14 +1,10 @@
 package com.example;
 
-import com.example.fileApi.stockage.StorageProperties;
-import com.example.fileApi.stockage.StorageService;
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.session.SessionFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
@@ -18,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableNeo4jRepositories("com.example.post.social.friend")
-@EnableConfigurationProperties(StorageProperties.class)
 @EnableTransactionManagement
 public class PhotoAlbumApplication {
     @Bean
@@ -45,12 +40,6 @@ public class PhotoAlbumApplication {
 		SpringApplication.run(PhotoAlbumApplication.class, args);
 	}
 
-    @Bean
-    public CommandLineRunner init(StorageService storageService) {
-        return (args) -> {
-            storageService.deleteAll();
-            storageService.init();
-        };
-    }
+
 
 }

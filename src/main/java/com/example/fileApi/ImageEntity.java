@@ -1,6 +1,5 @@
 package com.example.fileApi;
 
-import com.example.fileApi.stockage.Album;
 import com.example.post.CommentEntity;
 import lombok.*;
 
@@ -39,7 +38,7 @@ public class ImageEntity {
 
     @ManyToOne(cascade= ALL)
     @JoinColumn(name = "album", referencedColumnName="id_album")
-    private Album album;
+    private AlbumEntity album;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "id_image")
     private List<CommentEntity> commentEntityList;

@@ -30,12 +30,10 @@ public class AlbumEntity {
     private String title;
 
 
-    @Column
     @ManyToOne(cascade= ALL)
     @JoinColumn(name = "user", referencedColumnName="id")
     private User user;
 
-    @Column
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "id_album")
     private List<ImageEntity> imageEntityList;
 }
