@@ -1,6 +1,6 @@
 package com.example.fileApi;
 
-import com.example.loginAPI.Token;
+import com.example.fileApi.stockage.Album;
 import com.example.post.CommentEntity;
 import lombok.*;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class ImageDTO {
     private Long id_image;
 
-    private Long id_album;
+    private Album album;
 
     private String title;
 

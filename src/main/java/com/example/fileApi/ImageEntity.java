@@ -1,5 +1,6 @@
 package com.example.fileApi;
 
+import com.example.fileApi.stockage.Album;
 import com.example.post.CommentEntity;
 import lombok.*;
 
@@ -36,12 +37,10 @@ public class ImageEntity {
     @Column
     private Integer dislikescore;
 
-    @Column
     @ManyToOne(cascade= ALL)
     @JoinColumn(name = "album", referencedColumnName="id_album")
-    private long id_album;
+    private Album album;
 
-    @Column
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "id_image")
     private List<CommentEntity> commentEntityList;
 

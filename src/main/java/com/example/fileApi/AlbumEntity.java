@@ -1,0 +1,41 @@
+package com.example.fileApi;
+
+import com.example.loginAPI.User;
+import com.example.post.CommentEntity;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
+
+/**
+ * Created by Nicolas on 09/04/2017.
+ */
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "album")
+public class AlbumEntity {
+    @Id
+    @Column(name="id_album")
+    @GeneratedValue
+    private Long id_album;
+
+
+    @Column
+    private String title;
+
+
+    @Column
+    @ManyToOne(cascade= ALL)
+    @JoinColumn(name = "user", referencedColumnName="id")
+    private User user;
+
+    @Column
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id_album")
+    private List<ImageEntity> imageEntityList;
+}
