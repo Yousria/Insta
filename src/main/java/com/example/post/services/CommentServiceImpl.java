@@ -1,6 +1,6 @@
 package com.example.post.services;
 
-import com.example.loginAPI.Token;
+
 import com.example.loginAPI.User;
 import com.example.post.CommentAdapter;
 import com.example.post.CommentDTO;
@@ -8,8 +8,6 @@ import com.example.post.CommentEntity;
 import com.example.post.CommentRepositoryImpl;
 import com.example.fileApi.ImageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
