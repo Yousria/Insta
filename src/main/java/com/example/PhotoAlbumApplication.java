@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @org.springframework.context.annotation.Configuration
 @SpringBootApplication
@@ -40,6 +41,13 @@ public class PhotoAlbumApplication {
 		SpringApplication.run(PhotoAlbumApplication.class, args);
 	}
 
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getCommonsMultipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(20971520);   // 20MB
+        multipartResolver.setMaxInMemorySize(1048576);  // 1MB
+        return multipartResolver;
+    }
 
 
 }

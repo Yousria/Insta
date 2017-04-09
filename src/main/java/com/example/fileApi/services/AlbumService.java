@@ -16,4 +16,5 @@ public interface AlbumService {
     List<ImageDTO> getImages(AlbumEntity albums);
     AlbumDTO findById(Long id);
     AlbumDTO findByTitle(String title);
+
 }
