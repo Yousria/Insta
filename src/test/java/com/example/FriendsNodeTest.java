@@ -1,12 +1,18 @@
 package com.example;
 
 import com.example.post.social.friend.FriendRepository;
+import com.example.post.social.friend.FriendService;
+import com.sun.istack.internal.Nullable;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author timotheearnauld
@@ -16,6 +22,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class FriendsNodeTest {
     @Autowired
+    FriendService friendService;
+
+    @Autowired
     FriendRepository friendRepository;
 
     @Before
@@ -24,12 +33,12 @@ public class FriendsNodeTest {
             friendRepository.emptyDB();
             friendRepository.deleteAll();
             friendRepository.createDataBase();
-            friendRepository.addNewUser(1L);
-            friendRepository.addNewUser(2L);
-            friendRepository.addNewUser(3L);
-            friendRepository.addNewUser(4L);
-            friendRepository.addNewUser(5L);
-        }catch(Exception e){
+            friendService.addUser(1L);
+            friendService.addUser(2L);
+            friendService.addUser(3L);
+            friendService.addUser(4L);
+            friendService.addUser(5L);
+        }catch(Exception e) {
             e.printStackTrace();
         }
     }
@@ -44,15 +53,31 @@ public class FriendsNodeTest {
     }
 
     @Test
+    public void should_user_exist(){
+        assertThat(friendService.doesUserExist(1L), is(true));
+        assertThat(friendService.doesUserExist(2L), is(true));
+        assertThat(friendService.doesUserExist(3L), is(true));
+        assertThat(friendService.doesUserExist(4L), is(true));
+        assertThat(friendService.doesUserExist(5L), is(true));
+        assertThat(friendService.doesUserExist(6L), is(false));
+    }
+
+    @Test
     public void should_add_new_friend(){
         try{
-            friendRepository.addNewFriend(1L, 2L);
-            friendRepository.addNewFriend(2L, 3L);
-            friendRepository.addNewFriend(3L, 4L);
-            friendRepository.addNewFriend(1L, 4L);
-            friendRepository.addNewFriend(1L, 3L);
-            friendRepository.addNewFriend(2L, 4L);
+            friendService.addFriendForUser(1L, 2L);
+            friendService.addFriendForUser(2L, 3L);
+            friendService.addFriendForUser(3L, 4L);
+            friendService.addFriendForUser(1L, 4L);
+            friendService.addFriendForUser(1L, 3L);
+            friendService.addFriendForUser(2L, 4L);
 
+            assertThat(friendService.areFriends(1L, 2L), is(true));
+            assertThat(friendService.areFriends(2L, 3L), is(true));
+            assertThat(friendService.areFriends(3L, 4L), is(true));
+            assertThat(friendService.areFriends(1L, 4L), is(true));
+            assertThat(friendService.areFriends(1L, 3L), is(true));
+            assertThat(friendService.areFriends(2L, 4L), is(true));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -61,7 +86,8 @@ public class FriendsNodeTest {
     @Test
     public void should_delete_friend(){
         try{
-            friendRepository.deleteFriend(1L, 4L);
+            friendService.removeFriendForUser(1L, 4L);
+            assertThat(friendService.areFriends(1L, 4L), is(false));
         }catch (Exception e){
             e.printStackTrace();
         }

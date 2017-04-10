@@ -28,20 +28,15 @@ public class PhotoAlbumApplication {
         configuration.driverConfiguration()
                 .setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
                 .setURI("http://neo4j:root@localhost:7474");
-
         return configuration;
     }
 
-  /*  @Bean
+    @Bean
     public Neo4jTransactionManager transactionManager() {
         return new Neo4jTransactionManager(sessionFactory());
-    }*/
+    }
 
 	public static void main(String[] args) {
 		SpringApplication.run(PhotoAlbumApplication.class, args);
 	}
-
-
-
-
 }

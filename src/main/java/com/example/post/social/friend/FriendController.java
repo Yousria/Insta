@@ -24,6 +24,25 @@ public class FriendController {
         return friendService.getAllUsers();
     }
 
+    @RequestMapping(value="friends", method = RequestMethod.GET)
+    public List<FriendDTO> getFriendsForUser(@RequestParam("id_user") Long id_user){
+        return friendService.findFriendsForUser(id_user);
+    }
+
+    @RequestMapping(value="addFriend", method = RequestMethod.GET)
+    public boolean addFriendForUser(@RequestParam("id_user") Long id_user, @RequestParam("id_friend") Long id_friend){
+        friendService.addFriendForUser(id_user, id_friend);
+
+        return friendService.areFriends(id_user, id_friend);
+    }
+
+    @RequestMapping(value="removeFriend", method = RequestMethod.GET)
+    public boolean removeFriendForUser(@RequestParam("id_user") Long id_user, @RequestParam("id_friend") Long id_friend){
+        friendService.removeFriendForUser(id_user, id_friend);
+
+        return friendService.areFriends(id_user, id_friend);
+    }
+
     @RequestMapping(value="addUser", method = RequestMethod.GET)
     public void addUser(@RequestParam("id_user")Long id_user){
         friendService.addUser(id_user);
