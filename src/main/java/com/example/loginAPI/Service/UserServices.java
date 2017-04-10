@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.loginAPI.*;
@@ -46,13 +47,14 @@ public class UserServices {
                 .collect(toList());
     }
 
-    public String createToken() {
+    public String createToken(String pseudo, String password ){
         String token = "";
-        SecureRandom random = new SecureRandom();
         try {
-            Algorithm algorithm = Algorithm.HMAC256(new BigInteger(130, random).toString(32));
+            Algorithm algorithm = Algorithm.HMAC256("secret");
             token = JWT.create()
-                    .withIssuer(new BigInteger(130, random).toString(32))
+                    .withClaim("admin", false)
+                    .withClaim("username", pseudo)
+                    .withClaim("password", password)
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
             exception.printStackTrace();
@@ -62,15 +64,15 @@ public class UserServices {
         return token;
     }
 
-
     @Transactional
     public UserDto createUser(String pseudo, String email, String password, Role role) {
+
         User user = User.builder()
                 .pseudo(pseudo)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .role(role)
-                .token(createToken())
+                .token(createToken(pseudo, password))
                 .build();
         userRepository.save(user);
         return UserAdapter.toDto(user);
@@ -91,18 +93,16 @@ public class UserServices {
 
     @Transactional(readOnly = true)
     public boolean verifyToken(String token) {
-        try {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("auth0")
-                    .build();
-            DecodedJWT jwt = verifier.verify(token);
-        } catch (UnsupportedEncodingException exception) {
-            //UTF-8 encoding not supported
-            return false;
-        } catch (JWTVerificationException exception) {
-            //Invalid signature/claims
-            return false;
+        try{
+            DecodedJWT decodedJWT = JWT.decode(token);
+            String pseudo = decodedJWT.getClaim("username").asString();
+            String password = decodedJWT.getClaim("password").asString();
+            System.out.println(pseudo + " " + password);
+            if(!verifyUser(pseudo, password)){
+                return false;
+            }
+        }catch(JWTDecodeException e){
+            e.printStackTrace();
         }
         return true;
     }
@@ -113,7 +113,7 @@ public class UserServices {
         if(user == null){
             return false;
         }
-        if(!password.equals(user.getPassword())){
+        if(!passwordEncoder.matches(password, user.getPassword())){
             return false;
         }
         return true;
