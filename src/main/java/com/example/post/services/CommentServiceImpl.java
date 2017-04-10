@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public List<CommentDTO> getCommentsByImageEntity(Long imageEntityId){
 
-        List<CommentEntity> commentList = commentRepository.findByImageEntity(imageEntityId);
+        List<CommentEntity> commentList = commentRepository.getCommentsByImageEntity(imageEntityId);
         List<CommentDTO> commentListDto = new ArrayList<>();
         for(CommentEntity comment : commentList)
         {
@@ -55,4 +55,18 @@ public class CommentServiceImpl implements CommentService {
         }
         return commentListDto;
     }
+
+    @Override
+    @Transactional
+    public List<CommentDTO> getCommentByUser(Long userId){
+
+        List<CommentEntity> commentList = commentRepository.getCommentByUser(userId);
+        List<CommentDTO> commentListDto = new ArrayList<>();
+        for(CommentEntity comment : commentList)
+        {
+            commentListDto.add(CommentAdapter.toCommentDTO(comment));
+        }
+        return commentListDto;
+    }
+
 }
