@@ -24,10 +24,10 @@ public interface FriendRepository extends GraphRepository<Friends> {
     Set<Friends> getAllUsers();
 
     @Query("CREATE (m:Friends{user:{id_user}})")
-    Friends addNewUser(@Param("id_user")Long id_user);
+    void addNewUser(@Param("id_user")Long id_user);
 
     @Query("MATCH (m:Friends{user:{id_user}}) DETACH DELETE m")
-    Friends deleteUser(@Param("id_user")Long id_user);
+    void removeUser(@Param("id_user")Long id_user);
 
     @Query("MATCH (:Friends {user: {id_user}})-[r]-(p:Friends) RETURN p")
     List<Friends> findAllFriends(@Param("id_user")Long id_user);
