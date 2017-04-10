@@ -1,6 +1,7 @@
 package com.example.loginAPI;
 
 import lombok.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

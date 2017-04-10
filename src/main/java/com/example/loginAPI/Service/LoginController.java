@@ -1,6 +1,7 @@
 package com.example.loginAPI.Service;
 
 
+import com.example.loginAPI.Role;
 import com.example.loginAPI.User;
 import com.example.loginAPI.UserAdapter;
 import org.springframework.stereotype.Controller;
@@ -30,9 +31,9 @@ public class LoginController {
         this.userValidator = userValidator;
     }
 
-    @GetMapping(value = {"/", "/home"})
+    @GetMapping(value = "/home")
     public String welcome(Model model) {
-        return "homePage";
+        return "welcomePage";
     }
 
     @GetMapping(value = "/login", produces = "text/html")
@@ -40,18 +41,18 @@ public class LoginController {
         //model.addAttribute("hello", "coucou");
         return "loginPage";
     }
+    @GetMapping(value = "/error")
+    public String error(Model model){ return "errorPage";}
 
-    /*@GetMapping(value = "/login")
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
-        return "welcomePage";
-    }*/
-
+    @RequestMapping(value = "/login", method = POST)
+    public String login(Model model, @ModelAttribute("pseudo")String pseudo,
+                        @ModelAttribute("password")String password) {
+        if(userServices.verifyUser(pseudo, password) == true){
+            return "redirect:home";
+        }else{
+            return "redirect:error";
+        }
+    }
 
     @RequestMapping(value = "/registration", method = GET)
     public String registration(Model model){
@@ -64,10 +65,19 @@ public class LoginController {
                                Model model){
         userValidator.validate(userForm, bindingResult);
         if(bindingResult.hasErrors()){
-            return "registration";
+            return "redirect:registration";
         }
-        userServices.saveUser(UserAdapter.toDto(userForm));
+        model.addAttribute("pseudo", userForm.getPseudo());
+        model.addAttribute("email", userForm.getEmail());
+        model.addAttribute("password", userForm.getPassword());
+
+        userServices.saveUser(User.builder()
+                                .pseudo(userForm.getPseudo())
+                                .password(userForm.getPassword())
+                                .email(userForm.getEmail())
+                                .role(Role.ADMIN)
+                                .build());
         securityService.autoLogin(userForm.getPseudo(), userForm.getPassword());
-        return "redirect::/welcome";
+        return "redirect:home";
     }
 }
