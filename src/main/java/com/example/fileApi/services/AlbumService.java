@@ -15,5 +15,6 @@ public interface AlbumService {
     void updateTitle(AlbumEntity album, String title);
     AlbumDTO findById(Long id);
     AlbumDTO findByTitle(String title);
+    AlbumDTO findByTitleAndPseudo(String title,String pseudo);
 
 }

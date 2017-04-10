@@ -35,24 +35,30 @@ public class ImageController {
     @Autowired
     AlbumService albumService;
 
+    @Autowired
+    UserServices userServices;
 
     @RequestMapping(value = "/fichier", method = RequestMethod.GET)
     public String showUploadForm(Model model) {
+        if(albumService.findByTitleAndPseudo("bonjour","monpseudo")==null) {
+            albumService.insertAlbum("bonjour", UserAdapter.toUser(userServices.getUserByPseudo("monpseudo")));
+        }
+        System.out.println(albumService.findByTitleAndPseudo("bonjour","monpseudo"));
         return "upload";
     }
 
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST)
     public String handleFileUpload(
-                                   @RequestParam("fileUpload") MultipartFile fileUpload) throws Exception {
+                                   @RequestParam("fileUpload") MultipartFile fileUpload, @RequestParam("album_name") String album_name, @RequestParam("pseudo") String pseudo) throws Exception {
         System.out.println(fileUpload.getSize());
         System.out.println("avant creation user");
-                User user= User.builder().pseudo("abcd").email("mail@mail.fr").password("monmp").role(USER).build();
+               // User user= User.builder().pseudo("abcd").email("mail@mail.fr").password("monmp").role(USER).build();
                // userServices.createUser("monpseudo","mail@mail.fr","monmp", USER);
         System.out.println("in");
-                albumService.insertAlbum("bonjour", user);
-        System.out.println(albumService.findByTitle("bonjour").getTitle());
+        //        albumService.insertAlbum("bonjour", UserAdapter.toUser(userServices.getUserByPseudo("monpseudo")));
+       // System.out.println(albumService.findByTitle("bonjour").getTitle());
 
-        imageService.insertImage(fileUpload.getOriginalFilename(),AlbumAdapter.toAlbumEntity(albumService.findByTitle("bonjour")), fileUpload.getBytes());
+        imageService.insertImage(fileUpload.getOriginalFilename(),AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
         System.out.println(Arrays.equals(imageService.findByTitle(fileUpload.getOriginalFilename()).getDatas(),(fileUpload.getBytes())));
         return "redirect:/fichier";
 

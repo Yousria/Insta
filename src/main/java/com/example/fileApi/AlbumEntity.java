@@ -31,8 +31,7 @@ public class AlbumEntity {
 
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "owner",unique=true)
-
+    @JoinColumn(name = "users",referencedColumnName = "id")
     private User user;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "album")
