@@ -2,15 +2,12 @@ package com.example;
 
 import com.example.post.social.friend.FriendRepository;
 import com.example.post.social.friend.FriendService;
-import com.sun.istack.internal.Nullable;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -46,7 +43,7 @@ public class FriendsNodeTest {
     @Test
     public void should_delete_user(){
         try{
-            friendRepository.deleteUser(5L);
+            friendRepository.removeUser(5L);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -71,7 +68,6 @@ public class FriendsNodeTest {
             friendService.addFriendForUser(1L, 4L);
             friendService.addFriendForUser(1L, 3L);
             friendService.addFriendForUser(2L, 4L);
-
             assertThat(friendService.areFriends(1L, 2L), is(true));
             assertThat(friendService.areFriends(2L, 3L), is(true));
             assertThat(friendService.areFriends(3L, 4L), is(true));

@@ -19,24 +19,58 @@ public class FriendService {
         this.friendRepository = friendRepository;
     }
 
-    public boolean areFriends(Long id_user, Long id_friend){
-        if((friendRepository.areFriends(id_user, id_friend)) == null){
-            System.out.println("Are not friends");
-            return false;
-        }
-        return true;
-    }
+    /*
+     * User gestion
+     */
+
+    /**
+     * @return list of all users' id
+     */
 
     List<FriendDTO> getAllUsers(){
         return Streams.stream(friendRepository.getAllUsers()).map(FriendAdapter::NodeToDto).collect(toList());
     }
 
-    List<FriendDTO> findFriendsForUser(Long iduser){
-        return Streams.stream(friendRepository.findAllFriends(iduser)).map(FriendAdapter::NodeToDto).collect(toList());
-    }
-
+    /**
+     * @param id_user
+     * @return
+     */
     public boolean doesUserExist(Long id_user){
         return friendRepository.getUser(id_user) != null;
+    }
+
+    /**
+     * @param id_user
+     * @return
+     */
+    public boolean addUser(Long id_user) {
+        try{
+            friendRepository.addNewUser(id_user);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean removeUser(Long id_user){
+        try {
+            friendRepository.removeUser(id_user);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Friend gestion
+     */
+
+    public boolean areFriends(Long id_user, Long id_friend){
+        return (friendRepository.areFriends(id_user, id_friend)) != null;
+    }
+
+    List<FriendDTO> findFriendsForUser(Long iduser){
+        return Streams.stream(friendRepository.findAllFriends(iduser)).map(FriendAdapter::NodeToDto).collect(toList());
     }
 
     public void addFriendForUser(Long iduser, Long idfriend){
@@ -45,9 +79,5 @@ public class FriendService {
 
     public void removeFriendForUser(Long iduser, Long idfriend){
         friendRepository.deleteFriend(iduser, idfriend);
-    }
-
-    public void addUser(Long id_user) {
-        friendRepository.addNewUser(id_user);
     }
 }
