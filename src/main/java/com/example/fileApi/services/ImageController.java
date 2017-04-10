@@ -1,9 +1,13 @@
 package com.example.fileApi.services;
 
 import com.example.fileApi.AlbumAdapter;
+import com.example.fileApi.AlbumDTO;
 import com.example.fileApi.AlbumEntity;
 import com.example.fileApi.ImageDTO;
+import com.example.loginAPI.Role;
+import com.example.loginAPI.Service.UserServices;
 import com.example.loginAPI.User;
+import com.example.loginAPI.UserAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Arrays;
+
+import static com.example.loginAPI.Role.USER;
+
 /**
  * Created by Nicolas on 09/04/2017.
  */
@@ -23,6 +31,9 @@ import javax.servlet.http.HttpServletRequest;
 public class ImageController {
     @Autowired
     ImageService imageService;
+
+    @Autowired
+    AlbumService albumService;
 
 
     @RequestMapping(value = "/fichier", method = RequestMethod.GET)
@@ -33,15 +44,19 @@ public class ImageController {
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST)
     public String handleFileUpload(
                                    @RequestParam("fileUpload") MultipartFile fileUpload) throws Exception {
-System.out.println("in");
-                 AlbumEntity album = new AlbumEntity();
-                 album.setTitle("abc");
-                System.out.println("Saving file: " + fileUpload.getOriginalFilename());
-                imageService.insertImage(fileUpload.getOriginalFilename(),album, fileUpload.getBytes());
+        System.out.println(fileUpload.getSize());
+        System.out.println("avant creation user");
+                User user= User.builder().pseudo("abcd").email("mail@mail.fr").password("monmp").role(USER).build();
+               // userServices.createUser("monpseudo","mail@mail.fr","monmp", USER);
+        System.out.println("in");
+                albumService.insertAlbum("bonjour", user);
+        System.out.println(albumService.findByTitle("bonjour").getTitle());
+
+        imageService.insertImage(fileUpload.getOriginalFilename(),AlbumAdapter.toAlbumEntity(albumService.findByTitle("bonjour")), fileUpload.getBytes());
+        System.out.println(Arrays.equals(imageService.findByTitle(fileUpload.getOriginalFilename()).getDatas(),(fileUpload.getBytes())));
+        return "redirect:/fichier";
 
 
 
-
-        return "in";
     }
 }

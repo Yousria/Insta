@@ -19,4 +19,7 @@ public interface CommentService {
 
     @Transactional
     List<CommentDTO> getCommentsByImageEntity(Long imageEntityId);
+
+    @Transactional
+    List<CommentDTO> getCommentByUser(Long imageEntityId);
 }

@@ -47,7 +47,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public ImageDTO insertImage(String title, AlbumEntity album,byte[] datas){
+    public ImageDTO insertImage(String title, AlbumEntity album, byte[] datas){
         ImageEntity imageEntity = ImageEntity.builder()
                 .likescore(0)
                 .dislikescore(0)
@@ -55,7 +55,10 @@ public class ImageServiceImpl implements ImageService {
                 .datas(datas)
                 .album(album)
                 .build();
+        System.out.println("in");
         imageRepository.save(imageEntity);
+        System.out.println("in");
+        imageRepository.flush();
         return ImageAdapter.toImageDTO(imageEntity);
     }
 
@@ -74,10 +77,10 @@ public class ImageServiceImpl implements ImageService {
 
 
 
-    @Override
+ /*   @Override
     public List<ImageDTO> getImages(AlbumEntity album) {
 
         return ImageAdapter.toListImageDTO(album.getImageEntityList());
-    }
+    }*/
 
 }

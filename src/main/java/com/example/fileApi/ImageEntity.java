@@ -36,14 +36,14 @@ public class ImageEntity {
     @Column
     private Integer dislikescore;
 
-    @Column
+    @Column(length = 255000)
     private byte[] datas;
 
-    @ManyToOne(cascade= ALL)
-    @JoinColumn(name = "album", referencedColumnName="id")
-    private AlbumEntity album;
+    @ManyToOne(cascade =CascadeType.DETACH)
+    @JoinColumn(name = "album_photo")
+    protected AlbumEntity album;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
-    private List<CommentEntity> commentEntityList;
+   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+    private List<CommentEntity> commentEntityList;*/
 
 }
