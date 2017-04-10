@@ -1,9 +1,13 @@
 package com.example.loginAPI;
 
+import com.example.fileApi.AlbumEntity;
 import lombok.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import java.util.List;
 
 import static javax.persistence.EnumType.STRING;
 
@@ -21,10 +25,10 @@ import static javax.persistence.EnumType.STRING;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String pseudo;
 
     @Column
@@ -41,4 +45,6 @@ public class User {
 
     @Column
     private String token;
+
+
 }

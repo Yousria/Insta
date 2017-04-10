@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by kokoghlanian on 07/03/2017.
@@ -47,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public List<CommentDTO> getCommentsByImageEntity(Long imageEntityId){
 
-        List<CommentEntity> commentList = commentRepository.findByImageEntity(imageEntityId);
+        List<CommentEntity> commentList = commentRepository.getCommentsByImageEntity(imageEntityId);
         List<CommentDTO> commentListDto = new ArrayList<>();
         for(CommentEntity comment : commentList)
         {
@@ -55,4 +56,24 @@ public class CommentServiceImpl implements CommentService {
         }
         return commentListDto;
     }
+
+    @Override
+    @Transactional
+    public List<CommentDTO> getCommentByUser(Long userId){
+
+        List<CommentEntity> commentList = commentRepository.getCommentByUser(userId);
+        List<CommentDTO> commentListDto = new ArrayList<>();
+        for(CommentEntity comment : commentList)
+        {
+            commentListDto.add(CommentAdapter.toCommentDTO(comment));
+        }
+        return commentListDto;
+    }
+
+    @Override
+    public CommentDTO findById(Long idComment) {
+        Optional<CommentEntity> comment = commentRepository.findById(idComment);
+        return CommentAdapter.toCommentDTO(comment.get());
+    }
+
 }

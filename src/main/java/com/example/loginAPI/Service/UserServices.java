@@ -66,7 +66,6 @@ public class UserServices {
 
     @Transactional
     public UserDto createUser(String pseudo, String email, String password, Role role) {
-
         User user = User.builder()
                 .pseudo(pseudo)
                 .email(email)
@@ -79,16 +78,20 @@ public class UserServices {
     }
 
     @Transactional
-    public UserDto saveUser(UserDto dto) {
-        User user = UserAdapter.toUser(dto);
+    public UserDto saveUser(User user) {
+        user.setToken(createToken(user.getPseudo(), user.getPassword()));
         userRepository.save(user);
-        return dto;
+        return UserAdapter.toDto(user);
     }
 
     @Transactional(readOnly = true)
     public UserDto getUserByPseudo(String pseudo) {
         Optional<User> user = userRepository.findByPseudo(pseudo);
-        return UserAdapter.toDto(user.get());
+        if(user.isPresent()) {
+            return UserAdapter.toDto(user.get());
+        }else{
+            return null;
+        }
     }
 
     @Transactional(readOnly = true)
@@ -109,11 +112,10 @@ public class UserServices {
 
     @Transactional(readOnly = true)
     public boolean verifyUser(String pseudo, String password){
-        User user = userRepository.findByPseudo(pseudo).get();
-        if(user == null){
+        Optional<User> user = userRepository.findByPseudo(pseudo);
+        if(!user.isPresent()) {
             return false;
-        }
-        if(!passwordEncoder.matches(password, user.getPassword())){
+        }else if(!passwordEncoder.matches(password, user.get().getPassword())){
             return false;
         }
         return true;

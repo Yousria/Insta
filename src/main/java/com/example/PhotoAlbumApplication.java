@@ -17,7 +17,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @EnableNeo4jRepositories("com.example.post.social.friend")
 @EnableTransactionManagement
 public class PhotoAlbumApplication {
-    @Bean
+    /*@Bean
     public SessionFactory sessionFactory() {
         return new SessionFactory(configuration(), "com.example.post.social.friend");
     }
@@ -35,7 +35,7 @@ public class PhotoAlbumApplication {
     public Neo4jTransactionManager transactionManager() {
         return new Neo4jTransactionManager(sessionFactory());
     }
-
+    */
 	public static void main(String[] args) {
 		SpringApplication.run(PhotoAlbumApplication.class, args);
 	}

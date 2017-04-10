@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,6 +16,15 @@ public interface AlbumRepository extends JpaRepository<AlbumEntity, Long> {
     @Modifying
     int updateTitle(@Param("new_title") String title, @Param("id") Long id);
 
-    Optional<AlbumEntity> findById(Long id);
-    Optional<AlbumEntity> findByTitle(String title);
+    @Query(nativeQuery = true,value="select ae.* from album ae where ae.id = :id")
+    Optional<AlbumEntity> findById(@Param("id")Long id);
+
+    @Query(nativeQuery = true,value="Select ae.* from album ae where ae.title = :title")
+    Optional<AlbumEntity> findByTitle(@Param("title") String title);
+
+    @Query(nativeQuery = true,value="Select top 1 ae.* from album ae left join users where ae.title = :title and users.pseudo=:pseudo")
+    Optional<AlbumEntity> findByTitleAndPseudo(@Param("title") String title,@Param("pseudo") String pseudo);
+
+   /* @Query("Select * from album where  user.id= :user_id")
+    List<AlbumEntity> findByUser(@Param("user") Long user_id);*/
 }

@@ -13,8 +13,8 @@ import java.util.List;
 public interface AlbumService {
     AlbumDTO insertAlbum(String title,User user);
     void updateTitle(AlbumEntity album, String title);
-    List<ImageDTO> getImages(AlbumEntity albums);
     AlbumDTO findById(Long id);
     AlbumDTO findByTitle(String title);
+    AlbumDTO findByTitleAndPseudo(String title,String pseudo);
 
 }

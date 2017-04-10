@@ -15,7 +15,7 @@ public class ImageAdapter {
                 .dislikescore(imageEntity.getDislikescore())
                 .title(imageEntity.getTitle())
                 .id(imageEntity.getId())
-                .commentEntityList(imageEntity.getCommentEntityList())
+                //.commentEntityList(imageEntity.getCommentEntityList())
                 .datas(imageEntity.getDatas())
                 .likescore(imageEntity.getLikescore()).build();
     }
@@ -28,8 +28,8 @@ public class ImageAdapter {
                 .dislikescore(imageDto.getDislikescore())
                 .title(imageDto.getTitle())
                 .likescore(imageDto.getLikescore())
-                .datas(imageDto.getDatas())
-                .commentEntityList(imageDto.getCommentEntityList()).build();
+                .datas(imageDto.getDatas()).build();
+                //.commentEntityList(imageDto.getCommentEntityList()).build();
     }
 
     public static List<ImageDTO> toListImageDTO(List<ImageEntity> imageEntityList){

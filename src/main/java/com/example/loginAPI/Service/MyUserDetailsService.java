@@ -1,9 +1,11 @@
 package com.example.loginAPI.Service;
 
+import com.example.loginAPI.Role;
 import com.example.loginAPI.User;
 import com.example.loginAPI.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,7 +32,13 @@ public class MyUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.findByPseudo(s).get();
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        return new org.springframework.security.core.userdetails.User(user.getPseudo(), user.getPassword(), grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(user.getPseudo(), user.getPassword(), getAuthorities(user));
+    }
+
+    private Set<GrantedAuthority> getAuthorities(User user){
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getRole().toString());
+        authorities.add(grantedAuthority);
+        return authorities;
     }
 }

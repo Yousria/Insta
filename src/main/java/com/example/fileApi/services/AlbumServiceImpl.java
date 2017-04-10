@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Nicolas on 09/04/2017.
@@ -53,8 +54,12 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<ImageDTO> getImages(AlbumEntity album) {
-        return ImageAdapter.toListImageDTO(album.getImageEntityList());
+    @Transactional(readOnly = true)
+    public AlbumDTO findByTitleAndPseudo(String title, String pseudo) {
+        Optional<AlbumEntity> albumEntityOptional =albumRepository.findByTitleAndPseudo(title,pseudo);
+        if(albumEntityOptional.isPresent())
+            return AlbumAdapter.toAlbumDTO(albumEntityOptional.get());
+        return null;
     }
 
 
