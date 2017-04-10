@@ -35,8 +35,13 @@ public class CommentController {
         return commentService.updateComment(idComment,comment);
     }
 
+    @GetMapping("/{idImageEntity}")
+    public List<CommentDTO> getCommentsByImageEntity(@PathVariable Long idImageEntity){
+        return commentService.getCommentsByImageEntity(idImageEntity);
+    }
+
     @GetMapping("/{idUser}")
-    public List<CommentDTO> getCommentsByImageEntity(@PathVariable Long idUser){
+    public List<CommentDTO> getCommentsByUser(@PathVariable Long idUser){
         return commentService.getCommentsByImageEntity(idUser);
     }
 
