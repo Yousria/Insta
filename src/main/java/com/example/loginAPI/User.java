@@ -2,6 +2,7 @@ package com.example.loginAPI;
 
 import com.example.fileApi.AlbumEntity;
 import lombok.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
