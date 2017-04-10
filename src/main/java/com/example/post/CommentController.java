@@ -31,8 +31,10 @@ public class CommentController {
     }
 
     @PostMapping("/{idComment}/{comment}")
-    public CommentDTO updateComment(@PathVariable Long idComment,@PathVariable String comment) {
-        return commentService.updateComment(idComment,comment);
+    public CommentDTO updateComment(@PathVariable Long idComment,@PathVariable String comment, String token) {
+        if(userServices.verifyToken(token))
+            return commentService.updateComment(idComment,comment);
+        return null;
     }
 
     @GetMapping("/{idImageEntity}")
@@ -42,14 +44,22 @@ public class CommentController {
 
     @GetMapping("/{idUser}")
     public List<CommentDTO> getCommentsByUser(@PathVariable Long idUser){
-        return commentService.getCommentsByImageEntity(idUser);
+        return commentService.getCommentByUser(idUser);
+    }
+
+    @GetMapping("/{idComment}")
+    public CommentDTO getCommentsById(@PathVariable Long idComment){
+        return commentService.findById(idComment);
     }
 
     @PostMapping("/{pseudo}/{imageid}/{comment}")
-    public CommentDTO insertComment(@PathVariable String pseudo,String comment, Long imageid){
-        User user = UserAdapter.toUser(userServices.getUserByPseudo(pseudo));
-        ImageEntity imageEntity = ImageAdapter.toImageEntity(imageService.findById(imageid));
-        return commentService.insertComment(comment,user,imageEntity);
-    }
+    public CommentDTO insertComment(@PathVariable String pseudo,String comment, Long imageid, String token){
+        if(userServices.verifyToken(token)){
+                User user = UserAdapter.toUser(userServices.getUserByPseudo(pseudo));
+                ImageEntity imageEntity = ImageAdapter.toImageEntity(imageService.findById(imageid));
+                return commentService.insertComment(comment, user, imageEntity);
+            }
+            return null;
+        }
 
 }

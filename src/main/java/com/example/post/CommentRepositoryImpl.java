@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -22,4 +23,6 @@ public interface CommentRepositoryImpl extends JpaRepository<CommentEntity, Long
 
     @Query("select ce from CommentEntity ce where ce.user.id = :id_user")
     List<CommentEntity> getCommentByUser(@Param("id_user")Long id);
+
+    Optional<CommentEntity> findById(Long id);
 }

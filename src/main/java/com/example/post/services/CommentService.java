@@ -17,9 +17,9 @@ public interface CommentService {
 
     CommentDTO insertComment(String comment, User user , ImageEntity imageEntity);
 
-    @Transactional
     List<CommentDTO> getCommentsByImageEntity(Long imageEntityId);
 
-    @Transactional
     List<CommentDTO> getCommentByUser(Long imageEntityId);
+
+    CommentDTO findById(Long idComment);
 }
