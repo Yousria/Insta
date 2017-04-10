@@ -40,7 +40,6 @@ public class CommentTest {
     @Test
     public void should_find_comment(){
 
-
         User user = User.builder().pseudo("pseudo").email("mail@mail.fr").password("monmp").role(USER).build();
         albumService.insertAlbum("bonjour", user);
         ImageDTO imageEntity =  imageService.insertImage("coucou", AlbumAdapter.toAlbumEntity(albumService.findByTitle("bonjour")),null);
@@ -58,5 +57,17 @@ public class CommentTest {
         ImageDTO imageEntity =  imageService.insertImage("coucou", AlbumAdapter.toAlbumEntity(albumService.findByTitle("bonjour")),null);
         CommentDTO comment =  commentService.insertComment("BONJOURBONJOUR",user,ImageAdapter.toImageEntity(imageEntity));
         assertThat(comment.getComment()).isEqualTo("BONJOURBONJOUR");
+    }
+
+    @Test
+    public void should_update_comment(){
+
+        User user = User.builder().pseudo("pseudo").email("mail@mail.fr").password("monmp").role(USER).build();
+        albumService.insertAlbum("bonjour", user);
+        ImageDTO imageEntity =  imageService.insertImage("coucou", AlbumAdapter.toAlbumEntity(albumService.findByTitle("bonjour")),null);
+        commentService.insertComment("BONJOURBONJOUR",user,ImageAdapter.toImageEntity(imageEntity));
+        Long id = 1L;
+        commentService.updateComment(id,"SALUTTOI");
+        assertThat(commentService.getCommentsByImageEntity(id).get(0).getComment()).isEqualTo("SALUTTOI");
     }
 }

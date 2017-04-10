@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface CommentService {
 
-    CommentDTO updateComment(Long id, String comment);
+    void updateComment(Long id, String comment);
 
     CommentDTO insertComment(String comment, User user , ImageEntity imageEntity);
 

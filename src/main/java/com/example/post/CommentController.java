@@ -31,10 +31,9 @@ public class CommentController {
     }
 
     @PostMapping("/{idComment}/{comment}")
-    public CommentDTO updateComment(@PathVariable Long idComment,@PathVariable String comment, String token) {
+    public void updateComment(@PathVariable Long idComment,@PathVariable String comment, String token) {
         if(userServices.verifyToken(token))
-            return commentService.updateComment(idComment,comment);
-        return null;
+            commentService.updateComment(idComment,comment);
     }
 
     @GetMapping("/{idImageEntity}")

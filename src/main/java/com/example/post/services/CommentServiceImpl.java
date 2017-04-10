@@ -26,8 +26,8 @@ public class CommentServiceImpl implements CommentService {
     CommentRepositoryImpl commentRepository;
 
     @Override
-    public CommentDTO updateComment(Long id, String comment) {
-        return CommentAdapter.toCommentDTO(commentRepository.updateComment(comment,id));
+    public void updateComment(Long id, String comment) {
+       commentRepository.updateComment(comment,id);
     }
 
     @Override
