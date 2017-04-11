@@ -1,21 +1,26 @@
 package com.example;
 
-import com.example.loginAPI.User;
-import com.example.loginAPI.UserAdapter;
-import com.example.loginAPI.UserData;
+import com.example.loginAPI.*;
+import com.example.loginAPI.Service.UserServiceController;
+import com.example.loginAPI.Service.UserServices;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
+import com.jayway.restassured.parsing.Parser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.validation.constraints.NotNull;
 
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.JSON;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 /**
@@ -28,6 +33,12 @@ public class UserServiceControllerIT {
 
     @LocalServerPort
     private int localServerPort;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserServices userServices;
 
     @Before
     public void init(){
@@ -45,6 +56,9 @@ public class UserServiceControllerIT {
 
     @Test
     public void should_create_user(){
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6Inl"+
+                "vdXlvdSIsImFkbWluIjpmYWxzZSwidXNlcm5hbWUiOiJZb3Vz"+
+                "In0.ODcAuG1AASBswKzkW1l5a3NuECK7PHA2FjepWm5vIis";
         User user = User.builder()
                 .pseudo("Yous")
                 .email("yous@yous.com")
@@ -56,9 +70,8 @@ public class UserServiceControllerIT {
                 .when().post("users")
                 .then().statusCode(200)
                 .body("pseudo", equalTo("Yous"))
-                .body("email", equalTo("yous@yous.com"));
-                //.body("password", equalTo("youyou"))
-                //.body("token", hasSize(256));
+                .body("email", equalTo("yous@yous.com"))
+                .body("token", equalTo(token));
     }
     @Test
     public void should_get_user_by_pseudo(){
@@ -71,9 +84,49 @@ public class UserServiceControllerIT {
     }
 
     @Test
-    public void should_verify_token(){
-
+    public void should_verify_user(){
+        userServices.createUser("yous", "yous@yous.fr",
+                            "youyou", Role.USER);
+        RestAssured.registerParser("text/plain", Parser.XML);
+        given().log().all()
+                .when().get("/users/verify?pseudo=yous&password=youyou")
+                .then().log().all()
+                .statusCode(200)
+                .contentType("text/plain")
+                .body(containsString("user verified!"));
     }
+
+    @Test
+    public void should_get_error_wrong_username_or_password(){
+        RestAssured.registerParser("text/plain", Parser.XML);
+        given().log().all()
+                .when().get("/users/verify?pseudo=haha&password=hihi")
+                .then().log().all()
+                .statusCode(200)
+                .contentType("text/plain")
+                .body(containsString("Error in username or password"));
+    }
+
+    @Test
+    public void should_verify_user_2(){
+        userServices.createUser("yous", "yous@yous.fr",
+                "youyou", Role.USER);
+        assertThat(userServices.verifyUser("yous", "youyou"))
+                .isEqualTo(true);
+        assertThat(userServices.verifyUser("haha", "hihi"))
+                .isEqualTo(false);
+    }
+
+    @Test
+    public void should_verify_token(){
+        UserDto dto = userServices.createUser("yous", "yous@yous.fr",
+                "youyou", Role.USER);
+        System.out.println(dto.getToken());
+        assertThat(userServices.verifyToken(dto.getToken()))
+                .isEqualTo(true);
+    }
+
+
 
 
 

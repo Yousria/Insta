@@ -27,7 +27,7 @@ public class UserRepositoryTest {
     UserRepository userRepository;
 
     @Test
-    public void should_find_by_pseudo(){
+    public void should_find_by_username(){
         String pseudoToSearch = "first";
         Optional<User> user = userRepository.findByPseudo(pseudoToSearch);
         assertThat(user.get().getId()).isEqualTo(1);
@@ -48,7 +48,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void should_find_the_right_pseudo(){
+    public void should_find_the_right_username(){
         String pseudoExpected = "second";
         String pseudoFound = userRepository.getPseudo("fifgnvoirg657HVT4");
         assertThat(pseudoFound).isEqualTo(pseudoExpected);
