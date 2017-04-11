@@ -35,9 +35,6 @@ public class ImageController {
 
     @RequestMapping(value = "/fichier", method = RequestMethod.GET)
     public String showUploadForm(Model model) {
-        if(albumService.findByTitleAndPseudo("bonjour","monpseudo")==null) {
-            albumService.insertAlbum("bonjour", UserAdapter.toUser(userServices.getUserByPseudo("monpseudo")));
-        }
 
         return "upload";
     }
@@ -64,7 +61,7 @@ public class ImageController {
         return imageService.getRandomImages();
     }
     @ResponseBody
-    @GetMapping(value = "/likeImage/{id}")
+    @RequestMapping(value = "/likeImage/{id}", method = RequestMethod.POST)
     public ImageDTO likeImage(@PathVariable("id") Long id){
         ImageDTO imageDTO=imageService.findById(id);
         imageService.updateDislike(ImageAdapter.toImageEntity(imageDTO));
@@ -72,7 +69,7 @@ public class ImageController {
         return imageDTO;
     }
     @ResponseBody
-    @GetMapping(value = "/dislikeImage/{id}")
+    @RequestMapping(value = "/dislikeImage/{id}", method = RequestMethod.POST)
     public ImageDTO dislikeImage(@PathVariable("id") Long id){
         ImageDTO imageDTO=imageService.findById(id);
         imageService.updateLike(ImageAdapter.toImageEntity(imageDTO));
@@ -80,7 +77,7 @@ public class ImageController {
         return imageDTO;
     }
     @ResponseBody
-    @GetMapping(value = "/UpdateTitleImage/{id}")
+    @RequestMapping(value = "/UpdateTitleImage/{id}", method = RequestMethod.POST)
     public ImageDTO updateTitleImage(@PathVariable("id") Long id,@RequestParam("title") String title){
         ImageDTO imageDTO=imageService.findById(id);
         imageService.updateTitle(ImageAdapter.toImageEntity(imageDTO),title);
