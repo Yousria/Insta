@@ -70,13 +70,10 @@ public class LoginController {
         model.addAttribute("pseudo", userForm.getPseudo());
         model.addAttribute("email", userForm.getEmail());
         model.addAttribute("password", userForm.getPassword());
-
-        userServices.saveUser(User.builder()
-                                .pseudo(userForm.getPseudo())
-                                .password(userForm.getPassword())
-                                .email(userForm.getEmail())
-                                .role(Role.ADMIN)
-                                .build());
+        userServices.createUser(userForm.getPseudo(),
+                                userForm.getEmail(),
+                                userForm.getPassword(),
+                                Role.USER);
         securityService.autoLogin(userForm.getPseudo(), userForm.getPassword());
         return "redirect:home";
     }

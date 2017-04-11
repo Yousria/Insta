@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,10 +78,10 @@ public class ImageServiceImpl implements ImageService {
 
 
 
- /*   @Override
-    public List<ImageDTO> getImages(AlbumEntity album) {
+   @Override
+    public List<ImageDTO> getRandomImages() {
 
-        return ImageAdapter.toListImageDTO(album.getImageEntityList());
-    }*/
+        return ImageAdapter.toListImageDTO(imageRepository.findRandom());
+    }
 
 }

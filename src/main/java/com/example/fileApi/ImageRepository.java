@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,7 +33,8 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
     @Query(nativeQuery = true,value="Select ie.* from image ie where ie.id = :id")
     Optional<ImageEntity> findById(@Param("id")Long id);
 
-
+    @Query(nativeQuery = true, value="Select * from image ORDER BY RAND() LIMIT 20")
+    List<ImageEntity> findRandom();
 
 
 }
