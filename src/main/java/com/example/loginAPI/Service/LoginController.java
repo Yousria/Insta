@@ -4,6 +4,7 @@ package com.example.loginAPI.Service;
 import com.example.loginAPI.Role;
 import com.example.loginAPI.User;
 import com.example.loginAPI.UserAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ public class LoginController {
     private final SecurityService securityService;
     private final UserValidator userValidator;
 
+    @Autowired
     public LoginController(UserServices userServices, SecurityService securityService, UserValidator userValidator) {
         this.userServices = userServices;
         this.securityService = securityService;
@@ -32,9 +34,12 @@ public class LoginController {
     }
 
     @GetMapping(value = "/home")
-    public String welcome(Model model) {
-        return "welcomePage";
+    public String home(Model model) {
+        return "homePage";
     }
+
+    @GetMapping(value = "/welcome")
+    public String welcome(Model model){ return "welcomePage";}
 
     @GetMapping(value = "/login", produces = "text/html")
     public String getLoginPage(Model model){
@@ -48,7 +53,7 @@ public class LoginController {
     public String login(Model model, @ModelAttribute("pseudo")String pseudo,
                         @ModelAttribute("password")String password) {
         if(userServices.verifyUser(pseudo, password) == true){
-            return "redirect:home";
+            return "redirect:welcome";
         }else{
             return "redirect:error";
         }
@@ -75,6 +80,6 @@ public class LoginController {
                                 userForm.getPassword(),
                                 Role.USER);
         securityService.autoLogin(userForm.getPseudo(), userForm.getPassword());
-        return "redirect:home";
+        return "redirect:welcome";
     }
 }
