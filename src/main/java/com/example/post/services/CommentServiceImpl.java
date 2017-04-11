@@ -1,6 +1,5 @@
 package com.example.post.services;
 
-
 import com.example.loginAPI.User;
 import com.example.post.CommentAdapter;
 import com.example.post.CommentDTO;
