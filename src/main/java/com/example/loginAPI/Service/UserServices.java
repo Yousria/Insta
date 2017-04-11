@@ -116,6 +116,7 @@ public class UserServices {
         if(!user.isPresent()) {
             return false;
         }else if(!passwordEncoder.matches(password, user.get().getPassword())){
+            System.out.println(password + "   " + user.get().getPassword());
             return false;
         }
         return true;

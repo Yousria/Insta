@@ -70,6 +70,11 @@ public class UserServiceControllerIT {
                 .body("password", equalTo("second"));
     }
 
+    @Test
+    public void should_verify_token(){
+
+    }
+
 
 
 }
