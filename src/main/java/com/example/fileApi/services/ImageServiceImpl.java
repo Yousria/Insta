@@ -75,10 +75,13 @@ public class ImageServiceImpl implements ImageService {
         return ImageAdapter.toImageDTO(imageRepository.findByTitle(title).get(0));
     }
 
+    @Override
+    public List<ImageDTO> getByAlbum(Long id) {
+        return ImageAdapter.toListImageDTO(imageRepository.findByAlbum(id));
+    }
 
 
-
-   @Override
+    @Override
     public List<ImageDTO> getRandomImages() {
 
         return ImageAdapter.toListImageDTO(imageRepository.findRandom());

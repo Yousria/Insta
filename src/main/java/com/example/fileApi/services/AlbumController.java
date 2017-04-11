@@ -41,11 +41,7 @@ public class AlbumController {
         return "redirect:/fichier";
 
     }
-    @ResponseBody
-    @GetMapping(value="/ImagesAlbum/{id}")
-    public List<ImageEntity> getAllImagesFromAlbum(@PathVariable("id") Long id){
-        return albumService.findById(id).getImageEntityList();
-    }
+
 
 
 }

@@ -33,6 +33,9 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
     @Query(nativeQuery = true,value="Select ie.* from image ie where ie.id = :id")
     Optional<ImageEntity> findById(@Param("id")Long id);
 
+    @Query(nativeQuery = true,value="Select ie.* from image ie left join album where album.id = :id")
+    List<ImageEntity> findByAlbum(@Param("id")Long id);
+
     @Query(nativeQuery = true, value="Select * from image ORDER BY RAND() LIMIT 20")
     List<ImageEntity> findRandom();
 

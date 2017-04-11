@@ -53,6 +53,8 @@ public class AlbumServiceImpl implements AlbumService {
         return AlbumAdapter.toAlbumDTO(albumRepository.findByTitle(title).get());
     }
 
+
+
     @Override
     @Transactional(readOnly = true)
     public AlbumDTO findByTitleAndPseudo(String title, String pseudo) {

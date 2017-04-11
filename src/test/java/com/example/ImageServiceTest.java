@@ -48,6 +48,7 @@ public class ImageServiceTest {
     ImageEntity imageEntity;
     ImageEntity imageEntity2;
     User user;
+    AlbumEntity albumEntity;
 
     @Before
     public void initialize_data(){
@@ -59,7 +60,7 @@ public class ImageServiceTest {
                 .role(USER)
                 .build();
 
-        AlbumEntity albumEntity =
+       albumEntity =
                 AlbumAdapter.toAlbumEntity(albumService.insertAlbum("bonjour", user));
 
         try {
@@ -85,17 +86,17 @@ public class ImageServiceTest {
 
     @Test
     public void should_return_image1_with_id(){
-        ImageDTO imageEntityResult= imageService.findById(imageEntity.getId());
-        assertThat(imageEntityResult.getId()).isEqualTo(imageEntity.getId());
-        assertThat(imageEntityResult.getTitle()).isEqualTo(imageEntity.getTitle());
-        assertThat(Arrays.equals( imageEntityResult.getDatas(),imageEntity.getDatas()));
+        ImageDTO imageDTOResult= imageService.findById(imageEntity.getId());
+        assertThat(imageDTOResult.getId()).isEqualTo(imageEntity.getId());
+        assertThat(imageDTOResult.getTitle()).isEqualTo(imageEntity.getTitle());
+        assertThat(Arrays.equals( imageDTOResult.getDatas(),imageEntity.getDatas()));
     }
     @Test
     public void should_return_image1_with_title(){
-        ImageDTO imageEntityResult= imageService.findByTitle(imageEntity2.getTitle());
-        assertThat(imageEntityResult.getId()).isEqualTo(imageEntity2.getId());
-        assertThat(imageEntityResult.getTitle()).isEqualTo(imageEntity2.getTitle());
-        assertThat(Arrays.equals( imageEntityResult.getDatas(),imageEntity2.getDatas()));
+        ImageDTO imageDTOResult= imageService.findByTitle(imageEntity2.getTitle());
+        assertThat(imageDTOResult.getId()).isEqualTo(imageEntity2.getId());
+        assertThat(imageDTOResult.getTitle()).isEqualTo(imageEntity2.getTitle());
+        assertThat(Arrays.equals( imageDTOResult.getDatas(),imageEntity2.getDatas()));
     }
     @Test
     public void should_update_dislike(){
@@ -114,6 +115,11 @@ public class ImageServiceTest {
         imageService.updateTitle(imageEntity2,"newtitle");
         ImageDTO imageDTO= imageService.findById(imageEntity2.getId());
         assertThat(imageDTO.getTitle().equals("newtitle"));
+    }
+
+    @Test
+    public void should_return_the_two_image_by_album(){
+        imageService.getByAlbum(albumEntity.getId());
     }
 
 

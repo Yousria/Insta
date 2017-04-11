@@ -17,4 +17,5 @@ public interface ImageService {
     List<ImageDTO> getRandomImages();
     ImageDTO findById(Long id);
     ImageDTO findByTitle(String title);
+    List<ImageDTO> getByAlbum(Long id);
 }
