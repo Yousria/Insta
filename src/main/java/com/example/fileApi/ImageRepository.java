@@ -28,7 +28,7 @@ public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
     int updateDislike(@Param("new_dislike") Integer dislikescore, @Param("id") Long id);
 
     @Query(nativeQuery = true,value="Select ie.* from image ie where ie.title = :title")
-    Optional<ImageEntity> findByTitle(@Param("title")String title);
+    List<ImageEntity> findByTitle(@Param("title")String title);
 
     @Query(nativeQuery = true,value="Select ie.* from image ie where ie.id = :id")
     Optional<ImageEntity> findById(@Param("id")Long id);
