@@ -13,7 +13,7 @@ public interface ImageService {
     public void updateLike(ImageEntity imageEntity);
     ImageDTO insertImage(String title, AlbumEntity album, byte[] datas);
     void updateDislike(ImageEntity imageEntity);
-    void updateTitle(ImageEntity imageEntity, String title, String token);
+    void updateTitle(ImageEntity imageEntity, String title);
     List<ImageDTO> getRandomImages();
     ImageDTO findById(Long id);
     ImageDTO findByTitle(String title);

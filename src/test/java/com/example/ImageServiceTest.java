@@ -97,6 +97,24 @@ public class ImageServiceTest {
         assertThat(imageEntityResult.getTitle()).isEqualTo(imageEntity2.getTitle());
         assertThat(Arrays.equals( imageEntityResult.getDatas(),imageEntity2.getDatas()));
     }
+    @Test
+    public void should_update_dislike(){
+        imageService.updateDislike(imageEntity);
+        ImageDTO imageDTO= imageService.findById(imageEntity.getId());
+        assertThat(imageDTO.getDislikescore().equals(imageEntity.getDislikescore()+1));
+    }
+    @Test
+    public void should_update_Like(){
+        imageService.updateLike(imageEntity);
+        ImageDTO imageDTO= imageService.findById(imageEntity.getId());
+        assertThat(imageDTO.getLikescore().equals(imageEntity.getLikescore()+1));
+    }
+    @Test
+    public void should_update_Title(){
+        imageService.updateTitle(imageEntity2,"newtitle");
+        ImageDTO imageDTO= imageService.findById(imageEntity2.getId());
+        assertThat(imageDTO.getTitle().equals("newtitle"));
+    }
 
 
 

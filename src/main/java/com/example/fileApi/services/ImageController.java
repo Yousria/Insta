@@ -63,4 +63,20 @@ public class ImageController {
     public List<ImageDTO> getImageRandom(){
         return imageService.getRandomImages();
     }
+    @ResponseBody
+    @GetMapping(value = "/likeImage/{id}")
+    public ImageDTO likeImage(@PathVariable("id") Long id){
+        ImageDTO imageDTO=imageService.findById(id);
+        imageService.updateDislike(ImageAdapter.toImageEntity(imageDTO));
+        imageDTO=imageService.findById(id);
+        return imageDTO;
+    }
+    @ResponseBody
+    @GetMapping(value = "/dislikeImage/{id}")
+    public ImageDTO dislikeImage(@PathVariable("id") Long id){
+        ImageDTO imageDTO=imageService.findById(id);
+        imageService.updateLike(ImageAdapter.toImageEntity(imageDTO));
+        imageDTO=imageService.findById(id);
+        return imageDTO;
+    }
 }

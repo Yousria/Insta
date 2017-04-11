@@ -39,7 +39,7 @@ public class ImageServiceImpl implements ImageService {
     //Ajouter l'user pour l'update et la création
     @Override
     @Transactional
-    public void updateTitle(ImageEntity imageEntity, String title,String token) {
+    public void updateTitle(ImageEntity imageEntity, String title) {
         if(imageEntity == null)
             throw new IllegalArgumentException();
 
