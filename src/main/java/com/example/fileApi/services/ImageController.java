@@ -79,4 +79,12 @@ public class ImageController {
         imageDTO=imageService.findById(id);
         return imageDTO;
     }
+    @ResponseBody
+    @GetMapping(value = "/UpdateTitleImage/{id}")
+    public ImageDTO updateTitleImage(@PathVariable("id") Long id,@RequestParam("title") String title){
+        ImageDTO imageDTO=imageService.findById(id);
+        imageService.updateTitle(ImageAdapter.toImageEntity(imageDTO),title);
+        imageDTO=imageService.findById(id);
+        return imageDTO;
+    }
 }
