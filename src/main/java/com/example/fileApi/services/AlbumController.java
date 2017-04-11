@@ -1,16 +1,17 @@
 package com.example.fileApi.services;
 
 import com.example.fileApi.AlbumAdapter;
+import com.example.fileApi.ImageDTO;
+import com.example.fileApi.ImageEntity;
 import com.example.loginAPI.Service.UserServices;
 import com.example.loginAPI.UserAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by Nicolas on 09/04/2017.
@@ -39,6 +40,11 @@ public class AlbumController {
 
         return "redirect:/fichier";
 
+    }
+    @ResponseBody
+    @GetMapping(value="/ImagesAlbum/{id}")
+    public List<ImageEntity> getAllImagesFromAlbum(@PathVariable("id") Long id){
+        return albumService.findById(id).getImageEntityList();
     }
 
 
