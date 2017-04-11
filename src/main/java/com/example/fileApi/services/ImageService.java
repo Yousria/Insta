@@ -15,7 +15,7 @@ public interface ImageService {
     ImageDTO insertImage(String title, AlbumEntity album, byte[] datas);
     void updateDislike(ImageEntity imageEntity);
     void updateTitle(ImageEntity imageEntity, String title, String token);
-  //  List<ImageDTO> getImages(AlbumEntity albums);
+    List<ImageDTO> getRandomImages();
     ImageDTO findById(Long id);
     ImageDTO findByTitle(String title);
 }
