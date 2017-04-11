@@ -1,7 +1,9 @@
 package com.example;
 
 import com.example.fileApi.*;
+import com.example.fileApi.services.AlbumService;
 import com.example.fileApi.services.AlbumServiceImpl;
+import com.example.fileApi.services.ImageService;
 import com.example.fileApi.services.ImageServiceImpl;
 import com.example.loginAPI.Service.UserServices;
 import com.example.loginAPI.User;
@@ -11,6 +13,7 @@ import com.example.post.CommentAdapter;
 import com.example.post.CommentDTO;
 import com.example.post.CommentEntity;
 import com.example.post.CommentRepositoryImpl;
+import com.example.post.services.CommentService;
 import com.example.post.services.CommentServiceImpl;
 import org.junit.After;
 import org.junit.Before;
@@ -35,11 +38,11 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class CommentServiceTest {
 
     @Autowired
-    CommentServiceImpl commentService;
+    CommentService commentService;
     @Autowired
-    AlbumServiceImpl albumService;
+    AlbumService albumService;
     @Autowired
-    ImageServiceImpl imageService;
+    ImageService imageService;
     @Autowired
     CommentRepositoryImpl  commentRepository;
 
@@ -74,7 +77,6 @@ public class CommentServiceTest {
 
     }
 
-
     @After
     public void delete(){
         commentRepository.deleteAll();
@@ -86,16 +88,25 @@ public class CommentServiceTest {
         CommentDTO comment =  commentService.insertComment("kokokokokookokoko",user,imageEntity);
         assertThat(comment.getComment()).isEqualTo("kokokokokookokoko");
         commentRepository.delete(CommentAdapter.toComment(comment));
-
     }
 
-
     @Test
-    public void should_find_comment(){
+    public void should_find_comment_by_image_entity(){
 
         assertThat(commentService.getCommentsByImageEntity(imageEntity.getId()).size()).isEqualTo(3);
     }
 
+    @Test
+    public void should_find_comment_by_user(){
+
+        assertThat(commentService.getCommentByUser(user.getId()).size()).isEqualTo(3);
+    }
+
+    @Test
+    public void should_find_comment_by_id(){
+
+        assertThat(commentService.findById(commentOne.getId()).getComment()).isEqualTo("BONJOURBONJOUR");
+    }
 
     @Test
     public void should_update_comment(){
