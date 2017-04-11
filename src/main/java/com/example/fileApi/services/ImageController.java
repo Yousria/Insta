@@ -1,9 +1,6 @@
 package com.example.fileApi.services;
 
-import com.example.fileApi.AlbumAdapter;
-import com.example.fileApi.AlbumDTO;
-import com.example.fileApi.AlbumEntity;
-import com.example.fileApi.ImageDTO;
+import com.example.fileApi.*;
 import com.example.loginAPI.Role;
 import com.example.loginAPI.Service.UserServices;
 import com.example.loginAPI.User;
@@ -11,16 +8,14 @@ import com.example.loginAPI.UserAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static com.example.loginAPI.Role.USER;
 
@@ -43,26 +38,29 @@ public class ImageController {
         if(albumService.findByTitleAndPseudo("bonjour","monpseudo")==null) {
             albumService.insertAlbum("bonjour", UserAdapter.toUser(userServices.getUserByPseudo("monpseudo")));
         }
-        System.out.println(albumService.findByTitleAndPseudo("bonjour","monpseudo"));
+
         return "upload";
     }
 
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST)
     public String handleFileUpload(
-                                   @RequestParam("fileUpload") MultipartFile fileUpload, @RequestParam("album_name") String album_name, @RequestParam("pseudo") String pseudo) throws Exception {
-        System.out.println(fileUpload.getSize());
-        System.out.println("avant creation user");
-               // User user= User.builder().pseudo("abcd").email("mail@mail.fr").password("monmp").role(USER).build();
-               // userServices.createUser("monpseudo","mail@mail.fr","monmp", USER);
-        System.out.println("in");
-        //        albumService.insertAlbum("bonjour", UserAdapter.toUser(userServices.getUserByPseudo("monpseudo")));
-       // System.out.println(albumService.findByTitle("bonjour").getTitle());
+                                   @RequestParam("fileUpload") MultipartFile fileUpload, @RequestParam("album_name") String album_name, @RequestParam("pseudo") String pseudo,@RequestParam("title") String title) throws Exception {
 
-        imageService.insertImage(fileUpload.getOriginalFilename(),AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
-        System.out.println(Arrays.equals(imageService.findByTitle(fileUpload.getOriginalFilename()).getDatas(),(fileUpload.getBytes())));
+        imageService.insertImage(title,AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
+        System.out.println(imageService.findByTitle(title).getId());
         return "redirect:/fichier";
 
-
-
+    }
+    @ResponseBody
+    @GetMapping(value = "/getImage/{id}")
+    public ImageDTO getImage(@PathVariable("id") Long id){
+        ImageDTO imageDTO=imageService.findById(id);
+        System.out.println(imageDTO.getTitle());
+        return imageDTO;
+    }
+    @ResponseBody
+    @GetMapping(value = "/getRandomImage")
+    public List<ImageDTO> getImageRandom(){
+        return imageService.getRandomImages();
     }
 }
