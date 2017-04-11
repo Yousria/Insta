@@ -39,7 +39,7 @@ public class ImageServiceImpl implements ImageService {
     //Ajouter l'user pour l'update et la création
     @Override
     @Transactional
-    public void updateTitle(ImageEntity imageEntity, String title,String token) {
+    public void updateTitle(ImageEntity imageEntity, String title) {
         if(imageEntity == null)
             throw new IllegalArgumentException();
 
@@ -56,9 +56,9 @@ public class ImageServiceImpl implements ImageService {
                 .datas(datas)
                 .album(album)
                 .build();
-        System.out.println("in");
+
         imageRepository.save(imageEntity);
-        System.out.println("in");
+
         imageRepository.flush();
         return ImageAdapter.toImageDTO(imageEntity);
     }
@@ -72,7 +72,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     @Transactional(readOnly = true)
     public ImageDTO findByTitle(String title) {
-        return ImageAdapter.toImageDTO(imageRepository.findByTitle(title).get());
+        return ImageAdapter.toImageDTO(imageRepository.findByTitle(title).get(0));
     }
 
 
