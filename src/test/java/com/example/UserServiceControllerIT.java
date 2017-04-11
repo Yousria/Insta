@@ -126,6 +126,20 @@ public class UserServiceControllerIT {
                 .isEqualTo(true);
     }
 
+    @Test
+    public void should_verify_token_2(){
+        UserDto dto = userServices.createUser("yous", "yous@yous.fr",
+                "youyou", Role.USER);
+        given().log().all()
+                .contentType("application/json")
+                .body(dto)
+                .when().post("/users/token")
+                .then().log().all()
+                .statusCode(200)
+                .contentType("text/plain")
+                .body(containsString("true"));
+    }
+
 
 
 
