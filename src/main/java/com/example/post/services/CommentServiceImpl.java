@@ -76,4 +76,9 @@ public class CommentServiceImpl implements CommentService {
         return CommentAdapter.toCommentDTO(comment.get());
     }
 
+    @Override
+    public void deleteComment(CommentEntity comment) {
+        commentRepository.delete(comment);
+    }
+
 }
