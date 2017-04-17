@@ -49,7 +49,7 @@ public class FriendsNodeTest {
         }
     }
 
-    @Test
+    /*@Test
     public void should_user_exist(){
         assertThat(friendService.doesUserExist(1L), is(true));
         assertThat(friendService.doesUserExist(2L), is(true));
@@ -57,7 +57,7 @@ public class FriendsNodeTest {
         assertThat(friendService.doesUserExist(4L), is(true));
         assertThat(friendService.doesUserExist(5L), is(true));
         assertThat(friendService.doesUserExist(6L), is(false));
-    }
+    }*/
 
     @Test
     public void should_add_new_friend(){
