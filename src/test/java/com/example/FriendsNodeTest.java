@@ -24,7 +24,7 @@ public class FriendsNodeTest {
     @Autowired
     FriendRepository friendRepository;
 
-    @Before
+    /*@Before
     public void should_configure_test(){
         try {
             friendRepository.emptyDB();
@@ -47,7 +47,7 @@ public class FriendsNodeTest {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
 
     /*@Test
     public void should_user_exist(){
@@ -59,7 +59,7 @@ public class FriendsNodeTest {
         assertThat(friendService.doesUserExist(6L), is(false));
     }*/
 
-    @Test
+    /*@Test
     public void should_add_new_friend(){
         try{
             friendService.addFriendForUser(1L, 2L);
@@ -87,5 +87,5 @@ public class FriendsNodeTest {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
 }
