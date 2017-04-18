@@ -64,5 +64,11 @@ public class AlbumServiceImpl implements AlbumService {
         return null;
     }
 
+    @Override
+    public List<AlbumDTO> findAllByUser(String pseudo) {
+        List<AlbumEntity> albumEntities = albumRepository.findAllByUser(pseudo);
+        return AlbumAdapter.listToAlbumDTO(albumEntities);
+    }
+
 
 }

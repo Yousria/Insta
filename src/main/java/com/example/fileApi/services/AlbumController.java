@@ -1,6 +1,7 @@
 package com.example.fileApi.services;
 
 import com.example.fileApi.AlbumAdapter;
+import com.example.fileApi.AlbumDTO;
 import com.example.fileApi.ImageDTO;
 import com.example.fileApi.ImageEntity;
 import com.example.loginAPI.Service.UserServices;
@@ -32,14 +33,21 @@ public class AlbumController {
         return "redirect:/fichier";
 
     }
-    @RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
-    public String updateTitleAlbum(
+    @RequestMapping(value = "/updateAlbumTitle", method = RequestMethod.POST)
+    public String updateAlbumTitle(
             @RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo,@RequestParam("newName") String newName) throws Exception {
 
         albumService.updateTitle(AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(albumName,pseudo)),newName);
 
         return "redirect:/fichier";
 
+    }
+    @ResponseBody
+    @GetMapping(value = "/getAlbums/{pseudo}")
+    public List<AlbumDTO> getAllAlbum(
+            @PathVariable("pseudo") String pseudo) throws Exception {
+
+        return albumService.findAllByUser(pseudo);
     }
 
 
