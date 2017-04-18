@@ -22,6 +22,7 @@ import static com.example.loginAPI.Role.USER;
 /**
  * Created by Nicolas on 09/04/2017.
  */
+@CrossOrigin
 @Controller
 public class ImageController {
     @Autowired

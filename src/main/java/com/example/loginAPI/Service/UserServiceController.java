@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by bench on 08/03/2017.
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UserServiceController {

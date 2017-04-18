@@ -16,6 +16,10 @@ import java.util.List;
 /**
  * Created by Nicolas on 09/04/2017.
  */
+
+@CrossOrigin
+@RestController
+@RequestMapping("/albums")
 public class AlbumController {
     @Autowired
     AlbumService albumService;
