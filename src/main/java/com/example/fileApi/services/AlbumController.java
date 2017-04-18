@@ -36,7 +36,7 @@ public class AlbumController {
         return "redirect:/fichier";
 
     }
-    @RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateAlbum", method = RequestMethod.POST)
     public String updateTitleAlbum(
             @RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo,@RequestParam("newName") String newName) throws Exception {
 
