@@ -1,17 +1,23 @@
 package com.example;
 
+import org.neo4j.ogm.config.Configuration;
+import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
+import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @org.springframework.context.annotation.Configuration
 @SpringBootApplication
-//@EnableAutoConfiguration
-//@EnableNeo4jRepositories("com.example.post.social.friend")
-//@EnableTransactionManagement
+@EnableAutoConfiguration
+@EnableNeo4jRepositories("com.example.post.social.friend")
+@EnableTransactionManagement
 public class PhotoAlbumApplication {
-    /*@Bean
+    @Bean
     public SessionFactory sessionFactory() {
         return new SessionFactory(configuration(), "com.example.post.social.friend");
     }
@@ -30,18 +36,18 @@ public class PhotoAlbumApplication {
     public Neo4jTransactionManager transactionManager() {
         return new Neo4jTransactionManager(sessionFactory());
     }
-*/
+
 	public static void main(String[] args) {
 		SpringApplication.run(PhotoAlbumApplication.class, args);
 	}
 
-   /* @Bean(name = "multipartResolver")
+   @Bean(name = "multipartResolver")
     public CommonsMultipartResolver getCommonsMultipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(20971520);   // 20MB
         multipartResolver.setMaxInMemorySize(1048576);  // 1MB
         return multipartResolver;
-    }*/
+    }
 
 
 }

@@ -9,6 +9,7 @@ import java.util.List;
  * @author timotheearnauld
  */
 
+@CrossOrigin
 @RestController
 @RequestMapping("/friends/")
 public class FriendController {
