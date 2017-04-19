@@ -32,7 +32,7 @@ public class AlbumController {
     public String addAlbum(
             @RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo) throws Exception {
 
-       albumService.insertAlbum(albumName, UserAdapter.toUser(userServices.getUserByPseudo(pseudo)));
+       albumService.insertAlbum(albumName, userServices.getUserByPseudo(pseudo));
 
         return "redirect:/fichier";
 

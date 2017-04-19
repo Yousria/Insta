@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.loginAPI.Role;
 import com.example.loginAPI.Service.UserServices;
+import com.example.loginAPI.User;
 import com.jayway.restassured.RestAssured;
 import org.junit.Before;
 import org.junit.Test;
@@ -82,10 +83,19 @@ public class LoginControllerIT {
                 .statusCode(200);
     }
 
-    @Test
+    /*@Test
     public void should_return_to_registration_when_errors(){
+        given().log().all()
+                .Param("pseudo", "lala")
+                .Param("password", "lili")
+                .Param("email", "lala@lala.fr")
+                .Param("p2", "lili")
+                .when().post("/registration")
+                .then().log().all()
+                .contentType("text/html")
+                .statusCode(200);
 
-    }
+    }*/
 
     @Test
     public void should_log_on_when_registered(){

@@ -32,7 +32,6 @@ public class UserValidator implements Validator {
         if(userServices.getUserByPseudo(user.getPseudo()) != null) {
             errors.rejectValue("pseudo", "Duplicate.userForm.pseudo");
         }
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if(user.getPassword().length()<8 || user.getPassword().length()>32){
             errors.rejectValue("password", "Size.userForm.password");
