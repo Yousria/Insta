@@ -51,16 +51,20 @@ public class UserServiceController {
     @GetMapping("/verify")
     public User verifyUser(@RequestParam("pseudo") String pseudo,
                              @RequestParam("password") String password){
+        User error = User.builder()
+                .pseudo("erreur")
+                .build();
         if(userServices.verifyUser(pseudo, password) == true){
             User user = userServices.getUserByPseudo(pseudo);
+            if(userServices.verifyToken(user.getToken()) == false){
+                return error;
+            }
             return User.builder()
                     .id(user.getId())
                     .token(user.getToken())
                     .build();
         }else{
-            return User.builder()
-                    .pseudo("erreur")
-                    .build();
+            return error;
         }
     }
 }
