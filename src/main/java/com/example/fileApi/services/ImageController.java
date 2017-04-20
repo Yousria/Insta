@@ -24,6 +24,7 @@ import static com.example.loginAPI.Role.USER;
  */
 @CrossOrigin
 @Controller
+@RequestMapping("/image")
 public class ImageController {
     @Autowired
     ImageService imageService;
