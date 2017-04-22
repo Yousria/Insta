@@ -23,7 +23,7 @@ import static com.example.loginAPI.Role.USER;
  * Created by Nicolas on 09/04/2017.
  */
 @CrossOrigin
-@Controller
+@RestController
 @RequestMapping("/image")
 public class ImageController {
     @Autowired
@@ -35,19 +35,19 @@ public class ImageController {
     @Autowired
     UserServices userServices;
 
-    @RequestMapping(value = "/fichier", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/fichier", method = RequestMethod.GET)
     public String showUploadForm(Model model) {
        // albumService.insertAlbum("a",userServices.getUserByPseudo("b"));
         return "upload";
-    }
+    }*/
 
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST)
-    public String handleFileUpload(
+    public /*String*/ void handleFileUpload(
                                    @RequestParam("fileUpload") MultipartFile fileUpload, @RequestParam("album_name") String album_name, @RequestParam("pseudo") String pseudo,@RequestParam("title") String title) throws Exception {
 
         imageService.insertImage(title,AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
         System.out.println(imageService.findByTitle(title).getId());
-        return "redirect:/image/fichier";
+        //return "redirect:/image/fichier";
 
     }
     @ResponseBody

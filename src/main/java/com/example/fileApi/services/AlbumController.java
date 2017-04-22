@@ -29,21 +29,21 @@ public class AlbumController {
     UserServices userServices;
 
     @RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
-    public String addAlbum(
+    public /*String*/ void addAlbum(
             @RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo) throws Exception {
 
        albumService.insertAlbum(albumName, userServices.getUserByPseudo(pseudo));
 
-        return "redirect:/fichier";
+      //  return "redirect:/fichier";
 
     }
     @RequestMapping(value = "/updateAlbumTitle", method = RequestMethod.POST)
-    public String updateAlbumTitle(
+    public /*String*/ void updateAlbumTitle(
             @RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo,@RequestParam("newName") String newName) throws Exception {
 
         albumService.updateTitle(AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(albumName,pseudo)),newName);
 
-        return "redirect:/fichier";
+       // return "redirect:/fichier";
 
     }
     @ResponseBody
