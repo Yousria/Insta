@@ -37,7 +37,7 @@ public class ImageController {
 
     @RequestMapping(value = "/fichier", method = RequestMethod.GET)
     public String showUploadForm(Model model) {
-
+        albumService.insertAlbum("a",userServices.getUserByPseudo("b"));
         return "upload";
     }
 
@@ -47,7 +47,7 @@ public class ImageController {
 
         imageService.insertImage(title,AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
         System.out.println(imageService.findByTitle(title).getId());
-        return "redirect:/fichier";
+        return "redirect:/image/fichier";
 
     }
     @ResponseBody
