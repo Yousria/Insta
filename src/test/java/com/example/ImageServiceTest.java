@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.example.loginAPI.Role.USER;
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -68,12 +69,10 @@ public class ImageServiceTest {
                     ImageAdapter.toImageEntity(imageService.insertImage("image1",
                             albumEntity,
                             new MockMultipartFile("file 1",new FileInputStream("src/test/resources/image1.jpg")).getBytes()));
-            imageService.insertImage(imageEntity.getTitle(),imageEntity.getAlbum(),imageEntity.getDatas());
             imageEntity2 =
                     ImageAdapter.toImageEntity(imageService.insertImage("image2",
                             albumEntity,
                             new MockMultipartFile("file 2",new FileInputStream("src/test/resources/image2.jpg")).getBytes()));
-            imageService.insertImage(imageEntity2.getTitle(),imageEntity2.getAlbum(),imageEntity2.getDatas());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,7 +83,8 @@ public class ImageServiceTest {
 
 
 
-    @Test
+   @Test
+
     public void should_return_image1_with_id(){
         ImageDTO imageDTOResult= imageService.findById(imageEntity.getId());
         assertThat(imageDTOResult.getId()).isEqualTo(imageEntity.getId());
@@ -119,7 +119,8 @@ public class ImageServiceTest {
 
     @Test
     public void should_return_the_two_image_by_album(){
-        imageService.getByAlbum(albumEntity.getId());
+        List<ImageDTO> imageDTOList =imageService.getByAlbum(albumEntity.getId());
+        assertThat(imageDTOList.size()).isEqualTo(2);
     }
 
 
