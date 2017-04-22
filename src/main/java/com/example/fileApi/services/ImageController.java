@@ -37,7 +37,7 @@ public class ImageController {
 
     @RequestMapping(value = "/fichier", method = RequestMethod.GET)
     public String showUploadForm(Model model) {
-        albumService.insertAlbum("a",userServices.getUserByPseudo("b"));
+       // albumService.insertAlbum("a",userServices.getUserByPseudo("b"));
         return "upload";
     }
 

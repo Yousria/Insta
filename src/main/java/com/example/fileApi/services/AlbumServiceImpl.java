@@ -2,12 +2,15 @@ package com.example.fileApi.services;
 
 import com.example.fileApi.*;
 import com.example.loginAPI.User;
+import com.example.loginAPI.UserAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Nicolas on 09/04/2017.
@@ -66,8 +69,10 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public List<AlbumDTO> findAllByUser(String pseudo) {
-        List<AlbumEntity> albumEntities = albumRepository.findAllByUser(pseudo);
-        return AlbumAdapter.listToAlbumDTO(albumEntities);
+
+        return  albumRepository.findAllByUser(pseudo).stream()
+                .map(AlbumAdapter::toAlbumDTO)
+                .collect(toList());
     }
 
 
