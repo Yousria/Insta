@@ -60,7 +60,8 @@ public class ImageController {
     @ResponseBody
     @GetMapping(value = "/getRandomImage")
     public List<ImageDTO> getImageRandom(){
-        return imageService.getRandomImages();
+        List<ImageDTO> result=imageService.getRandomImages();
+        return result ;
     }
     @ResponseBody
     @RequestMapping(value = "/likeImage/{id}", method = RequestMethod.POST)
