@@ -36,7 +36,7 @@ public class ImageEntity {
     @Column
     private Integer dislikescore;
 
-    @Column(length = 255000)
+    @Column(length = 255000000)
     private byte[] datas;
 
     @ManyToOne(cascade =CascadeType.DETACH)
