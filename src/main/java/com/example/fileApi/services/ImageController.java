@@ -89,7 +89,8 @@ public class ImageController {
     @ResponseBody
     @GetMapping(value="/ImagesAlbum/{id}")
     public List<ImageDTO> getAllImagesFromAlbum(@PathVariable("id") Long id){
-        return imageService.getByAlbum(id);
+        List<ImageDTO> result =imageService.getByAlbum(id);
+        return result;
     }
 
 }

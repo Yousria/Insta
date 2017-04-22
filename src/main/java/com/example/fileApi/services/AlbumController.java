@@ -50,8 +50,8 @@ public class AlbumController {
     @GetMapping(value = "/getAlbums/{pseudo}")
     public List<AlbumDTO> getAllAlbum(
             @PathVariable("pseudo") String pseudo) throws Exception {
-
-        return albumService.findAllByUser(pseudo);
+        List<AlbumDTO> result=albumService.findAllByUser(pseudo);
+        return result ;
     }
 
 
