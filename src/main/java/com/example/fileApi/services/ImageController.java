@@ -29,25 +29,32 @@ import static com.example.loginAPI.Role.USER;
 @RestController
 @RequestMapping("/image")
 public class ImageController {
-    @Autowired
-    ImageService imageService;
 
-    @Autowired
-    AlbumService albumService;
+    private final ImageService imageService;
 
-    @Autowired
-    UserServices userServices;
 
-  /*  @RequestMapping(value = "/fichier", method = RequestMethod.GET)
+    private final AlbumService albumService;
+
+
+     private final UserServices userServices;
+    @Autowired
+    public ImageController(ImageService imageService, AlbumService albumService, UserServices userServices) {
+        this.imageService = imageService;
+        this.albumService = albumService;
+        this.userServices = userServices;
+    }
+
+
+
+   @RequestMapping(value = "/fichier", method = RequestMethod.GET)
     public void showUploadForm(Model model) {
+       System.out.println(userServices.getUserByPseudo("b").getPseudo());
         AlbumEntity albumEntity=AlbumAdapter.toAlbumEntity(albumService.insertAlbum("a",userServices.getUserByPseudo("b")));
+        albumService.insertAlbum("a",albumEntity.getUser());
         MultipartFile multipartFile;
         try {
            multipartFile = new MockMultipartFile("file 1",new FileInputStream("image.jpg"));
-            ImageEntity imageEntity =
-                    ImageAdapter.toImageEntity(imageService.insertImage("image1",
-                            albumEntity,
-                          multipartFile.getBytes() ));
+
             handleFileUpload(multipartFile,"a","b","c");
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,11 +62,12 @@ public class ImageController {
             e.printStackTrace();
         }
 
-    }*/
+    }
 
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST)
     public String handleFileUpload(
                                    @RequestParam("fileUpload") MultipartFile fileUpload, @RequestParam("album_name") String album_name, @RequestParam("pseudo") String pseudo,@RequestParam("title") String title) throws Exception {
+
 
         imageService.insertImage(title,AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
         System.out.println(imageService.findByTitle(title).getId());

@@ -2,6 +2,7 @@ package com.example.fileApi;
 
 import com.example.loginAPI.User;
 import com.example.post.CommentEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,7 +34,7 @@ public class AlbumEntity {
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "users",referencedColumnName = "id")
     private User user;
-
+    @JsonIgnore
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "album")
     private List<ImageEntity> imageEntityList;
 
