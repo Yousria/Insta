@@ -18,10 +18,13 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class AlbumServiceImpl implements AlbumService {
 
-    @Autowired
+
     AlbumRepository albumRepository;
 
-
+    @Autowired
+    public AlbumServiceImpl(AlbumRepository albumRepository) {
+        this.albumRepository = albumRepository;
+    }
 
     //Ajouter l'user pour l'update et la création
     @Override

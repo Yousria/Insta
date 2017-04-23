@@ -120,6 +120,18 @@ public class FriendController {
         return result;
     }
 
+    @RequestMapping(value="areTheyFriends/", method = RequestMethod.GET)
+    public HashMap<String, String>areTheyFriends(@RequestParam("id_user") Long id_user, @RequestParam("id_friend") Long id_friend){
+        HashMap<String, String>result = new HashMap<>();
+        if(!friendService.areFriends(id_user, id_friend)){
+            result.put("result", "false");
+        }else{
+            result.put("result", "true");
+        }
+
+        return result;
+    }
+
     @RequestMapping(value="removeFriend", method = RequestMethod.GET)
     public HashMap<String, String> removeFriendForUser(@RequestParam("id_user") Long id_user, @RequestParam("id_friend") Long id_friend){
         friendService.removeFriendForUser(id_user, id_friend);
