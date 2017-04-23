@@ -1,8 +1,10 @@
 package com.example;
 
+import com.example.loginAPI.Role;
 import com.example.loginAPI.User;
 import com.example.loginAPI.UserData;
 import com.example.loginAPI.UserRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

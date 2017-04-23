@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 /**
  * Created by bench on 07/03/2017.
@@ -45,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*httpSecurity.authorizeRequests()
                 .antMatchers("/webapp/**").permitAll()
                 .anyRequest().authenticated();*/
+        //REDIRECT ALL PAGES TO LOGIN // ERRORS
 
     }
 
