@@ -17,8 +17,13 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    @Autowired
+
     ImageRepository imageRepository;
+
+    @Autowired
+    public ImageServiceImpl(ImageRepository imageRepository) {
+        this.imageRepository=imageRepository;
+    }
 
     @Override
     @Transactional
