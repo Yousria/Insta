@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * Created by Nicolas on 09/04/2017.
  */
@@ -77,14 +79,18 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public List<ImageDTO> getByAlbum(Long id) {
-        return ImageAdapter.toListImageDTO(imageRepository.findByAlbum(id));
+        return imageRepository.findByAlbum(id).stream()
+                .map(ImageAdapter::toImageDTO)
+                .collect(toList());
     }
 
 
     @Override
     public List<ImageDTO> getRandomImages() {
 
-        return ImageAdapter.toListImageDTO(imageRepository.findRandom());
+        return imageRepository.findRandom().stream()
+                .map(ImageAdapter::toImageDTO)
+                .collect(toList());
     }
 
 }

@@ -36,8 +36,12 @@ public class UserServiceController {
         return userServices.createUser(user.getPseudo(), user.getEmail(), user.getPassword(), user.getRole());
     }
     @GetMapping("/{pseudo}")
-    public UserDto getUserByPseudo(@PathVariable String pseudo){
-        return userServices.getUserByPseudo(pseudo);
+    public User getUserByPseudo(@PathVariable String pseudo){
+        User user = userServices.getUserByPseudo(pseudo);
+        return User.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .build();
     }
 
     @PostMapping("/token")
@@ -45,12 +49,22 @@ public class UserServiceController {
         return String.valueOf(userServices.verifyToken(user.getToken()));
     }
     @GetMapping("/verify")
-    public String verifyUser(@RequestParam("pseudo") String pseudo,
+    public User verifyUser(@RequestParam("pseudo") String pseudo,
                              @RequestParam("password") String password){
-        if(userServices.verifyUser(pseudo, password) == false){
-            return "Error in username or password";
+        User error = User.builder()
+                .pseudo("erreur")
+                .build();
+        if(userServices.verifyUser(pseudo, password) == true){
+            User user = userServices.getUserByPseudo(pseudo);
+            if(userServices.verifyToken(user.getToken()) == false){
+                return error;
+            }
+            return User.builder()
+                    .id(user.getId())
+                    .token(user.getToken())
+                    .build();
         }else{
-            return "user verified!";
+            return error;
         }
     }
 }

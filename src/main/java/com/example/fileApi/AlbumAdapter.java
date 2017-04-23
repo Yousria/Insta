@@ -1,6 +1,9 @@
 package com.example.fileApi;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Nicolas on 09/04/2017.
  */
@@ -22,5 +25,18 @@ public class AlbumAdapter {
                 .title(albumDto.getTitle())
                 .imageEntityList(albumDto.getImageEntityList())
                 .user(albumDto.getUser()).build();
+    }
+
+    public static List<AlbumDTO> listToAlbumDTO(List<AlbumEntity> albumEntities) {
+        List<AlbumDTO> resultList = new ArrayList<AlbumDTO>();
+        for (AlbumEntity albumEntity : albumEntities)
+            resultList.add(toAlbumDTO(albumEntity));
+        return resultList;
+    }
+    public static List<AlbumEntity> listToAlbumEntity(List<AlbumDTO> albumDTOS) {
+        List<AlbumEntity> resultList = new ArrayList<AlbumEntity>();
+        for (AlbumDTO albumDTO : albumDTOS)
+            resultList.add(toAlbumEntity(albumDTO));
+        return resultList;
     }
 }

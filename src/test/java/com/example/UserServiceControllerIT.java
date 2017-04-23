@@ -80,31 +80,27 @@ public class UserServiceControllerIT {
                 .then().log().all()
                 .statusCode(200)
                 .body("email", equalTo("second@second.com"))
-                .body("password", equalTo("second"));
+                .body("id", equalTo(2));
     }
 
     @Test
     public void should_verify_user(){
         userServices.createUser("yous", "yous@yous.fr",
                             "youyou", Role.USER);
-        RestAssured.registerParser("text/plain", Parser.XML);
         given().log().all()
                 .when().get("/users/verify?pseudo=yous&password=youyou")
                 .then().log().all()
                 .statusCode(200)
-                .contentType("text/plain")
-                .body(containsString("user verified!"));
+                .body("id", equalTo(5));
     }
 
     @Test
     public void should_get_error_wrong_username_or_password(){
-        RestAssured.registerParser("text/plain", Parser.XML);
         given().log().all()
                 .when().get("/users/verify?pseudo=haha&password=hihi")
                 .then().log().all()
                 .statusCode(200)
-                .contentType("text/plain")
-                .body(containsString("Error in username or password"));
+                .body("pseudo", equalTo("erreur"));
     }
 
     @Test

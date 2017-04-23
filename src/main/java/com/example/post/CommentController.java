@@ -56,7 +56,7 @@ public class CommentController {
     @PostMapping("/{pseudo}/{imageid}/{comment}")
     public CommentDTO insertComment(@PathVariable String pseudo,@PathVariable String comment, @PathVariable Long imageid, String token){
         if(userServices.verifyToken(token)){
-                User user = UserAdapter.toUser(userServices.getUserByPseudo(pseudo));
+                User user = userServices.getUserByPseudo(pseudo);
                 ImageEntity imageEntity = ImageAdapter.toImageEntity(imageService.findById(imageid));
                 return commentService.insertComment(comment, user, imageEntity);
             }

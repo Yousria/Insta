@@ -36,4 +36,12 @@ public class AlbumEntity {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "album")
     private List<ImageEntity> imageEntityList;
+
+    @Override
+    public boolean equals(Object obj) {
+        AlbumEntity albumEntity = (AlbumEntity) obj;
+        return albumEntity.getId().equals(id)&&
+                albumEntity.getTitle().equals(title)&&
+                albumEntity.getUser().getId().equals(user.getId());
+    }
 }
