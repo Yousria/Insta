@@ -14,7 +14,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @org.springframework.context.annotation.Configuration
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration
 @EnableNeo4jRepositories("com.example.post.social.friend")
 @EnableTransactionManagement
 public class PhotoAlbumApplication {
