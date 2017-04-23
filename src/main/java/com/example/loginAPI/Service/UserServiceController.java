@@ -67,4 +67,9 @@ public class UserServiceController {
             return error;
         }
     }
+
+    @GetMapping("/delete")
+    public void removeUser(@RequestParam("id") Long id){
+        userServices.removeUser(id);
+    }
 }

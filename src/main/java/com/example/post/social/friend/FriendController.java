@@ -48,9 +48,9 @@ public class FriendController {
     }
 
     @RequestMapping(value="addUser", method = RequestMethod.GET)
-    public HashMap<String, String> addUser(@RequestParam("id_user")Long id_user){
+    public HashMap<String, String> addUser(@RequestParam("id_user")Long id_user, @RequestParam("pseudo") String pseudo){
         HashMap<String, String>result = new HashMap<>();
-        if(!friendService.addUser(id_user)){
+        if(!friendService.addUser(id_user, pseudo)){
             result.put("result", "false");
             result.put("message", "User already exists in Neo4jDatabase");
             return result;

@@ -23,8 +23,8 @@ public interface FriendRepository extends GraphRepository<Friends> {
     @Query("MATCH (n:Friends) RETURN n ORDER BY n.user")
     Set<Friends> getAllUsers();
 
-    @Query("CREATE (m:Friends{user:{id_user}})")
-    void addNewUser(@Param("id_user")Long id_user);
+    @Query("CREATE (m:Friends{user:{id_user}, pseudo:{pseudo}})")
+    void addNewUser(@Param("id_user")Long id_user,@Param("pseudo") String pseudo);
 
     @Query("MATCH (m:Friends{user:{id_user}}) DETACH DELETE m")
     void removeUser(@Param("id_user")Long id_user);
