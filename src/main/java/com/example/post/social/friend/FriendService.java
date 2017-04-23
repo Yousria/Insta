@@ -43,9 +43,9 @@ public class FriendService {
      * @param id_user
      * @return
      */
-    public boolean addUser(Long id_user) {
+    public boolean addUser(Long id_user, String pseudo) {
         try{
-            friendRepository.addNewUser(id_user);
+            friendRepository.addNewUser(id_user, pseudo);
         }catch (Exception e){
             return false;
         }

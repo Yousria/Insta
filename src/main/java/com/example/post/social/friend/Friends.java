@@ -19,9 +19,11 @@ import java.util.List;
 public class Friends {
     @GraphId Long id_node;
     public Long user;
+    public String pseudo;
 
-    public Friends(Long id){
+    public Friends(Long id, String pseudo){
         this.user = id;
+        this.pseudo = pseudo;
     }
 
     @Relationship(type="IS_FRIEND_WITH", direction = Relationship.UNDIRECTED)

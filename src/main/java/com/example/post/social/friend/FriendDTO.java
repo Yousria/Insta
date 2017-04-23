@@ -12,4 +12,5 @@ import lombok.Setter;
 @Setter
 public class FriendDTO {
     private Long user;
+    private String pseudo;
 }
