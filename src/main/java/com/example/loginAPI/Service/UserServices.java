@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.loginAPI.*;
+import com.example.post.social.friend.FriendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,12 +27,14 @@ public class UserServices {
 
     final UserRepository userRepository;
     final BCryptPasswordEncoder passwordEncoder;
+    final FriendService friendService;
 
 
     @Autowired
-    public UserServices(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServices(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, FriendService friendService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.friendService = friendService;
     }
 
     @Transactional(readOnly = true)
@@ -72,6 +75,8 @@ public class UserServices {
                     .token(createToken(pseudo, password))
                     .build();
             userRepository.save(user);
+            User u = userRepository.findByPseudo(pseudo).get();
+            friendService.addUser(u.getId(), pseudo);
             return UserAdapter.toDto(user);
         }
     }
@@ -117,6 +122,15 @@ public class UserServices {
             return false;
         }
         return true;
+    }
+
+    @Transactional
+    public void removeUser(Long id){
+        Optional<User> u = userRepository.findById(id);
+        if(u.isPresent()){
+            userRepository.delete(u.get());
+            friendService.removeUser(id);
+        }
     }
 
 
