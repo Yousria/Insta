@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
@@ -30,8 +31,9 @@ public class UserServices {
     final FriendService friendService;
 
 
+
     @Autowired
-    public UserServices(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, FriendService friendService) {
+    public UserServices(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, FriendService friendService, DataSource dataSource) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.friendService = friendService;

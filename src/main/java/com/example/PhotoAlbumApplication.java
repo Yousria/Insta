@@ -6,15 +6,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import javax.sql.DataSource;
+
 @org.springframework.context.annotation.Configuration
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
+@EnableAutoConfiguration
 @EnableNeo4jRepositories("com.example.post.social.friend")
 @EnableTransactionManagement
 public class PhotoAlbumApplication {
@@ -49,6 +52,7 @@ public class PhotoAlbumApplication {
         multipartResolver.setMaxInMemorySize(1048576);  // 1MB
         return multipartResolver;
     }*/
+
 
 
 }
