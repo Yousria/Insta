@@ -25,8 +25,8 @@ public interface AlbumRepository extends JpaRepository<AlbumEntity, Long> {
     @Query(nativeQuery = true,value="Select top 1 ae.* from album ae left join users where ae.title = :title and users.pseudo=:pseudo")
     Optional<AlbumEntity> findByTitleAndPseudo(@Param("title") String title,@Param("pseudo") String pseudo);
 
-    @Query(nativeQuery = true,value="Select ae.* from album ae left join users where  users.pseudo=:pseudo")
-    List<AlbumEntity> findAllByUser(@Param("pseudo") String pseudo);
+    @Query(nativeQuery = true,value="Select ae.* from album ae where ae.users=:id")
+    List<AlbumEntity> findAllByUser(@Param("id") Long id);
    /* @Query("Select * from album where  user.id= :user_id")
     List<AlbumEntity> findByUser(@Param("user") Long user_id);*/
 }

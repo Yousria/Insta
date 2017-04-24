@@ -71,12 +71,15 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<AlbumDTO> findAllByUser(String pseudo) {
-
-        return  albumRepository.findAllByUser(pseudo).stream()
+    public List<AlbumDTO> findAllByUser(Long id) {
+     //   System.out.println(pseudo);
+        return  albumRepository.findAllByUser(id).stream()
                 .map(AlbumAdapter::toAlbumDTO)
                 .collect(toList());
     }
 
-
+    @Override
+    public void deleteAlbum(AlbumEntity albumEntity) {
+        albumRepository.delete(albumEntity);
+    }
 }

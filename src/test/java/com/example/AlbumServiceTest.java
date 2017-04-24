@@ -33,8 +33,10 @@ public class AlbumServiceTest {
     ImageServiceImpl imageService;
 
     User user;
+    User user1;
     AlbumEntity album1;
     AlbumEntity album2;
+    AlbumEntity album3;
 
     @Before
     public void initialize_data(){
@@ -45,11 +47,26 @@ public class AlbumServiceTest {
                 .password("monmp")
                 .role(USER)
                 .build();
+        user1 = User.builder()
+                .pseudo("pseudo")
+                .email("mail@mail.fr")
+                .password("monmp")
+                .role(USER)
+                .build();
 
          album1 =
                 AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album1", user));
+         albumService.deleteAlbum(album1);
+         album1 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album1", user));
         album2=
                 AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album2", user));
+        albumService.deleteAlbum(album2);
+        album2 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album2", user));
+
+        album3=
+                AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album3", user1));
+        albumService.deleteAlbum(album3);
+        album3 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album3", user1));
 
     }
 
@@ -74,10 +91,10 @@ public class AlbumServiceTest {
     }
     @Test
     public void find_all_by_user_should_return_the_two_albums(){
-        List<AlbumEntity> albumEntities = AlbumAdapter.listToAlbumEntity(albumService.findAllByUser(user.getPseudo()));
-       assertThat(albumEntities.size()).isEqualTo(2);
-       assertThat(albumEntities).contains(album1);
-        assertThat(albumEntities).contains(album2);
+        List<AlbumEntity> albumEntities = AlbumAdapter.listToAlbumEntity(albumService.findAllByUser(user.getId()));
+       assertThat(albumService.findAllByUser(user.getId()).size()).isEqualTo(2);
+     assertThat(albumEntities.get(0).equals(album1)).isTrue();
+       assertThat(albumEntities.get(1).equals(album2)).isTrue();
     }
 }
 

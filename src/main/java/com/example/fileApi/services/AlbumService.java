@@ -16,6 +16,7 @@ public interface AlbumService {
     AlbumDTO findById(Long id);
     AlbumDTO findByTitle(String title);
     AlbumDTO findByTitleAndPseudo(String title,String pseudo);
-    List<AlbumDTO> findAllByUser(String pseudo);
+    List<AlbumDTO> findAllByUser(Long id);
+    void deleteAlbum(AlbumEntity albumEntity);
 
 }

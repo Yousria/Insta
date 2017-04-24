@@ -42,7 +42,6 @@ public class AlbumEntity {
     public boolean equals(Object obj) {
         AlbumEntity albumEntity = (AlbumEntity) obj;
         return albumEntity.getId().equals(id)&&
-                albumEntity.getTitle().equals(title)&&
-                albumEntity.getUser().getId().equals(user.getId());
+                albumEntity.getTitle().equals(title);
     }
 }

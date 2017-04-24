@@ -47,10 +47,10 @@ public class AlbumController {
 
     }
     @ResponseBody
-    @GetMapping(value = "/getAlbums/{pseudo}")
+    @GetMapping(value = "/getAlbums/{id}")
     public List<AlbumDTO> getAllAlbum(
-            @PathVariable("pseudo") String pseudo) throws Exception {
-        List<AlbumDTO> result=albumService.findAllByUser(pseudo);
+            @PathVariable("id") Long id) throws Exception {
+        List<AlbumDTO> result=albumService.findAllByUser(id);
         return result ;
     }
 
