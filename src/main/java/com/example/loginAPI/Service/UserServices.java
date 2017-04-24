@@ -30,7 +30,6 @@ public class UserServices {
     final UserRepository userRepository;
     final BCryptPasswordEncoder passwordEncoder;
     final FriendService friendService;
-    final EntityManager entityManager;
 
 
 
@@ -39,7 +38,6 @@ public class UserServices {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.friendService = friendService;
-        this.entityManager = entityManager;
     }
 
     @Transactional(readOnly = true)
@@ -80,7 +78,6 @@ public class UserServices {
                     .token(createToken(pseudo, password))
                     .build();
             userRepository.save(user);
-            entityManager.persist(user);
             User u = userRepository.findByPseudo(pseudo).get();
             friendService.addUser(u.getId(), pseudo);
             return UserAdapter.toDto(user);
