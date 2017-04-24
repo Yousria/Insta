@@ -70,16 +70,19 @@ public class UserServices {
         if(userRepository.findByPseudo(pseudo).isPresent()){
             return null;
         }else {
+            String token = createToken(pseudo, password);
             User user = User.builder()
                     .pseudo(pseudo)
                     .email(email)
                     .password(passwordEncoder.encode(password))
                     .role(role)
-                    .token(createToken(pseudo, password))
+                    .token(token)
                     .build();
             userRepository.save(user);
-            User u = userRepository.findByPseudo(pseudo).get();
-            friendService.addUser(u.getId(), pseudo);
+            System.out.println(user.getPseudo());
+            System.out.println(userRepository.findByToken(user.getToken()));
+            Long id = Long.valueOf(userRepository.findIdByPseudo(user.getPseudo()));
+            friendService.addUser(id, pseudo);
             return UserAdapter.toDto(user);
         }
     }

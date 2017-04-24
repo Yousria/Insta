@@ -43,6 +43,7 @@ public class UserServiceControllerIT {
     @Before
     public void init(){
         RestAssured.port = localServerPort;
+
     }
 
     @Test
@@ -85,10 +86,10 @@ public class UserServiceControllerIT {
 
     @Test
     public void should_verify_user(){
-        userServices.createUser("yous", "yous@yous.fr",
-                            "youyou", Role.USER);
+        userServices.createUser("nico", "nico@nico.fr",
+                "nico4444", Role.USER);
         given().log().all()
-                .when().get("/users/verify?pseudo=yous&password=youyou")
+                .when().get("/users/verify?pseudo=nico&password=nico4444")
                 .then().log().all()
                 .statusCode(200)
                 .body("id", equalTo(5));
@@ -105,9 +106,9 @@ public class UserServiceControllerIT {
 
     @Test
     public void should_verify_user_2(){
-        userServices.createUser("yous", "yous@yous.fr",
-                "youyou", Role.USER);
-        assertThat(userServices.verifyUser("yous", "youyou"))
+        userServices.createUser("yous3", "yous3@yous.fr",
+                "youyou3333", Role.USER);
+        assertThat(userServices.verifyUser("yous3", "youyou3333"))
                 .isEqualTo(true);
         assertThat(userServices.verifyUser("haha", "hihi"))
                 .isEqualTo(false);
@@ -124,8 +125,8 @@ public class UserServiceControllerIT {
 
     @Test
     public void should_verify_token_2(){
-        UserDto dto = userServices.createUser("yous", "yous@yous.fr",
-                "youyou", Role.USER);
+        UserDto dto = userServices.createUser("yous2", "yous2@yous.fr",
+                "youyou2222", Role.USER);
         given().log().all()
                 .contentType("application/json")
                 .body(dto)

@@ -28,4 +28,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             value = "select u.pseudo from users u where u.token = :token")
     String getPseudo(@Param("token") String token);
 
+    @Query(nativeQuery = true,
+            value = "select u.id from users u where u.pseudo=:pseudo")
+    String findIdByPseudo(@Param("pseudo") String pseudo);
 }

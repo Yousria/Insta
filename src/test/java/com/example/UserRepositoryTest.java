@@ -63,4 +63,23 @@ public class UserRepositoryTest {
         assertThat(user.get().getPseudo()).isEqualTo("second");
     }
 
+    @Test
+    public void should_find_id_by_pseudo(){
+        String pseudoToSearch = "second";
+        Long id = Long.valueOf(userRepository.findIdByPseudo(pseudoToSearch));
+        assertThat(id).isEqualTo(2L);
+    }
+
+    @Test
+    public void should_find_id_by_pseudo_2(){
+        User u = User.builder()
+                .pseudo("fourth")
+                .email("fourth@fourth.com")
+                .password("fourth1234")
+                .build();
+        userRepository.save(u);
+        Long id = Long.valueOf(userRepository.findIdByPseudo("fourth"));
+        assertThat(id).isEqualTo(4L);
+    }
+
 }
