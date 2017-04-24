@@ -108,8 +108,15 @@ public class CommentControllerTest {
     }
 
     @Test
-    public void should_update_comment(){
-
+    public void should_delete_comment(){
+        given()
+                .log().all()
+                .when()
+                .get("/comments/delete/{idComment}",1)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .body("$", hasSize(2));
     }
 
 }
