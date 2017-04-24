@@ -93,12 +93,18 @@ public class CommentControllerTest {
                 .log().all()
                 .statusCode(200)
                 .body("$", hasSize(3));
-
     }
 
     @Test
     public void should_get_comment_by_user(){
-
+        given()
+                .log().all()
+                .when()
+                .get("/comments/{idUser}",1)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .body("$", hasSize(3));
     }
 
     @Test
