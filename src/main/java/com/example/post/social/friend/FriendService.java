@@ -80,4 +80,8 @@ public class FriendService {
     public void removeFriendForUser(Long iduser, Long idfriend){
         friendRepository.deleteFriend(iduser, idfriend);
     }
+
+    public void cleanDB(){
+        friendRepository.emptyDB();
+    }
 }
