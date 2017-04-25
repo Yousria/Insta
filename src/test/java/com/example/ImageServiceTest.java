@@ -52,9 +52,10 @@ public class ImageServiceTest {
 
     ImageEntity imageEntity;
     ImageEntity imageEntity2;
+    ImageEntity imageEntity3;
     User user;
     AlbumEntity albumEntity;
-
+    AlbumEntity albumEntity2;
     @Before
     public void initialize_data(){
 
@@ -67,6 +68,8 @@ public class ImageServiceTest {
         userRepository.save(user);
        albumEntity =
                 AlbumAdapter.toAlbumEntity(albumService.insertAlbum("bonjour", user));
+        albumEntity2 =
+                AlbumAdapter.toAlbumEntity(albumService.insertAlbum("bonjour2", user));
 
         try {
             imageEntity =
@@ -76,6 +79,10 @@ public class ImageServiceTest {
             imageEntity2 =
                     ImageAdapter.toImageEntity(imageService.insertImage("image2",
                             albumEntity,
+                            new MockMultipartFile("file 2",new FileInputStream("src/test/resources/image2.jpg")).getBytes()));
+            imageEntity3 =
+                    ImageAdapter.toImageEntity(imageService.insertImage("image2",
+                            albumEntity2,
                             new MockMultipartFile("file 2",new FileInputStream("src/test/resources/image2.jpg")).getBytes()));
         } catch (IOException e) {
             e.printStackTrace();

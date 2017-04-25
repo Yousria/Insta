@@ -34,11 +34,11 @@ public class AlbumEntity {
     private String title;
 
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "users",referencedColumnName = "id")
     private User user;
     @JsonIgnore
-  @OneToMany(fetch = LAZY, mappedBy = "album")
+  @OneToMany(fetch = LAZY, mappedBy = "album", cascade = CascadeType.ALL)
     private List<ImageEntity> imageEntityList;
 
     @Override

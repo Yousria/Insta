@@ -34,7 +34,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @UserData
 public class AlbumControllerIT {
-   
+
     @LocalServerPort
     private int localServerPort;
 

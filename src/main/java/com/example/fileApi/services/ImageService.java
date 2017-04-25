@@ -10,10 +10,10 @@ import java.util.List;
  * Created by Nicolas on 09/04/2017.
  */
 public interface ImageService {
-    public void updateLike(ImageEntity imageEntity);
+    int updateLike(ImageEntity imageEntity);
     ImageDTO insertImage(String title, AlbumEntity album, byte[] datas);
-    void updateDislike(ImageEntity imageEntity);
-    void updateTitle(ImageEntity imageEntity, String title);
+    int updateDislike(ImageEntity imageEntity);
+    int updateTitle(ImageEntity imageEntity, String title);
     List<ImageDTO> getRandomImages();
     ImageDTO findById(Long id);
     ImageDTO findByTitle(String title);

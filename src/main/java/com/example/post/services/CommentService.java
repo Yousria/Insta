@@ -25,4 +25,6 @@ public interface CommentService {
     CommentDTO findById(Long idComment);
 
     void deleteComment(CommentEntity comment);
+
+    void deleteAll();
 }
