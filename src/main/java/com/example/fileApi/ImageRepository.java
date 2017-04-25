@@ -16,15 +16,15 @@ import java.util.Optional;
 public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
 
     @Query("update ImageEntity set title = :new_title where id = :id")
-    @Modifying
+    @Modifying(clearAutomatically = true)
     int updateTitle(@Param("new_title") String title, @Param("id") Long id);
 
     @Query("update ImageEntity set likescore = :new_like where id = :id")
-    @Modifying
+    @Modifying(clearAutomatically = true)
     int updateLike(@Param("new_like") Integer likescore, @Param("id") Long id);
 
     @Query("update ImageEntity set dislikescore = :new_dislike where id = :id")
-    @Modifying
+    @Modifying(clearAutomatically = true)
     int updateDislike(@Param("new_dislike") Integer dislikescore, @Param("id") Long id);
 
     @Query(nativeQuery = true,value="Select ie.* from image ie where ie.title = :title")

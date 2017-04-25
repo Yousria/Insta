@@ -73,20 +73,21 @@ private int localServerPort;
         given().log().all()
                 .when().post("/image/likeImage/{id}",1)
                 .then().log().all()
-                .statusCode(200);
+                .statusCode(200).body("likescore",equalTo(6));
     }
     @Test
     public void should_updated_dislike(){
         given().log().all()
                 .when().post("/image/dislikeImage/{id}",1)
                 .then().log().all()
-                .statusCode(200);
+                .statusCode(200).body("dislikescore",equalTo(7));
+
     }
     @Test
     public void should_updated_title(){
         given().log().all()
                 .when().post("/image/UpdateTitleImage/{id}?title=newtitle",1)
                 .then().log().all()
-                .statusCode(200);/*.body("title",equalTo("newtitle"));*/
+                .statusCode(200).body("title",equalTo("newtitle"));
     }
 }

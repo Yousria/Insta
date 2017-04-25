@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public interface AlbumRepository extends JpaRepository<AlbumEntity, Long> {
     @Query("update AlbumEntity set title = :new_title where id = :id")
-    @Modifying
+    @Modifying(clearAutomatically = true)
     int updateTitle(@Param("new_title") String title, @Param("id") Long id);
 
     @Query(nativeQuery = true,value="select ae.* from album ae where ae.id = :id")
