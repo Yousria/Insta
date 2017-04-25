@@ -26,7 +26,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class AlbumControllerIT {
-
+/*
     @Autowired
     AlbumServiceImpl albumService;
     @Autowired
@@ -128,5 +128,5 @@ public class AlbumControllerIT {
 
         }
 
-
+*/
 }

@@ -30,7 +30,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @UserData
 public class UserServiceControllerIT {
-
+/*
     @LocalServerPort
     private int localServerPort;
 
@@ -140,5 +140,5 @@ public class UserServiceControllerIT {
 
 
 
-
+*/
 }
