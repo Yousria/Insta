@@ -29,6 +29,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public void updateComment(Long id, String comment) {
        commentRepository.updateComment(comment,id);
     }
