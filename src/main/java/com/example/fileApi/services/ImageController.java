@@ -89,14 +89,14 @@ public class ImageController {
     @RequestMapping(value = "/likeImage/{id}", method = RequestMethod.POST)
     public ImageDTO likeImage(@PathVariable("id") Long id){
         ImageDTO imageDTO=imageService.findById(id);
-        imageService.updateDislike(ImageAdapter.toImageEntity(imageDTO));
+        imageService.updateLike(ImageAdapter.toImageEntity(imageDTO));
         imageDTO=imageService.findById(id);
         return imageDTO;
     }
     @RequestMapping(value = "/dislikeImage/{id}", method = RequestMethod.POST)
     public ImageDTO dislikeImage(@PathVariable("id") Long id){
         ImageDTO imageDTO=imageService.findById(id);
-        imageService.updateLike(ImageAdapter.toImageEntity(imageDTO));
+        imageService.updateDislike(ImageAdapter.toImageEntity(imageDTO));
         imageDTO=imageService.findById(id);
         return imageDTO;
     }
