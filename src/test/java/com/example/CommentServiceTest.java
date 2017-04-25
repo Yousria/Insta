@@ -36,15 +36,13 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @SpringBootTest(classes = {CommentServiceImpl.class,AlbumServiceImpl.class, ImageServiceImpl.class})
 @DataJpaTest
 public class CommentServiceTest {
-/*
+
     @Autowired
     CommentService commentService;
     @Autowired
     AlbumService albumService;
     @Autowired
     ImageService imageService;
-    @Autowired
-    CommentRepositoryImpl  commentRepository;
 
     ImageEntity imageEntity;
     User user;
@@ -79,7 +77,7 @@ public class CommentServiceTest {
 
     @After
     public void delete(){
-        commentRepository.deleteAll();
+        commentService.deleteAll();
     }
 
     @Test
@@ -87,7 +85,7 @@ public class CommentServiceTest {
 
         CommentDTO comment =  commentService.insertComment("kokokokokookokoko",user,imageEntity);
         assertThat(comment.getComment()).isEqualTo("kokokokokookokoko");
-        commentRepository.delete(CommentAdapter.toComment(comment));
+        commentService.deleteComment(CommentAdapter.toComment(comment));
     }
 
     @Test
@@ -124,5 +122,5 @@ public class CommentServiceTest {
 
         assertThat(commentService.getCommentsByImageEntity(imageEntity.getId()).size()).isEqualTo(2);
 
-    }*/
+    }
 }
