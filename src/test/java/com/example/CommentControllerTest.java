@@ -79,7 +79,7 @@ public class CommentControllerTest {
                 .body("$", hasSize(1));
     }
 
-   @Test
+   /*@Test
     public void should_delete_comment(){
         given()
                 .log().all()
@@ -90,5 +90,5 @@ public class CommentControllerTest {
                 .statusCode(200)
                 .body("$", hasSize(0));
     }
-
+*/
 }
