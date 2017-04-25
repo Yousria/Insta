@@ -33,7 +33,7 @@ public class CommentController {
     }
 
     @PostMapping("/{idComment}/{comment}")
-    public void updateComment(@PathVariable Long idComment,@PathVariable String comment, String token) {
+    public void updateComment(@PathVariable Long idComment,@PathVariable String comment,@RequestParam("token")String token) {
         if(userServices.verifyToken(token))
             commentService.updateComment(idComment,comment);
     }
@@ -54,7 +54,7 @@ public class CommentController {
     }
 
     @PostMapping("/{pseudo}/{imageid}/{comment}")
-    public CommentDTO insertComment(@PathVariable String pseudo,@PathVariable String comment, @PathVariable Long imageid, String token){
+    public CommentDTO insertComment(@PathVariable String pseudo,@PathVariable String comment, @PathVariable Long imageid,@RequestParam("token")String token){
         if(userServices.verifyToken(token)){
                 User user = userServices.getUserByPseudo(pseudo);
                 ImageEntity imageEntity = ImageAdapter.toImageEntity(imageService.findById(imageid));
@@ -64,7 +64,7 @@ public class CommentController {
         }
 
     @PostMapping("/delete/{idComment}")
-    public void deleteComment(@PathVariable Long idComment ,String token){
+    public void deleteComment(@PathVariable Long idComment ,@RequestParam("token") String token){
         if(userServices.verifyToken(token)) {
             CommentEntity commentEntity = CommentAdapter.toComment(commentService.findById(idComment));
             commentService.deleteComment(commentEntity);
