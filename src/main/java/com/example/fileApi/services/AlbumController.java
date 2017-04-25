@@ -29,10 +29,10 @@ public class AlbumController {
     UserServices userServices;
 
     @RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
-    public /*String*/ void addAlbum(
+    public AlbumDTO  addAlbum(
             @RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo) throws Exception {
 
-       albumService.insertAlbum(albumName, userServices.getUserByPseudo(pseudo));
+       return albumService.insertAlbum(albumName, userServices.getUserByPseudo(pseudo));
 
       //  return "redirect:/fichier";
 

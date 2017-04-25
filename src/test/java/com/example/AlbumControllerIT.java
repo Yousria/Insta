@@ -2,12 +2,17 @@ package com.example;
 
 import com.example.fileApi.AlbumAdapter;
 import com.example.fileApi.AlbumEntity;
+import com.example.fileApi.services.AlbumService;
 import com.example.fileApi.services.AlbumServiceImpl;
+import com.example.fileApi.services.ImageService;
 import com.example.fileApi.services.ImageServiceImpl;
 import com.example.loginAPI.Role;
 import com.example.loginAPI.Service.UserServices;
 import com.example.loginAPI.User;
+import com.example.loginAPI.UserData;
+import com.example.loginAPI.UserRepository;
 import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.http.ContentType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,79 +23,72 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.example.loginAPI.Role.USER;
 import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-
+import static org.assertj.core.api.Java6Assertions.assertThat;
 /**
  * Created by Nicolas_Travail on 15/04/2017.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@UserData
 public class AlbumControllerIT {
     @Test
     public void test(){
 
     }
-/*
+
     @Autowired
-    AlbumServiceImpl albumService;
+    AlbumService albumService;
     @Autowired
-    ImageServiceImpl imageService;
+    ImageService imageService;
+    @Autowired
+    UserRepository userRepository;
 
     User user;
     AlbumEntity album1;
     AlbumEntity album2;
+    @LocalServerPort
+    private int localServerPort;
 
     @Before
     public void initialize_data(){
 
-        user = User.builder()
-                .pseudo("pseudo")
-                .email("mail@mail.fr")
-                .password("monmp")
-                .role(USER)
-                .build();
 
-        album1 =
-                AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album1", user));
-        album2=
-                AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album2", user));
+        RestAssured.port=localServerPort;
 
     }
-        @LocalServerPort
-        private int localServerPort;
-
-        @Autowired
-        private UserServices userServices;
-
-        @Before
-        public void init(){
-            RestAssured.port = localServerPort;
 
 
-            userServices.createUser("nico", "nico@nico.fr",
-                    "nico1", Role.USER);
-        }
 
-        @Test
+
+       @Test
         public void should_add_album(){
-            given().param("albumName","album1").param("pseudo","nico").log().all()
-                    .when().post("/addAlbum")
-                    .then().log().all();
+            given().log().all()
+                    .when().post("/albums/addAlbum?albumName=albumajoute&pseudo=second")
+                    .then().statusCode(200).body("title",equalTo("albumajoute"));
         }
 
         @Test
-        public void should_get_welcome_page(){
+        public void should_get_2_albums(){
             given().log().all()
-                    .when().get("/welcome")
+                    .when().get("/albums/getAlbums/{id}",1)
                     .then().log().all()
-                    .contentType("text/html")
-                    .statusCode(200);
+                    .statusCode(200).body("$",hasSize(2));
         }
+    @Test
+    public void should_get_0_album(){
+        given().log().all()
+                .when().get("/albums/getAlbums/{id}",3)
+                .then().log().all()
+                .statusCode(200).body("$",hasSize(0));
+    }
 
         @Test
-        public void should_get_error_page(){
+        public void should_updated_title(){
             given().log().all()
-                    .when().get("/error")
+                    .when().post("/error")
                     .then().log().all()
                     .contentType("text/html")
                     .statusCode(200);
@@ -132,5 +130,5 @@ public class AlbumControllerIT {
 
         }
 
-*/
+
 }

@@ -41,7 +41,7 @@ public class ImageEntity {
     @Column(length = 255000000)
     private byte[] datas;
 
-    @ManyToOne(cascade =CascadeType.DETACH)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "album_photo")
     protected AlbumEntity album;
 
