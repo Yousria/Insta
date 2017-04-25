@@ -17,7 +17,7 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.example.loginAPI.Role.USER;
+
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -31,7 +31,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @UserData
 public class CommentControllerTest {
 
-/*
+
     @LocalServerPort
     private int localServerPort;
 
@@ -43,14 +43,6 @@ public class CommentControllerTest {
     ImageService imageService;
     @Autowired
     ImageRepository imageRepository;
-
-    ImageEntity imageEntity;
-    User user;
-    CommentDTO commentOne;
-    CommentDTO commentTwo;
-    CommentDTO commentThree;
-
-
 
     @Before
     public void init(){
@@ -80,14 +72,14 @@ public class CommentControllerTest {
         given()
                 .log().all()
                 .when()
-                .get("/comments/user/{idUser}",1)
+                .get("/comments/user/{idUser}",4)
                 .then()
                 .log().all()
                 .statusCode(200)
                 .body("$", hasSize(1));
     }
 
-    @Test
+   @Test
     public void should_delete_comment(){
         given()
                 .log().all()
@@ -98,5 +90,5 @@ public class CommentControllerTest {
                 .statusCode(200)
                 .body("$", hasSize(0));
     }
-*/
+
 }

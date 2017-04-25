@@ -5,4 +5,4 @@ INSERT INTO users (id, pseudo, email, password, role, token) values(4, 'Yousria'
 INSERT INTO album(id,title,users) values(1,'albumtest',1)
 INSERT INTO album(id,title,users) values(2,'albumtest2',1)
 INSERT INTO image(id,title,likescore,dislikescore,datas,album_photo)values(1,'testimage',5,6,null,1)
---INSERT INTO comments(id,user_id,comment,image_id) values(null,4,'BONJOURBONJOUR',1)
+INSERT INTO comments(id,user_id,comment,image_id) values(null,4,'BONJOURBONJOUR',1)

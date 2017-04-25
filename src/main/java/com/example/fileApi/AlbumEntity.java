@@ -3,6 +3,7 @@ package com.example.fileApi;
 import com.example.loginAPI.User;
 import com.example.post.CommentEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ import static javax.persistence.FetchType.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "album")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AlbumEntity {
     @Id
     @Column
