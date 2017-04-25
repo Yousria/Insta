@@ -1,3 +1,4 @@
---INSERT INTO users (id, pseudo, email, password, role, token) values(NULL, 'b', 'first@first.com', 'first', 'ADMIN', 'fjnverikferi')
---INSERT INTO users (id, pseudo, email, password, role, token) values(NULL, 'second', 'second@second.com', 'second', 'USER', 'dvekrgerg')
---INSERT INTO users (id, pseudo, email, password, role, token) values(NULL, 'three', 'three@three.com', 'three', 'USER', 'ekrrfhcnekf')
+--INSERT INTO users (id, pseudo, email, password, role, token) values(1, 'first', 'first@first.com', 'first', 'ADMIN', 'sfnhierf35V0FDDCZE40RC30A20Z')
+--INSERT INTO users (id, pseudo, email, password, role, token) values(2, 'second', 'second@second.com', 'second', 'USER', 'fifgnvoirg657HVT4')
+--INSERT INTO users (id, pseudo, email, password, role, token) values(3, 'three', 'three@three.com', 'three', 'USER', 'rfrjf456456HFvefrce')
+--INSERT INTO users (id, pseudo, email, password, role, token) values(null, 'Yous', 'yous@yous.fr', 'youyou', 'USER', 'eyJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6InlvdXlvdSIsImFkbWluIjpmYWxzZSwidXNlcm5hbWUiOiJZb3VzIn0.ODcAuG1AASBswKzkW1l5a3NuECK7PHA2FjepWm5vIis')
