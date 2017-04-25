@@ -79,7 +79,7 @@ public class UserRepositoryTest {
                 .build();
         userRepository.save(u);
         Long id = Long.valueOf(userRepository.findIdByPseudo("fourth"));
-        assertThat(id).isEqualTo(4L);
+        assertThat(id).isEqualTo(5L);
     }
 
 }

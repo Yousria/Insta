@@ -21,6 +21,7 @@ import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 /**
@@ -30,11 +31,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @UserData
 public class UserServiceControllerIT {
-    @Test
-    public void test(){
 
-    }
-/*
     @LocalServerPort
     private int localServerPort;
 
@@ -47,7 +44,6 @@ public class UserServiceControllerIT {
     @Before
     public void init(){
         RestAssured.port = localServerPort;
-
     }
 
     @Test
@@ -56,17 +52,15 @@ public class UserServiceControllerIT {
                 .when().get("users")
                 .then().log().all()
                 .statusCode(200)
-                .body("$", hasSize(3));
+                .body("$", hasSize(4));
     }
 
     @Test
     public void should_create_user(){
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6Inl"+
-                "vdXlvdSIsImFkbWluIjpmYWxzZSwidXNlcm5hbWUiOiJZb3Vz"+
-                "In0.ODcAuG1AASBswKzkW1l5a3NuECK7PHA2FjepWm5vIis";
+        String token = userServices.createToken("Yous2", "youyou");
         User user = User.builder()
-                .pseudo("Yous")
-                .email("yous@yous.com")
+                .pseudo("Yous2")
+                .email("yous2@yous.com")
                 .password("youyou")
                 .build();
         given().log().all()
@@ -74,8 +68,8 @@ public class UserServiceControllerIT {
                 .body(user)
                 .when().post("users")
                 .then().statusCode(200)
-                .body("pseudo", equalTo("Yous"))
-                .body("email", equalTo("yous@yous.com"))
+                .body("pseudo", equalTo("Yous2"))
+                .body("email", equalTo("yous2@yous.com"))
                 .body("token", equalTo(token));
     }
     @Test
@@ -90,13 +84,11 @@ public class UserServiceControllerIT {
 
     @Test
     public void should_verify_user(){
-        userServices.createUser("nico", "nico@nico.fr",
-                "nico4444", Role.USER);
         given().log().all()
-                .when().get("/users/verify?pseudo=nico&password=nico4444")
+                .when().get("/users/verify?pseudo=Yousria&password=yousria1234")
                 .then().log().all()
                 .statusCode(200)
-                .body("id", equalTo(5));
+                .body("id", equalTo(4));
     }
 
     @Test
@@ -110,9 +102,7 @@ public class UserServiceControllerIT {
 
     @Test
     public void should_verify_user_2(){
-        userServices.createUser("yous3", "yous3@yous.fr",
-                "youyou3333", Role.USER);
-        assertThat(userServices.verifyUser("yous3", "youyou3333"))
+        assertThat(userServices.verifyUser("Yousria", "yousria1234"))
                 .isEqualTo(true);
         assertThat(userServices.verifyUser("haha", "hihi"))
                 .isEqualTo(false);
@@ -120,17 +110,18 @@ public class UserServiceControllerIT {
 
     @Test
     public void should_verify_token(){
-        UserDto dto = userServices.createUser("yous", "yous@yous.fr",
-                "youyou", Role.USER);
-        System.out.println(dto.getToken());
-        assertThat(userServices.verifyToken(dto.getToken()))
+        String token = userServices.createToken("Yousria", "yousria1234");
+        assertThat(userServices.verifyToken(token))
                 .isEqualTo(true);
     }
 
     @Test
     public void should_verify_token_2(){
-        UserDto dto = userServices.createUser("yous2", "yous2@yous.fr",
-                "youyou2222", Role.USER);
+        UserDto dto = UserDto.builder()
+                .pseudo("Yousria")
+                .password("yousria1234")
+                .token(userServices.createToken("Yousria", "yousria1234"))
+                .build();
         given().log().all()
                 .contentType("application/json")
                 .body(dto)
@@ -144,5 +135,5 @@ public class UserServiceControllerIT {
 
 
 
-*/
+
 }

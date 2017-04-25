@@ -3,6 +3,7 @@ package com.example;
 import com.example.loginAPI.Role;
 import com.example.loginAPI.Service.UserServices;
 import com.example.loginAPI.User;
+import com.example.loginAPI.UserData;
 import com.jayway.restassured.RestAssured;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +21,9 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@UserData
 public class LoginControllerIT {
-/*
+
     @LocalServerPort
     private int localServerPort;
 
@@ -31,13 +33,6 @@ public class LoginControllerIT {
     @Before
     public void init(){
         RestAssured.port = localServerPort;
-
-        userServices.createUser("Yousria", "yous@yous.fr",
-                "yousria1234", Role.USER);
-        userServices.createUser("Vartan", "vartan@vartan.fr",
-                "vartan1234", Role.USER);
-        userServices.createUser("nico", "nico@nico.fr",
-                "nico1", Role.USER);
     }
 
     @Test
