@@ -32,7 +32,7 @@ public class CommentController {
         this.imageService = imageService;
     }
 
-    @PostMapping("/{idComment}/{comment}")
+    @PostMapping("/update/{idComment}/{comment}")
     public void updateComment(@PathVariable Long idComment,@PathVariable String comment){//,@RequestParam("token")//String token) {
         //if(userServices.verifyToken(token))
             commentService.updateComment(idComment,comment);
