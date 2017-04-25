@@ -1,2 +1,2 @@
-# Insta
+# French Instagram
 
