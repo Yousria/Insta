@@ -123,7 +123,7 @@ public class FriendController {
     @RequestMapping(value="areTheyFriends", method = RequestMethod.GET)
     public HashMap<String, String>areTheyFriends(@RequestParam("id_user") Long id_user, @RequestParam("id_friend") Long id_friend){
         HashMap<String, String>result = new HashMap<>();
-        if(!friendService.areFriends(id_user, id_friend)){
+        if(!friendService.areFriends(id_user, id_friend) && !friendService.areFriends(id_user, id_friend)){
             result.put("result", "false");
         }else{
             result.put("result", "true");
