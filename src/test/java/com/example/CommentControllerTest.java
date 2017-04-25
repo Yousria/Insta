@@ -50,7 +50,16 @@ public class CommentControllerTest {
         RestAssured.port = localServerPort;
     }
 
-
+    @Test
+    public void should_delete_comment(){
+        given()
+                .log().all()
+                .when()
+                .delete("/comments/delete/{idComment}",1)
+                .then()
+                .log().all()
+                .statusCode(200);
+    }
     @Test
     public void should_insert_comment(){
         given()
@@ -87,16 +96,7 @@ public class CommentControllerTest {
                 .body("$", hasSize(1));
     }
 
-   @Test
-    public void should_delete_comment(){
-        given()
-                .log().all()
-                .when()
-                .delete("/comments/delete/{idComment}",1)
-                .then()
-                .log().all()
-                .statusCode(200);
-    }
+
 
 
 
