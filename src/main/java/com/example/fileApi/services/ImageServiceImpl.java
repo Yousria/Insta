@@ -27,30 +27,30 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public void updateLike(ImageEntity imageEntity) {
+    public int updateLike(ImageEntity imageEntity) {
         if(imageEntity == null)
             throw new IllegalArgumentException();
 
-        imageRepository.updateLike(imageEntity.getLikescore()+1,imageEntity.getId());
+        return imageRepository.updateLike(imageEntity.getLikescore()+1,imageEntity.getId());
     }
 
     @Override
     @Transactional
-    public void updateDislike(ImageEntity imageEntity) {
+    public int updateDislike(ImageEntity imageEntity) {
         if(imageEntity == null)
             throw new IllegalArgumentException();
 
-        imageRepository.updateDislike(imageEntity.getDislikescore()+1,imageEntity.getId());
+        return imageRepository.updateDislike(imageEntity.getDislikescore()+1,imageEntity.getId());
     }
 
     //Ajouter l'user pour l'update et la création
     @Override
     @Transactional
-    public void updateTitle(ImageEntity imageEntity, String title) {
+    public int updateTitle(ImageEntity imageEntity, String title) {
         if(imageEntity == null)
             throw new IllegalArgumentException();
 
-        imageRepository.updateTitle(title,imageEntity.getId());
+       return imageRepository.updateTitle(title,imageEntity.getId());
     }
 
     @Override

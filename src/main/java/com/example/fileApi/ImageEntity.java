@@ -42,7 +42,7 @@ public class ImageEntity {
     private byte[] datas;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "album_photo")
+    @JoinColumn(name = "album_photo",referencedColumnName = "id")
     protected AlbumEntity album;
 
    /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")

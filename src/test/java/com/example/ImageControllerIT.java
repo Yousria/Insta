@@ -87,6 +87,6 @@ private int localServerPort;
         given().log().all()
                 .when().post("/image/UpdateTitleImage/{id}?title=newtitle",1)
                 .then().log().all()
-                .statusCode(200);
+                .statusCode(200);/*.body("title",equalTo("newtitle"));*/
     }
 }

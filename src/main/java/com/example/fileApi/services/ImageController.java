@@ -46,9 +46,9 @@ public class ImageController {
 
 
 
-  /* @RequestMapping(value = "/fichier", method = RequestMethod.GET)
+   @RequestMapping(value = "/fichier", method = RequestMethod.GET)
     public void showUploadForm(Model model) {
-       System.out.println(userServices.getUserByPseudo("b").getPseudo());
+//       System.out.println(userServices.getUserByPseudo("b").getPseudo());
         AlbumEntity albumEntity=AlbumAdapter.toAlbumEntity(albumService.insertAlbum("a",userServices.getUserByPseudo("b")));
         albumService.insertAlbum("a",albumEntity.getUser());
         MultipartFile multipartFile;
@@ -56,13 +56,14 @@ public class ImageController {
            multipartFile = new MockMultipartFile("file 1",new FileInputStream("image.jpg"));
 
             handleFileUpload(multipartFile,"a","b","c");
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-    }*/
+    }
 
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST)
     public ImageDTO handleFileUpload(
@@ -102,9 +103,9 @@ public class ImageController {
     @RequestMapping(value = "/UpdateTitleImage/{id}", method = RequestMethod.POST)
     public ImageDTO updateTitleImage(@PathVariable("id") Long id,@RequestParam("title") String title){
         ImageDTO imageDTO=imageService.findById(id);
-        imageService.updateTitle(ImageAdapter.toImageEntity(imageDTO),title);
-        imageDTO=imageService.findById(id);
-        return imageDTO;
+        System.out.println(imageService.updateTitle(ImageAdapter.toImageEntity(imageDTO),title));
+        ImageDTO imageDTOres=imageService.findById(id);
+        return imageDTOres;
     }
 
     @GetMapping(value="/ImagesAlbum/{id}")
