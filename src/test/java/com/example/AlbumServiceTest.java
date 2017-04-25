@@ -3,7 +3,9 @@ package com.example;
 import com.example.fileApi.*;
 import com.example.fileApi.services.AlbumServiceImpl;
 import com.example.fileApi.services.ImageServiceImpl;
+import com.example.loginAPI.Service.UserServices;
 import com.example.loginAPI.User;
+import com.example.loginAPI.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +33,8 @@ public class AlbumServiceTest {
     AlbumServiceImpl albumService;
     @Autowired
     ImageServiceImpl imageService;
+    @Autowired
+    UserRepository userRepository;
 
     User user;
     User user1;
@@ -54,18 +58,13 @@ public class AlbumServiceTest {
                 .role(USER)
                 .build();
 
-         album1 =
-                AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album1", user));
-         albumService.deleteAlbum(album1);
+    userRepository.save(user1);
+        userRepository.save(user);
          album1 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album1", user));
-        album2=
-                AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album2", user));
-        albumService.deleteAlbum(album2);
+
         album2 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album2", user));
 
-        album3=
-                AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album3", user1));
-        albumService.deleteAlbum(album3);
+
         album3 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album3", user1));
 
     }

@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.*;
 
 /**
  * Created by Nicolas on 09/04/2017.
@@ -31,11 +32,11 @@ public class AlbumEntity {
     private String title;
 
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "users",referencedColumnName = "id")
     private User user;
     @JsonIgnore
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "album")
+  @OneToMany(fetch = LAZY, mappedBy = "album")
     private List<ImageEntity> imageEntityList;
 
     @Override

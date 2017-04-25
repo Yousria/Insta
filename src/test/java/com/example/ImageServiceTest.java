@@ -7,6 +7,7 @@ import com.example.fileApi.services.ImageService;
 import com.example.fileApi.services.ImageServiceImpl;
 import com.example.loginAPI.Role;
 import com.example.loginAPI.User;
+import com.example.loginAPI.UserRepository;
 import com.example.post.CommentAdapter;
 import com.example.post.CommentDTO;
 import com.example.post.CommentRepositoryImpl;
@@ -45,6 +46,9 @@ public class ImageServiceTest {
     AlbumServiceImpl albumService;
     @Autowired
     ImageServiceImpl imageService;
+    @Autowired
+    UserRepository userRepository;
+
 
     ImageEntity imageEntity;
     ImageEntity imageEntity2;
@@ -60,7 +64,7 @@ public class ImageServiceTest {
                 .password("monmp")
                 .role(USER)
                 .build();
-
+        userRepository.save(user);
        albumEntity =
                 AlbumAdapter.toAlbumEntity(albumService.insertAlbum("bonjour", user));
 
