@@ -21,8 +21,12 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService {
 
 
+    final private CommentRepositoryImpl commentRepository;
+
     @Autowired
-    CommentRepositoryImpl commentRepository;
+    public CommentServiceImpl(CommentRepositoryImpl commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
     @Override
     public void updateComment(Long id, String comment) {
@@ -41,6 +45,8 @@ public class CommentServiceImpl implements CommentService {
 
         return CommentAdapter.toCommentDTO(commentEntity);
     }
+
+
 
 
     @Override
@@ -78,6 +84,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteComment(CommentEntity comment) {
         commentRepository.delete(comment);
+    }
+
+    @Override
+    public void deleteAll() {
+        commentRepository.deleteAll();
     }
 
 }

@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.post.social.friend.FriendRepository;
 import com.example.post.social.friend.FriendService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,6 +85,15 @@ public class FriendsNodeTest {
         try{
             friendService.removeFriendForUser(1L, 4L);
             assertThat(friendService.areFriends(1L, 4L), is(false));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @After
+    public void clean_database(){
+        try{
+            friendService.cleanDB();
         }catch (Exception e){
             e.printStackTrace();
         }
