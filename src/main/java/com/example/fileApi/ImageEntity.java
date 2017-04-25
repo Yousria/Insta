@@ -1,6 +1,7 @@
 package com.example.fileApi;
 
 import com.example.post.CommentEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ import static javax.persistence.CascadeType.ALL;
 @AllArgsConstructor
 @Entity
 @Table(name = "image")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ImageEntity {
 
     @Id

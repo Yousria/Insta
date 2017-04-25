@@ -1,12 +1,10 @@
 package com.example;
 
-import com.example.fileApi.AlbumAdapter;
-import com.example.fileApi.AlbumEntity;
-import com.example.fileApi.ImageAdapter;
-import com.example.fileApi.ImageEntity;
+import com.example.fileApi.*;
 import com.example.fileApi.services.AlbumService;
 import com.example.fileApi.services.ImageService;
 import com.example.loginAPI.User;
+import com.example.loginAPI.UserData;
 import com.example.post.CommentDTO;
 import com.example.post.CommentRepositoryImpl;
 import com.example.post.services.CommentService;
@@ -30,12 +28,9 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@UserData
 public class CommentControllerTest {
 
-    @Test
-    public void test(){
-
-    }
 /*
     @LocalServerPort
     private int localServerPort;
@@ -47,7 +42,7 @@ public class CommentControllerTest {
     @Autowired
     ImageService imageService;
     @Autowired
-    CommentRepositoryImpl commentRepository;
+    ImageRepository imageRepository;
 
     ImageEntity imageEntity;
     User user;
@@ -60,26 +55,6 @@ public class CommentControllerTest {
     @Before
     public void init(){
         RestAssured.port = localServerPort;
-        user = User.builder()
-                .pseudo("pseudo")
-                .email("mail@mail.fr")
-                .password("monmp")
-                .role(USER)
-                .build();
-
-        AlbumEntity albumEntity =
-                AlbumAdapter.toAlbumEntity(albumService.insertAlbum("bonjour", user));
-
-        imageEntity =
-                ImageAdapter.toImageEntity(imageService.insertImage("coucou",
-                        albumEntity,
-                        null));
-
-
-        commentOne =  commentService.insertComment("BONJOURBONJOUR",user,imageEntity);
-        commentTwo =  commentService.insertComment("coucou",user,imageEntity);
-        commentThree =  commentService.insertComment("salut",user,imageEntity);
-
     }
 
 
@@ -93,11 +68,11 @@ public class CommentControllerTest {
         given()
                 .log().all()
                 .when()
-                .get("/comments/{idImageEntity}",1)
+                .get("/comments/image/{idImageEntity}",1)
                 .then()
                 .log().all()
                 .statusCode(200)
-                .body("$", hasSize(3));
+                .body("$", hasSize(1));
     }
 
     @Test
@@ -105,11 +80,11 @@ public class CommentControllerTest {
         given()
                 .log().all()
                 .when()
-                .get("/comments/{idUser}",1)
+                .get("/comments/user/{idUser}",1)
                 .then()
                 .log().all()
                 .statusCode(200)
-                .body("$", hasSize(3));
+                .body("$", hasSize(1));
     }
 
     @Test
@@ -121,7 +96,7 @@ public class CommentControllerTest {
                 .then()
                 .log().all()
                 .statusCode(200)
-                .body("$", hasSize(2));
+                .body("$", hasSize(0));
     }
 */
 }

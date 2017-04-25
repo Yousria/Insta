@@ -53,6 +53,7 @@ public class CommentController {
         return commentService.findById(idComment);
     }
 
+    
     @PostMapping("/{pseudo}/{imageid}/{comment}")
     public CommentDTO insertComment(@PathVariable String pseudo,@PathVariable String comment, @PathVariable Long imageid){//},@RequestParam("token")String token){
         //if(userServices.verifyToken(token)){

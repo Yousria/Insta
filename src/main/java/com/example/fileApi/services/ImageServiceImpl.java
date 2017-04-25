@@ -66,7 +66,7 @@ public class ImageServiceImpl implements ImageService {
 
         imageRepository.save(imageEntity);
 
-        imageRepository.flush();
+//        imageRepository.flush();
         return ImageAdapter.toImageDTO(imageEntity);
     }
 

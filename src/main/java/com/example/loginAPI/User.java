@@ -1,6 +1,7 @@
 package com.example.loginAPI;
 
 import com.example.fileApi.AlbumEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -22,6 +23,7 @@ import static javax.persistence.EnumType.STRING;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id
