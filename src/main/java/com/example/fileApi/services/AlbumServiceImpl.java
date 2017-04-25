@@ -29,11 +29,11 @@ public class AlbumServiceImpl implements AlbumService {
     //Ajouter l'user pour l'update et la création
     @Override
     @Transactional
-    public void updateTitle(AlbumEntity albumEntity, String title) {
+    public int updateTitle(AlbumEntity albumEntity, String title) {
         if(albumEntity == null)
             throw new IllegalArgumentException();
 
-        albumRepository.updateTitle(title,albumEntity.getId());
+        return albumRepository.updateTitle(title,albumEntity.getId());
     }
 
     @Override

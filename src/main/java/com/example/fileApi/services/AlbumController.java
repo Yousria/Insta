@@ -38,12 +38,14 @@ public class AlbumController {
 
     }
     @RequestMapping(value = "/updateAlbumTitle", method = RequestMethod.POST)
-    public /*String*/ void updateAlbumTitle(
+    public int updateAlbumTitle(
             @RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo,@RequestParam("newName") String newName) throws Exception {
+        AlbumDTO album=albumService.findByTitleAndPseudo(albumName,pseudo);
+        if(album!=null)
+       return  albumService.updateTitle(AlbumAdapter.toAlbumEntity(album),newName);
+        return 0;
 
-        albumService.updateTitle(AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(albumName,pseudo)),newName);
 
-       // return "redirect:/fichier";
 
     }
     @ResponseBody
