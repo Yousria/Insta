@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -52,7 +53,14 @@ public class CommentControllerTest {
 
     @Test
     public void should_insert_comment(){
-
+        given()
+                .log().all()
+                .when()
+                .post("/comments/{pseudo}/{imageid}/{comment}","first","1","messagetest")
+                .then()
+                .log().all()
+                .statusCode(200).body("comment",equalTo("messagetest"))
+                ;
     }
 
     @Test
@@ -79,16 +87,17 @@ public class CommentControllerTest {
                 .body("$", hasSize(1));
     }
 
-   /*@Test
+   @Test
     public void should_delete_comment(){
         given()
                 .log().all()
                 .when()
-                .get("/comments/delete/{idComment}",1)
+                .delete("/comments/delete/{idComment}",1)
                 .then()
                 .log().all()
-                .statusCode(200)
-                .body("$", hasSize(0));
+                .statusCode(200);
     }
-*/
+
+
+
 }

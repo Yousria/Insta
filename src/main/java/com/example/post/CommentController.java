@@ -64,7 +64,7 @@ public class CommentController {
             //return null;
         }
 
-    @PostMapping("/delete/{idComment}")
+    @DeleteMapping("/delete/{idComment}")
     public void deleteComment(@PathVariable Long idComment){ //,@RequestParam("token") String token){
         //if(userServices.verifyToken(token)) {
             CommentEntity commentEntity = CommentAdapter.toComment(commentService.findById(idComment));
