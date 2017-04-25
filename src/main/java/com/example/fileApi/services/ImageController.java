@@ -46,7 +46,7 @@ public class ImageController {
 
 
 
-   @RequestMapping(value = "/fichier", method = RequestMethod.GET)
+  /* @RequestMapping(value = "/fichier", method = RequestMethod.GET)
     public void showUploadForm(Model model) {
        System.out.println(userServices.getUserByPseudo("b").getPseudo());
         AlbumEntity albumEntity=AlbumAdapter.toAlbumEntity(albumService.insertAlbum("a",userServices.getUserByPseudo("b")));
@@ -62,16 +62,15 @@ public class ImageController {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
     @RequestMapping(value = "/doUpload", method = RequestMethod.POST)
-    public String handleFileUpload(
+    public ImageDTO handleFileUpload(
                                    @RequestParam("fileUpload") MultipartFile fileUpload, @RequestParam("album_name") String album_name, @RequestParam("pseudo") String pseudo,@RequestParam("title") String title) throws Exception {
 
 
-        imageService.insertImage(title,AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
-        System.out.println(imageService.findByTitle(title).getId());
-        return "redirect:/image/fichier";
+        return imageService.insertImage(title,AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
+
 
     }
     @GetMapping(value = "/getImage/{id}")

@@ -38,13 +38,11 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class CommentServiceTest {
 
     @Autowired
-    CommentService commentService;
+    CommentServiceImpl commentService;
     @Autowired
-    AlbumService albumService;
+    AlbumServiceImpl albumService;
     @Autowired
-    ImageService imageService;
-    @Autowired
-    CommentRepositoryImpl  commentRepository;
+    ImageServiceImpl imageService;
 
     ImageEntity imageEntity;
     User user;
@@ -77,17 +75,13 @@ public class CommentServiceTest {
 
     }
 
-    @After
-    public void delete(){
-        commentRepository.deleteAll();
-    }
+
 
     @Test
     public void should_insert_comment(){
 
         CommentDTO comment =  commentService.insertComment("kokokokokookokoko",user,imageEntity);
         assertThat(comment.getComment()).isEqualTo("kokokokokookokoko");
-        commentRepository.delete(CommentAdapter.toComment(comment));
     }
 
     @Test
