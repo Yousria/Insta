@@ -34,21 +34,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @UserData
 public class AlbumControllerIT {
-    @Test
-    public void test(){
-
-    }
-
-    @Autowired
-    AlbumService albumService;
-    @Autowired
-    ImageService imageService;
-    @Autowired
-    UserRepository userRepository;
-
-    User user;
-    AlbumEntity album1;
-    AlbumEntity album2;
+   
     @LocalServerPort
     private int localServerPort;
 
@@ -88,47 +74,18 @@ public class AlbumControllerIT {
         @Test
         public void should_updated_title(){
             given().log().all()
-                    .when().post("/error")
+                    .when().post("/albums/updateAlbumTitle?albumName=albumtest&pseudo=first&newName=newName")
                     .then().log().all()
-                    .contentType("text/html")
-                    .statusCode(200);
+                    .statusCode(200).body(equalTo("1"));
         }
-        @Test
-        public void should_get_registration_page(){
-            given().log().all()
-                    .when().get("/registration")
-                    .then().log().all()
-                    .contentType("text/html")
-                    .statusCode(200);
-        }
-        @Test
-        public void should_get_login_page(){
-            given().log().all()
-                    .when().get("/login")
-                    .then().log().all()
-                    .contentType("text/html")
-                    .statusCode(200);
-        }
+    @Test
+    public void should_not_updated_title(){
+        given().log().all()
+                .when().post("/albums/updateAlbumTitle?albumName=albumpourri&pseudo=first&newName=newName")
+                .then().log().all()
+                .statusCode(200).body(equalTo("0"));
+    }
 
-        @Test
-        public void should_return_to_registration_when_errors(){
-
-        }
-
-        @Test
-        public void should_log_on_when_registered(){
-
-        }
-
-        @Test
-        public void should_get_error_page_when_login_errors(){
-
-        }
-
-        @Test
-        public void should_log_on(){
-
-        }
 
 
 }
