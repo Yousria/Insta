@@ -69,8 +69,19 @@ public class CommentControllerTest {
                 .post("/comments/{pseudo}/{imageid}/{comment}","first","1","messagetest")
                 .then()
                 .log().all()
-                .statusCode(200).body("comment",equalTo("messagetest"))
-                ;
+                .statusCode(200).body("comment",equalTo("messagetest"));
+    }
+
+
+   @Test
+    public void should_update_comment(){
+        given()
+                .log().all()
+                .when()
+                .post("/comments/update/{idComment}/{comment}","1","SALUTSALUT")
+                .then()
+                .log().all()
+                .statusCode(200);
     }
 
     @Test
