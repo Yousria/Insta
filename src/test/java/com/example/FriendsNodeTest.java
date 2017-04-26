@@ -80,7 +80,7 @@ public class FriendsNodeTest {
         }
     }
 
-    @Test
+    /*@Test
     public void should_delete_friend(){
         try{
             friendService.removeFriendForUser(1L, 4L);
@@ -88,7 +88,7 @@ public class FriendsNodeTest {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
 
     /*@After
     public void clean_database(){
