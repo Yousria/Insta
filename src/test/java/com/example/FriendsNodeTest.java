@@ -90,12 +90,12 @@ public class FriendsNodeTest {
         }
     }
 
-    @After
+    /*@After
     public void clean_database(){
         try{
             friendService.cleanDB();
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
 }
