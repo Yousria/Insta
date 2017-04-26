@@ -9,6 +9,7 @@ import com.example.post.CommentDTO;
 import com.example.post.CommentRepositoryImpl;
 import com.example.post.services.CommentService;
 import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.http.ContentType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
