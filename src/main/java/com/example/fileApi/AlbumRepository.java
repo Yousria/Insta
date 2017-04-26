@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Nicolas on 09/04/2017.
+ *  @author Nicolas Sirac
  */
 public interface AlbumRepository extends JpaRepository<AlbumEntity, Long> {
     @Query("update AlbumEntity set title = :new_title where id = :id")
@@ -22,7 +22,7 @@ public interface AlbumRepository extends JpaRepository<AlbumEntity, Long> {
     @Query(nativeQuery = true,value="Select ae.* from album ae where ae.title = :title")
     Optional<AlbumEntity> findByTitle(@Param("title") String title);
 
-    @Query(nativeQuery = true,value="Select top 1 ae.* from album ae left join users where ae.title = :title and users.pseudo=:pseudo")
+    @Query(nativeQuery = true,value="Select ae.* from album ae join users WHERE ae.title = :title and users.pseudo = :pseudo LIMIT 1;")
     Optional<AlbumEntity> findByTitleAndPseudo(@Param("title") String title,@Param("pseudo") String pseudo);
 
     @Query(nativeQuery = true,value="Select ae.* from album ae where ae.users=:id")

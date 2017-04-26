@@ -1,5 +1,0 @@
---INSERT INTO users (id, pseudo, email, password, role, token) values(NULL, 'b', 'first@first.com', 'first', 'ADMIN', 'fjnverikferi')
---INSERT INTO users (id, pseudo, email, password, role, token) values(NULL, 'second', 'second@second.com', 'second', 'USER', 'dvekrgerg')
---INSERT INTO users (id, pseudo, email, password, role, token) values(NULL, 'three', 'three@three.com', 'three', 'USER', 'ekrrfhcnekf')
---INSERT INTO album(id,title,users) values(null,'albumtest',1)
---INSERT INTO image(id,title,likescore,dislikescore,datas,album_photo)values(null,'testimage',5,6,null,1)

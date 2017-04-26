@@ -21,7 +21,7 @@ import static com.example.loginAPI.Role.USER;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 /**
- * Created by Nicolas_Travail on 11/04/2017.
+ * @author Nicolas Sirac
  */
 
 @RunWith(SpringRunner.class)
@@ -30,17 +30,19 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class AlbumServiceTest {
 
     @Autowired
+    private
     AlbumServiceImpl albumService;
     @Autowired
     ImageServiceImpl imageService;
     @Autowired
+    private
     UserRepository userRepository;
 
-    User user;
-    User user1;
-    AlbumEntity album1;
-    AlbumEntity album2;
-    AlbumEntity album3;
+    private User user;
+    private User user1;
+    private AlbumEntity album1;
+    private AlbumEntity album2;
+    private AlbumEntity album3;
 
     @Before
     public void initialize_data(){
@@ -52,21 +54,17 @@ public class AlbumServiceTest {
                 .role(USER)
                 .build();
         user1 = User.builder()
-                .pseudo("pseudo")
+                .pseudo("pseudo2")
                 .email("mail@mail.fr")
                 .password("monmp")
                 .role(USER)
                 .build();
 
-    userRepository.save(user1);
         userRepository.save(user);
-         album1 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album1", user));
-
+        userRepository.save(user1);
+        album1 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album1", user));
         album2 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album2", user));
-
-
         album3 = AlbumAdapter.toAlbumEntity(albumService.insertAlbum("album3", user1));
-
     }
 
     @Test

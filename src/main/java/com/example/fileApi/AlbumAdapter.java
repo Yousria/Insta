@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Nicolas on 09/04/2017.
+ * @author Nicolas Sirac
  */
 
 public class AlbumAdapter {
@@ -28,13 +28,13 @@ public class AlbumAdapter {
     }
 
     public static List<AlbumDTO> listToAlbumDTO(List<AlbumEntity> albumEntities) {
-        List<AlbumDTO> resultList = new ArrayList<AlbumDTO>();
+        List<AlbumDTO> resultList = new ArrayList<>();
         for (AlbumEntity albumEntity : albumEntities)
             resultList.add(toAlbumDTO(albumEntity));
         return resultList;
     }
     public static List<AlbumEntity> listToAlbumEntity(List<AlbumDTO> albumDTOS) {
-        List<AlbumEntity> resultList = new ArrayList<AlbumEntity>();
+        List<AlbumEntity> resultList = new ArrayList<>();
         for (AlbumDTO albumDTO : albumDTOS)
             resultList.add(toAlbumEntity(albumDTO));
         return resultList;

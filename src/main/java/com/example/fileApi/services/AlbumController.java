@@ -15,22 +15,27 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created by Nicolas on 09/04/2017.
+ * @author Nicolas Sirac
  */
 
 @CrossOrigin
 @RestController
 @RequestMapping("/albums")
 public class AlbumController {
-    @Autowired
+    private final
     AlbumService albumService;
 
-    @Autowired
+    private final
     UserServices userServices;
 
+    @Autowired
+    public AlbumController(AlbumService albumService, UserServices userServices) {
+        this.albumService = albumService;
+        this.userServices = userServices;
+    }
+
     @RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
-    public AlbumDTO  addAlbum(
-            @RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo) throws Exception {
+    public AlbumDTO  addAlbum(@RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo) throws Exception {
 
        return albumService.insertAlbum(albumName, userServices.getUserByPseudo(pseudo));
 
@@ -38,22 +43,20 @@ public class AlbumController {
 
     }
     @RequestMapping(value = "/updateAlbumTitle", method = RequestMethod.POST)
-    public int updateAlbumTitle(
-            @RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo,@RequestParam("newName") String newName) throws Exception {
-        AlbumDTO album=albumService.findByTitleAndPseudo(albumName,pseudo);
-        if(album!=null)
-       return  albumService.updateTitle(AlbumAdapter.toAlbumEntity(album),newName);
+    public int updateAlbumTitle(@RequestParam("albumName") String albumName, @RequestParam("pseudo") String pseudo,@RequestParam("newName") String newName) throws Exception {
+        AlbumDTO album=albumService.findByTitleAndPseudo(albumName, pseudo);
+
+        if(album!=null) {
+            return albumService.updateTitle(AlbumAdapter.toAlbumEntity(album), newName);
+        }
         return 0;
-
-
-
     }
+
     @ResponseBody
     @GetMapping(value = "/getAlbums/{id}")
     public List<AlbumDTO> getAllAlbum(
             @PathVariable("id") Long id) throws Exception {
-        List<AlbumDTO> result=albumService.findAllByUser(id);
-        return result ;
+        return albumService.findAllByUser(id);
     }
 
 

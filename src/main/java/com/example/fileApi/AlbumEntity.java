@@ -13,7 +13,7 @@ import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.*;
 
 /**
- * Created by Nicolas on 09/04/2017.
+ *  @author Nicolas Sirac
  */
 @Getter
 @Setter
@@ -38,7 +38,7 @@ public class AlbumEntity {
     @JoinColumn(name = "users",referencedColumnName = "id")
     private User user;
     @JsonIgnore
-  @OneToMany(fetch = LAZY, mappedBy = "album", cascade = CascadeType.ALL)
+    @OneToMany(fetch = LAZY, mappedBy = "album", cascade = CascadeType.ALL)
     private List<ImageEntity> imageEntityList;
 
     @Override
