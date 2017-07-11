@@ -16,7 +16,7 @@ import java.util.List;
 public class ImageDTO {
     private Long id;
 
-    private AlbumEntity album;
+    private ProductEntity album;
 
     private String title;
 

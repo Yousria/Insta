@@ -1,18 +1,13 @@
 package com.example;
 
 import com.example.fileApi.*;
-import com.example.fileApi.services.AlbumService;
-import com.example.fileApi.services.AlbumServiceImpl;
+import com.example.fileApi.services.ProductService;
+import com.example.fileApi.services.ProductServiceImpl;
 import com.example.fileApi.services.ImageService;
 import com.example.fileApi.services.ImageServiceImpl;
-import com.example.loginAPI.Service.UserServices;
 import com.example.loginAPI.User;
-import com.example.loginAPI.UserAdapter;
-import com.example.loginAPI.UserData;
 import com.example.post.CommentAdapter;
 import com.example.post.CommentDTO;
-import com.example.post.CommentEntity;
-import com.example.post.CommentRepositoryImpl;
 import com.example.post.services.CommentService;
 import com.example.post.services.CommentServiceImpl;
 import org.junit.After;
@@ -24,8 +19,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
-
 import static com.example.loginAPI.Role.USER;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -33,14 +26,14 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
  * Created by kokoghlanian on 09/04/2017.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {CommentServiceImpl.class,AlbumServiceImpl.class, ImageServiceImpl.class})
+@SpringBootTest(classes = {CommentServiceImpl.class, ProductServiceImpl.class, ImageServiceImpl.class})
 @DataJpaTest
 public class CommentServiceTest {
 
     @Autowired
     CommentService commentService;
     @Autowired
-    AlbumService albumService;
+    ProductService productService;
     @Autowired
     ImageService imageService;
 
@@ -61,12 +54,12 @@ public class CommentServiceTest {
                 .role(USER)
                 .build();
 
-        AlbumEntity albumEntity =
-                AlbumAdapter.toAlbumEntity(albumService.insertAlbum("bonjour", user));
+        ProductEntity productEntity =
+                ProductAdapter.toProductEntity(productService.insertAlbum("bonjour", user));
 
         imageEntity =
                 ImageAdapter.toImageEntity(imageService.insertImage("coucou",
-                        albumEntity,
+                        productEntity,
                         null));
 
         commentOne =  commentService.insertComment("BONJOURBONJOUR",user,imageEntity);

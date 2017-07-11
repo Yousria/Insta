@@ -1,26 +1,16 @@
 package com.example.fileApi.services;
 
 import com.example.fileApi.*;
-import com.example.loginAPI.Role;
 import com.example.loginAPI.Service.UserServices;
-import com.example.loginAPI.User;
-import com.example.loginAPI.UserAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-
-import static com.example.loginAPI.Role.USER;
 
 /**
  * Created by Nicolas on 09/04/2017.
@@ -33,14 +23,14 @@ public class ImageController {
     private final ImageService imageService;
 
 
-    private final AlbumService albumService;
+    private final ProductService productService;
 
 
      private final UserServices userServices;
     @Autowired
-    public ImageController(ImageService imageService, AlbumService albumService, UserServices userServices) {
+    public ImageController(ImageService imageService, ProductService productService, UserServices userServices) {
         this.imageService = imageService;
-        this.albumService = albumService;
+        this.productService = productService;
         this.userServices = userServices;
     }
 
@@ -49,8 +39,8 @@ public class ImageController {
    @RequestMapping(value = "/fichier", method = RequestMethod.GET)
     public void showUploadForm(Model model) {
 //       System.out.println(userServices.getUserByPseudo("b").getPseudo());
-        AlbumEntity albumEntity=AlbumAdapter.toAlbumEntity(albumService.insertAlbum("a",userServices.getUserByPseudo("b")));
-        albumService.insertAlbum("a",albumEntity.getUser());
+        ProductEntity productEntity = ProductAdapter.toProductEntity(productService.insertAlbum("a",userServices.getUserByPseudo("b")));
+        productService.insertAlbum("a", productEntity.getUser());
         MultipartFile multipartFile;
         try {
            multipartFile = new MockMultipartFile("file 1",new FileInputStream("image.jpg"));
@@ -70,7 +60,7 @@ public class ImageController {
                                    @RequestParam("fileUpload") MultipartFile fileUpload, @RequestParam("album_name") String album_name, @RequestParam("pseudo") String pseudo,@RequestParam("title") String title) throws Exception {
 
 
-        return imageService.insertImage(title,AlbumAdapter.toAlbumEntity(albumService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
+        return imageService.insertImage(title, ProductAdapter.toProductEntity(productService.findByTitleAndPseudo(album_name,pseudo)), fileUpload.getBytes());
 
 
     }
@@ -110,7 +100,7 @@ public class ImageController {
 
     @GetMapping(value="/ImagesAlbum/{id}")
     public List<ImageDTO> getAllImagesFromAlbum(@PathVariable("id") Long id){
-        List<ImageDTO> result =imageService.getByAlbum(id);
+        List<ImageDTO> result =imageService.getByProduct(id);
         return result;
     }
 

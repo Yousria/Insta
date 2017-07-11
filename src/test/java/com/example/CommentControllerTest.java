@@ -1,15 +1,11 @@
 package com.example;
 
 import com.example.fileApi.*;
-import com.example.fileApi.services.AlbumService;
+import com.example.fileApi.services.ProductService;
 import com.example.fileApi.services.ImageService;
-import com.example.loginAPI.User;
 import com.example.loginAPI.UserData;
-import com.example.post.CommentDTO;
-import com.example.post.CommentRepositoryImpl;
 import com.example.post.services.CommentService;
 import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.http.ContentType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,14 +33,7 @@ public class CommentControllerTest {
     @LocalServerPort
     private int localServerPort;
 
-    @Autowired
-    CommentService commentService;
-    @Autowired
-    AlbumService albumService;
-    @Autowired
-    ImageService imageService;
-    @Autowired
-    ImageRepository imageRepository;
+
 
     @Before
     public void init(){

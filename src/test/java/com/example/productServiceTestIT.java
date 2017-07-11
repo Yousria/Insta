@@ -1,27 +1,14 @@
 package com.example;
 
-import com.example.fileApi.AlbumAdapter;
-import com.example.fileApi.AlbumEntity;
-import com.example.fileApi.services.AlbumService;
-import com.example.fileApi.services.AlbumServiceImpl;
-import com.example.fileApi.services.ImageService;
-import com.example.fileApi.services.ImageServiceImpl;
-import com.example.loginAPI.Role;
-import com.example.loginAPI.Service.UserServices;
-import com.example.loginAPI.User;
 import com.example.loginAPI.UserData;
-import com.example.loginAPI.UserRepository;
 import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.http.ContentType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.example.loginAPI.Role.USER;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -33,7 +20,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @UserData
-public class AlbumControllerIT {
+public class productServiceTestIT {
 
     @LocalServerPort
     private int localServerPort;

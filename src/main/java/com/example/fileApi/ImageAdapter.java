@@ -11,7 +11,7 @@ public class ImageAdapter {
     public static ImageDTO toImageDTO(ImageEntity imageEntity){
 
         return ImageDTO.builder()
-                .album(imageEntity.getAlbum())
+                .album(imageEntity.getProduct())
                 .dislikescore(imageEntity.getDislikescore())
                 .title(imageEntity.getTitle())
                 .id(imageEntity.getId())
@@ -24,7 +24,7 @@ public class ImageAdapter {
 
         return ImageEntity.builder()
                 .id(imageDto.getId())
-                .album(imageDto.getAlbum())
+                .product(imageDto.getAlbum())
                 .dislikescore(imageDto.getDislikescore())
                 .title(imageDto.getTitle())
                 .likescore(imageDto.getLikescore())

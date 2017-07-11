@@ -1,14 +1,10 @@
 package com.example.loginAPI;
 
-import com.example.fileApi.AlbumEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import java.util.List;
 
 import static javax.persistence.EnumType.STRING;
 

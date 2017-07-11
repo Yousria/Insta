@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -55,13 +54,13 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public ImageDTO insertImage(String title, AlbumEntity album, byte[] datas){
+    public ImageDTO insertImage(String title, ProductEntity album, byte[] datas){
         ImageEntity imageEntity = ImageEntity.builder()
                 .likescore(0)
                 .dislikescore(0)
                 .title(title)
                 .datas(datas)
-                .album(album)
+                .product(album)
                 .build();
 
         imageRepository.save(imageEntity);
@@ -83,8 +82,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<ImageDTO> getByAlbum(Long id) {
-        return imageRepository.findByAlbum(id).stream()
+    public List<ImageDTO> getByProduct(Long id) {
+        return imageRepository.findByProduct(id).stream()
                 .map(ImageAdapter::toImageDTO)
                 .collect(toList());
     }
